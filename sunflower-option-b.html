@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Satio - Sunflower Option B: Animated Convergence</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #5B5FC7;
+            --secondary: #E8836B;
+            --tertiary: #4ABBA8;
+            --background: #FAFAF8;
+            --surface: #F5F5F3;
+            --text-primary: #2D2D2D;
+            --text-secondary: #6B6B6B;
+            --success: #5AAD7A;
+            --warning: #E4B44C;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--background);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 60px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            flex: 1;
+            max-width: 580px;
+            z-index: 2;
+        }
+
+        .label {
+            display: inline-block;
+            background: rgba(91, 95, 199, 0.1);
+            color: var(--primary);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 24px;
+        }
+
+        h1 {
+            font-size: 56px;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            color: var(--text-primary);
+        }
+
+        h1 span {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 20px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+
+        .email-form {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .email-form input {
+            flex: 1;
+            padding: 16px 24px;
+            border: 2px solid #E8E8E6;
+            border-radius: 12px;
+            font-size: 16px;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        .email-form input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .email-form button {
+            padding: 16px 32px;
+            background: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .email-form button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(232, 131, 107, 0.4);
+        }
+
+        .social-proof {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* Sunflower Container */
+        .sunflower-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            min-height: 600px;
+        }
+
+        .sunflower {
+            position: relative;
+            width: 500px;
+            height: 500px;
+        }
+
+        /* Center - AI Brain */
+        .sunflower-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--primary), #7B7FD7);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            box-shadow:
+                0 0 60px rgba(91, 95, 199, 0.4),
+                0 0 120px rgba(91, 95, 199, 0.2);
+            transition: all 0.4s ease;
+        }
+
+        .sunflower-center svg {
+            width: 48px;
+            height: 48px;
+            fill: white;
+        }
+
+        /* Glow rings that pulse when active */
+        .glow-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            border: 2px solid var(--primary);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .glow-ring-1 {
+            width: 160px;
+            height: 160px;
+            animation: glowPulse 2s ease-in-out infinite;
+        }
+
+        .glow-ring-2 {
+            width: 200px;
+            height: 200px;
+            animation: glowPulse 2s ease-in-out infinite 0.3s;
+        }
+
+        .glow-ring-3 {
+            width: 240px;
+            height: 240px;
+            animation: glowPulse 2s ease-in-out infinite 0.6s;
+        }
+
+        @keyframes glowPulse {
+            0%, 100% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.8);
+            }
+            50% {
+                opacity: 0.6;
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        /* Petals with pulsing animation */
+        .petal {
+            position: absolute;
+            width: 90px;
+            height: 140px;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding-top: 20px;
+            transform-origin: center bottom;
+        }
+
+        .petal-icon {
+            width: 36px;
+            height: 36px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            margin-bottom: 6px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .petal-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: white;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Data particles flowing toward center */
+        .data-particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Petal positions and animations */
+        .petal-food {
+            background: linear-gradient(180deg, var(--secondary) 0%, #D4705A 100%);
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: petalPulse 3s ease-in-out infinite;
+        }
+
+        .petal-mood {
+            background: linear-gradient(180deg, var(--tertiary) 0%, #3A9A8A 100%);
+            top: 90px;
+            right: 60px;
+            transform: rotate(60deg);
+            animation: petalPulse 3s ease-in-out infinite 0.5s;
+        }
+
+        .petal-sleep {
+            background: linear-gradient(180deg, var(--primary) 0%, #4A4EA7 100%);
+            bottom: 90px;
+            right: 60px;
+            transform: rotate(120deg);
+            animation: petalPulse 3s ease-in-out infinite 1s;
+        }
+
+        .petal-health {
+            background: linear-gradient(180deg, var(--success) 0%, #4A9168 100%);
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) rotate(180deg);
+            animation: petalPulse 3s ease-in-out infinite 1.5s;
+        }
+
+        .petal-triggers {
+            background: linear-gradient(180deg, var(--warning) 0%, #C99A3E 100%);
+            bottom: 90px;
+            left: 60px;
+            transform: rotate(240deg);
+            animation: petalPulse 3s ease-in-out infinite 2s;
+        }
+
+        .petal-habits {
+            background: linear-gradient(180deg, #D97B9D 0%, #B85C7D 100%);
+            top: 90px;
+            left: 60px;
+            transform: rotate(300deg);
+            animation: petalPulse 3s ease-in-out infinite 2.5s;
+        }
+
+        @keyframes petalPulse {
+            0%, 100% {
+                transform: translateX(-50%) scale(1);
+                filter: brightness(1);
+            }
+            50% {
+                transform: translateX(-50%) scale(0.95) translateY(5px);
+                filter: brightness(1.1);
+            }
+        }
+
+        .petal-mood { animation-name: petalPulse60; }
+        @keyframes petalPulse60 {
+            0%, 100% { transform: rotate(60deg) scale(1); filter: brightness(1); }
+            50% { transform: rotate(60deg) scale(0.95) translateY(5px); filter: brightness(1.1); }
+        }
+
+        .petal-sleep { animation-name: petalPulse120; }
+        @keyframes petalPulse120 {
+            0%, 100% { transform: rotate(120deg) scale(1); filter: brightness(1); }
+            50% { transform: rotate(120deg) scale(0.95) translateY(5px); filter: brightness(1.1); }
+        }
+
+        .petal-health { animation-name: petalPulse180; }
+        @keyframes petalPulse180 {
+            0%, 100% { transform: translateX(-50%) rotate(180deg) scale(1); filter: brightness(1); }
+            50% { transform: translateX(-50%) rotate(180deg) scale(0.95) translateY(5px); filter: brightness(1.1); }
+        }
+
+        .petal-triggers { animation-name: petalPulse240; }
+        @keyframes petalPulse240 {
+            0%, 100% { transform: rotate(240deg) scale(1); filter: brightness(1); }
+            50% { transform: rotate(240deg) scale(0.95) translateY(5px); filter: brightness(1.1); }
+        }
+
+        .petal-habits { animation-name: petalPulse300; }
+        @keyframes petalPulse300 {
+            0%, 100% { transform: rotate(300deg) scale(1); filter: brightness(1); }
+            50% { transform: rotate(300deg) scale(0.95) translateY(5px); filter: brightness(1.1); }
+        }
+
+        /* Rotate icons back to upright */
+        .petal-mood .petal-icon,
+        .petal-mood .petal-label { transform: rotate(-60deg); }
+        .petal-sleep .petal-icon,
+        .petal-sleep .petal-label { transform: rotate(-120deg); }
+        .petal-health .petal-icon,
+        .petal-health .petal-label { transform: rotate(-180deg); }
+        .petal-triggers .petal-icon,
+        .petal-triggers .petal-label { transform: rotate(-240deg); }
+        .petal-habits .petal-icon,
+        .petal-habits .petal-label { transform: rotate(-300deg); }
+
+        /* Connection lines (SVG) */
+        .connection-lines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .connection-line {
+            stroke-width: 2;
+            fill: none;
+            stroke-dasharray: 8 4;
+            opacity: 0.4;
+        }
+
+        .particle-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            opacity: 0;
+        }
+
+        /* Option Label */
+        .option-label {
+            position: fixed;
+            top: 24px;
+            left: 24px;
+            background: var(--primary);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            z-index: 100;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero {
+                flex-direction: column;
+                padding: 40px 24px;
+                text-align: center;
+            }
+
+            .hero-content {
+                margin-bottom: 60px;
+            }
+
+            h1 {
+                font-size: 40px;
+            }
+
+            .email-form {
+                flex-direction: column;
+            }
+
+            .sunflower {
+                width: 350px;
+                height: 350px;
+            }
+
+            .petal {
+                width: 65px;
+                height: 100px;
+            }
+
+            .sunflower-center {
+                width: 80px;
+                height: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="option-label">Option B: Animated Convergence</div>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="label">AI-Powered Nutrition Coaching</div>
+            <h1>Finally, a nutrition app that <span>learns you</span></h1>
+            <p class="subtitle">Photo-based meal tracking with AI that adapts to your comfort level—not the other way around.</p>
+
+            <form class="email-form">
+                <input type="email" placeholder="Enter your email" required>
+                <button type="submit">Join Waitlist</button>
+            </form>
+
+            <p class="social-proof">Join the founding members</p>
+        </div>
+
+        <div class="sunflower-container">
+            <div class="sunflower">
+                <!-- Connection Lines SVG -->
+                <svg class="connection-lines" viewBox="0 0 500 500">
+                    <defs>
+                        <linearGradient id="gradient-food" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#E8836B"/>
+                            <stop offset="100%" style="stop-color:#5B5FC7"/>
+                        </linearGradient>
+                        <linearGradient id="gradient-mood" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#4ABBA8"/>
+                            <stop offset="100%" style="stop-color:#5B5FC7"/>
+                        </linearGradient>
+                        <linearGradient id="gradient-sleep" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#5B5FC7"/>
+                            <stop offset="100%" style="stop-color:#5B5FC7"/>
+                        </linearGradient>
+                        <linearGradient id="gradient-health" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#5AAD7A"/>
+                            <stop offset="100%" style="stop-color:#5B5FC7"/>
+                        </linearGradient>
+                        <linearGradient id="gradient-triggers" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#E4B44C"/>
+                            <stop offset="100%" style="stop-color:#5B5FC7"/>
+                        </linearGradient>
+                        <linearGradient id="gradient-habits" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#D97B9D"/>
+                            <stop offset="100%" style="stop-color:#5B5FC7"/>
+                        </linearGradient>
+                    </defs>
+                    <path class="connection-line" stroke="url(#gradient-food)" d="M250,100 L250,250"/>
+                    <path class="connection-line" stroke="url(#gradient-mood)" d="M380,160 L250,250"/>
+                    <path class="connection-line" stroke="url(#gradient-sleep)" d="M380,340 L250,250"/>
+                    <path class="connection-line" stroke="url(#gradient-health)" d="M250,400 L250,250"/>
+                    <path class="connection-line" stroke="url(#gradient-triggers)" d="M120,340 L250,250"/>
+                    <path class="connection-line" stroke="url(#gradient-habits)" d="M120,160 L250,250"/>
+                </svg>
+
+                <!-- Glow rings -->
+                <div class="glow-ring glow-ring-1"></div>
+                <div class="glow-ring glow-ring-2"></div>
+                <div class="glow-ring glow-ring-3"></div>
+
+                <!-- Petals -->
+                <div class="petal petal-food" data-color="#E8836B">
+                    <div class="petal-icon">🍽️</div>
+                    <span class="petal-label">Food</span>
+                </div>
+                <div class="petal petal-mood" data-color="#4ABBA8">
+                    <div class="petal-icon">😊</div>
+                    <span class="petal-label">Mood</span>
+                </div>
+                <div class="petal petal-sleep" data-color="#5B5FC7">
+                    <div class="petal-icon">🌙</div>
+                    <span class="petal-label">Sleep</span>
+                </div>
+                <div class="petal petal-health" data-color="#5AAD7A">
+                    <div class="petal-icon">❤️</div>
+                    <span class="petal-label">Health</span>
+                </div>
+                <div class="petal petal-triggers" data-color="#E4B44C">
+                    <div class="petal-icon">⚡</div>
+                    <span class="petal-label">Triggers</span>
+                </div>
+                <div class="petal petal-habits" data-color="#D97B9D">
+                    <div class="petal-icon">🔄</div>
+                    <span class="petal-label">Habits</span>
+                </div>
+
+                <!-- Center AI Brain -->
+                <div class="sunflower-center">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                    </svg>
+                </div>
+
+                <!-- Particle container -->
+                <div class="particle-container" id="particleContainer"></div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const particleContainer = document.getElementById('particleContainer');
+        const center = document.querySelector('.sunflower-center');
+        const petals = document.querySelectorAll('.petal');
+
+        // Petal positions (approximate centers)
+        const petalPositions = {
+            food: { x: 250, y: 80 },
+            mood: { x: 400, y: 150 },
+            sleep: { x: 400, y: 350 },
+            health: { x: 250, y: 420 },
+            triggers: { x: 100, y: 350 },
+            habits: { x: 100, y: 150 }
+        };
+
+        const centerPos = { x: 250, y: 250 };
+
+        // Create particles
+        function createParticle(type, color) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.background = color;
+            particle.style.boxShadow = `0 0 8px ${color}`;
+
+            const start = petalPositions[type];
+            particle.style.left = start.x + 'px';
+            particle.style.top = start.y + 'px';
+
+            particleContainer.appendChild(particle);
+
+            // Animate particle toward center
+            const duration = 1500 + Math.random() * 500;
+            const delay = Math.random() * 500;
+
+            particle.animate([
+                {
+                    left: start.x + 'px',
+                    top: start.y + 'px',
+                    opacity: 0,
+                    transform: 'scale(0.5)'
+                },
+                {
+                    left: start.x + 'px',
+                    top: start.y + 'px',
+                    opacity: 1,
+                    transform: 'scale(1)',
+                    offset: 0.1
+                },
+                {
+                    left: centerPos.x + 'px',
+                    top: centerPos.y + 'px',
+                    opacity: 0.8,
+                    transform: 'scale(1.2)',
+                    offset: 0.9
+                },
+                {
+                    left: centerPos.x + 'px',
+                    top: centerPos.y + 'px',
+                    opacity: 0,
+                    transform: 'scale(0)'
+                }
+            ], {
+                duration: duration,
+                delay: delay,
+                easing: 'ease-in'
+            }).onfinish = () => {
+                particle.remove();
+            };
+        }
+
+        // Spawn particles continuously
+        const colors = {
+            food: '#E8836B',
+            mood: '#4ABBA8',
+            sleep: '#5B5FC7',
+            health: '#5AAD7A',
+            triggers: '#E4B44C',
+            habits: '#D97B9D'
+        };
+
+        const types = Object.keys(colors);
+
+        function spawnParticles() {
+            types.forEach((type, index) => {
+                setTimeout(() => {
+                    createParticle(type, colors[type]);
+                }, index * 300);
+            });
+        }
+
+        // Spawn particles every 2 seconds
+        spawnParticles();
+        setInterval(spawnParticles, 2000);
+
+        // Make center glow brighter when particles arrive
+        let activeParticles = 0;
+
+        setInterval(() => {
+            const particleCount = particleContainer.children.length;
+            if (particleCount > 3) {
+                center.style.boxShadow = `
+                    0 0 100px rgba(91, 95, 199, 0.7),
+                    0 0 200px rgba(91, 95, 199, 0.4)
+                `;
+            } else {
+                center.style.boxShadow = `
+                    0 0 60px rgba(91, 95, 199, 0.4),
+                    0 0 120px rgba(91, 95, 199, 0.2)
+                `;
+            }
+        }, 100);
+    </script>
+</body>
+</html>

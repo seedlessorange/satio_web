@@ -1,0 +1,7 @@
+<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- From ic_water_widget_preview.xml -->
+    <!-- Water droplet -->
+    <path fill="#4ABBA8" d="M12,2 C12,2 5,10 5,15 C5,19 8,22 12,22 C16,22 19,19 19,15 C19,10 12,2 12,2 Z"/>
+    <!-- Highlight -->
+    <path fill="#FFFFFF" fill-opacity="0.5" d="M9,14 Q8,12 10,11 Q9,13 10,14 Z"/>
+</svg>

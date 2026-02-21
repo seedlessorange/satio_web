@@ -1,0 +1,13 @@
+<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- From ic_plant_widget_preview.xml -->
+    <!-- Pot -->
+    <path fill="#E8836B" d="M7,16 L17,16 L16,21 L8,21 Z"/>
+    <!-- Plant stem -->
+    <path stroke="#4ABBA8" stroke-width="2" d="M12,16 L12,9"/>
+    <!-- Left leaf -->
+    <path fill="#4ABBA8" d="M12,12 Q8,10 9,7 Q11,9 12,10"/>
+    <!-- Right leaf -->
+    <path fill="#4ABBA8" d="M12,10 Q16,8 15,5 Q13,7 12,8"/>
+    <!-- Top leaf -->
+    <path fill="#5AAD7A" d="M12,7 Q10,4 12,2 Q14,4 12,7"/>
+</svg>

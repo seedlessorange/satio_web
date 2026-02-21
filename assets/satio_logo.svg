@@ -1,0 +1,24 @@
+<svg viewBox="0 0 108 108" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- From ic_launcher_foreground.xml and ic_launcher_background.xml combined -->
+    <!-- Background Circle -->
+    <rect width="108" height="108" fill="#E07A5F"/>
+
+    <!-- Center group translated to 54,54 -->
+    <g transform="translate(54,54)">
+        <!-- Large "S" shape representing Satio -->
+        <path
+            stroke="#F8F4F0"
+            stroke-width="6"
+            stroke-linecap="round"
+            fill="none"
+            d="M -12,-18 Q 0,-22 8,-16 Q 12,-10 6,-4 Q 0,2 -8,2 Q -14,2 -16,8 Q -18,14 -10,18 Q 0,22 12,16"/>
+
+        <!-- Satisfied smile curve at bottom -->
+        <path
+            stroke="#F8F4F0"
+            stroke-width="3"
+            stroke-linecap="round"
+            fill="none"
+            d="M -14,20 Q 0,24 14,20"/>
+    </g>
+</svg>

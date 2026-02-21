@@ -1,0 +1,1582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Satio - The Only Nutrition App That Truly Understands You</title>
+    <meta name="description" content="Satio connects your food, mood, sleep, health, and habits into one intelligent system. Get insights no other app can give you.">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Satio - The Only Nutrition App That Truly Understands You">
+    <meta property="og:description" content="One app that connects everything: food, mood, sleep, health, and habits. Finally get the insights you deserve.">
+    <meta property="og:type" content="website">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --color-primary: #5B5FC7;
+            --color-secondary: #E8836B;
+            --color-tertiary: #4ABBA8;
+            --color-background: #FAFAF8;
+            --color-surface: #F5F5F3;
+            --color-border: #E8E8E6;
+            --color-text-primary: #2D2D2D;
+            --color-text-secondary: #6B6B6B;
+            --color-text-tertiary: #9B9B9B;
+            --color-success: #5AAD7A;
+            --color-warning: #E4B44C;
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.07);
+            --shadow-lg: 0 10px 25px -5px rgba(0,0,0,0.1);
+            --shadow-xl: 0 25px 50px -12px rgba(0,0,0,0.15);
+        }
+
+        /* Satio Icon System */
+        .satio-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .satio-icon svg {
+            width: 100%;
+            height: 100%;
+        }
+        .icon-sm { width: 20px; height: 20px; }
+        .icon-md { width: 24px; height: 24px; }
+        .icon-lg { width: 32px; height: 32px; }
+        .icon-xl { width: 40px; height: 40px; }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--color-background);
+            color: var(--color-text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+        /* ===== HEADER ===== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(250, 250, 248, 0.9);
+            backdrop-filter: blur(20px);
+            z-index: 100;
+            border-bottom: 1px solid var(--color-border);
+        }
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 72px;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--color-primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .logo-icon svg {
+            width: 100%;
+            height: 100%;
+        }
+        .nav-cta {
+            background: var(--color-primary);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 100px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        .nav-cta:hover {
+            background: #4A4EB0;
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            padding: 140px 0 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, rgba(91,95,199,0.1), rgba(74,187,168,0.1));
+            border: 1px solid rgba(91,95,199,0.2);
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 13px;
+            color: var(--color-primary);
+            font-weight: 500;
+            margin-bottom: 24px;
+        }
+        .hero-badge-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--color-success);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.1); }
+        }
+        .hero-title {
+            font-size: clamp(40px, 5vw, 56px);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            letter-spacing: -0.02em;
+        }
+        .hero-title-gradient {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-tertiary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-subtitle {
+            font-size: 20px;
+            color: var(--color-text-secondary);
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+        .hero-form {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        .hero-input {
+            flex: 1;
+            padding: 16px 24px;
+            border: 2px solid var(--color-border);
+            border-radius: 12px;
+            font-size: 16px;
+            font-family: inherit;
+            background: white;
+            transition: all 0.2s;
+        }
+        .hero-input:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 4px rgba(91,95,199,0.1);
+        }
+        .hero-button {
+            background: var(--color-primary);
+            color: white;
+            padding: 16px 32px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+        .hero-button:hover {
+            background: #4A4EB0;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        .hero-note {
+            font-size: 13px;
+            color: var(--color-text-tertiary);
+        }
+
+        /* ===== INTELLIGENCE LOOP VISUALIZATION ===== */
+        .hero-visual {
+            position: relative;
+            height: 500px;
+        }
+        .loop-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        .loop-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 140px;
+            height: 140px;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-tertiary));
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            box-shadow: var(--shadow-xl), 0 0 60px rgba(91,95,199,0.3);
+            z-index: 10;
+        }
+        .loop-center-icon { font-size: 32px; margin-bottom: 4px; }
+        .loop-center-text { font-size: 14px; font-weight: 600; }
+
+        .loop-orbit {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 2px dashed var(--color-border);
+            border-radius: 50%;
+            animation: rotate 60s linear infinite;
+        }
+        .loop-orbit-1 { width: 280px; height: 280px; }
+        .loop-orbit-2 { width: 400px; height: 400px; animation-direction: reverse; animation-duration: 80s; }
+
+        @keyframes rotate {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        .data-node {
+            position: absolute;
+            width: 70px;
+            height: 70px;
+            background: white;
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-md);
+            border: 2px solid var(--color-border);
+            transition: all 0.3s;
+            cursor: pointer;
+            z-index: 5;
+        }
+        .data-node:hover {
+            transform: scale(1.1);
+            border-color: var(--color-primary);
+            box-shadow: var(--shadow-lg);
+        }
+        .data-node.active {
+            border-color: var(--color-primary);
+            background: linear-gradient(135deg, rgba(91,95,199,0.05), rgba(74,187,168,0.05));
+        }
+        .data-node-icon { font-size: 24px; }
+        .data-node-label { font-size: 10px; font-weight: 600; color: var(--color-text-secondary); margin-top: 2px; }
+
+        /* Position nodes around the circle */
+        .node-food { top: 5%; left: 50%; transform: translateX(-50%); }
+        .node-mood { top: 20%; right: 10%; }
+        .node-sleep { top: 50%; right: 0; transform: translateY(-50%); }
+        .node-health { bottom: 20%; right: 10%; }
+        .node-triggers { bottom: 5%; left: 50%; transform: translateX(-50%); }
+        .node-exercise { bottom: 20%; left: 10%; }
+        .node-cycle { top: 50%; left: 0; transform: translateY(-50%); }
+        .node-pantry { top: 20%; left: 10%; }
+
+        /* Connection lines */
+        .connection-line {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
+            transform-origin: left center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .connection-line.active { opacity: 0.5; }
+
+        /* Insight popup */
+        .insight-popup {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: var(--shadow-xl);
+            width: 280px;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s;
+            z-index: 20;
+        }
+        .insight-popup.active {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+            pointer-events: auto;
+        }
+        .insight-popup-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-primary);
+            margin-bottom: 8px;
+        }
+        .insight-popup-text {
+            font-size: 13px;
+            color: var(--color-text-secondary);
+            line-height: 1.5;
+        }
+
+        /* ===== PROBLEM SECTION ===== */
+        .problem-section {
+            padding: 100px 0;
+            background: white;
+        }
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 60px;
+        }
+        .section-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--color-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 12px;
+        }
+        .section-title {
+            font-size: clamp(32px, 4vw, 44px);
+            font-weight: 700;
+            margin-bottom: 16px;
+            letter-spacing: -0.01em;
+        }
+        .section-subtitle {
+            font-size: 18px;
+            color: var(--color-text-secondary);
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        .problem-card {
+            background: var(--color-surface);
+            border-radius: 20px;
+            padding: 32px;
+            border: 1px solid var(--color-border);
+        }
+        .problem-icon {
+            font-size: 40px;
+            margin-bottom: 16px;
+        }
+        .problem-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .problem-text {
+            font-size: 15px;
+            color: var(--color-text-secondary);
+        }
+        .problem-card.solution {
+            background: linear-gradient(135deg, var(--color-primary), #4A4EB0);
+            color: white;
+            border: none;
+        }
+        .problem-card.solution .problem-text { color: rgba(255,255,255,0.8); }
+
+        /* ===== THE DIFFERENCE ===== */
+        .difference-section {
+            padding: 100px 0;
+            background: var(--color-background);
+        }
+        .difference-visual {
+            display: grid;
+            grid-template-columns: 1fr 100px 1fr;
+            gap: 40px;
+            align-items: center;
+            margin-top: 60px;
+        }
+        .other-apps, .satio-app {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            border: 2px solid var(--color-border);
+        }
+        .satio-app {
+            border-color: var(--color-primary);
+            box-shadow: 0 0 40px rgba(91,95,199,0.15);
+        }
+        .app-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-text-secondary);
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .satio-app .app-label { color: var(--color-primary); }
+        .data-silo {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .silo-item {
+            background: var(--color-surface);
+            padding: 16px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+        }
+        .silo-icon { font-size: 20px; }
+        .silo-arrow {
+            color: var(--color-text-tertiary);
+            font-size: 18px;
+        }
+        .silo-result {
+            color: var(--color-text-tertiary);
+            font-style: italic;
+        }
+
+        .vs-divider {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+        .vs-text {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--color-text-tertiary);
+        }
+        .vs-line {
+            width: 2px;
+            height: 100px;
+            background: var(--color-border);
+        }
+
+        .connected-data {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .insight-card {
+            background: linear-gradient(135deg, rgba(91,95,199,0.05), rgba(74,187,168,0.05));
+            border: 1px solid rgba(91,95,199,0.2);
+            border-radius: 12px;
+            padding: 16px;
+        }
+        .insight-sources {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 8px;
+        }
+        .source-tag {
+            font-size: 10px;
+            padding: 4px 8px;
+            border-radius: 100px;
+            background: var(--color-primary);
+            color: white;
+            font-weight: 500;
+        }
+        .insight-text {
+            font-size: 14px;
+            color: var(--color-text-primary);
+            line-height: 1.5;
+        }
+
+        /* ===== LOGGING METHODS ===== */
+        .logging-section {
+            padding: 100px 0;
+            background: white;
+        }
+        .logging-showcase {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-top: 60px;
+        }
+        .logging-card {
+            background: var(--color-background);
+            border-radius: 20px;
+            padding: 32px 24px;
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .logging-card:hover {
+            border-color: var(--color-primary);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+        .logging-card.active {
+            border-color: var(--color-primary);
+            background: linear-gradient(135deg, rgba(91,95,199,0.05), rgba(74,187,168,0.05));
+        }
+        .logging-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-tertiary));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            margin: 0 auto 20px;
+            color: white;
+        }
+        .logging-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .logging-desc {
+            font-size: 14px;
+            color: var(--color-text-secondary);
+            line-height: 1.5;
+        }
+        .logging-example {
+            margin-top: 16px;
+            padding: 12px;
+            background: white;
+            border-radius: 10px;
+            font-size: 13px;
+            color: var(--color-primary);
+            font-style: italic;
+        }
+
+        /* ===== MODES SECTION ===== */
+        .modes-section {
+            padding: 100px 0;
+            background: linear-gradient(180deg, var(--color-background) 0%, white 100%);
+        }
+        .modes-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        .mode-tab {
+            padding: 12px 24px;
+            border-radius: 100px;
+            border: 2px solid var(--color-border);
+            background: white;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .mode-tab:hover { border-color: var(--color-primary); }
+        .mode-tab.active {
+            background: var(--color-primary);
+            color: white;
+            border-color: var(--color-primary);
+        }
+        .mode-content {
+            display: none;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .mode-content.active { display: block; }
+        .mode-phone {
+            width: 280px;
+            height: 560px;
+            background: #1a1a1c;
+            border-radius: 40px;
+            padding: 12px;
+            margin: 0 auto 32px;
+            box-shadow: var(--shadow-xl);
+        }
+        .mode-screen {
+            width: 100%;
+            height: 100%;
+            background: var(--color-background);
+            border-radius: 32px;
+            overflow: hidden;
+            position: relative;
+        }
+        .mode-notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 24px;
+            background: #1a1a1c;
+            border-radius: 0 0 16px 16px;
+        }
+        .mode-ui {
+            padding: 40px 16px 16px;
+            height: 100%;
+        }
+        .mode-description {
+            font-size: 16px;
+            color: var(--color-text-secondary);
+            margin-bottom: 24px;
+        }
+        .mode-features {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+        }
+        .mode-feature {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: var(--color-text-secondary);
+        }
+        .mode-feature-check {
+            width: 20px;
+            height: 20px;
+            background: var(--color-success);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+        }
+
+        /* ===== INSIGHTS SECTION ===== */
+        .insights-section {
+            padding: 100px 0;
+            background: white;
+        }
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin-top: 60px;
+        }
+        .unique-insight {
+            background: var(--color-background);
+            border-radius: 20px;
+            padding: 32px;
+            border: 1px solid var(--color-border);
+            transition: all 0.3s;
+        }
+        .unique-insight:hover {
+            border-color: var(--color-primary);
+            box-shadow: var(--shadow-md);
+        }
+        .insight-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        .insight-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-tertiary));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+        .insight-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .insight-from {
+            font-size: 12px;
+            color: var(--color-text-tertiary);
+        }
+        .insight-example {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            font-size: 14px;
+            color: var(--color-text-secondary);
+            line-height: 1.6;
+            border-left: 3px solid var(--color-primary);
+        }
+
+        /* ===== FINAL CTA ===== */
+        .final-cta {
+            padding: 100px 0;
+            background: linear-gradient(135deg, var(--color-primary), #4A4EB0);
+            color: white;
+            text-align: center;
+        }
+        .final-cta .section-label { color: rgba(255,255,255,0.7); }
+        .final-cta .section-title { color: white; }
+        .final-cta-box {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 48px;
+            max-width: 600px;
+            margin: 40px auto 0;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .final-cta .hero-input {
+            background: white;
+            border-color: transparent;
+        }
+        .final-cta .hero-button {
+            background: white;
+            color: var(--color-primary);
+        }
+        .final-cta .hero-button:hover {
+            background: var(--color-background);
+        }
+        .final-cta .hero-note { color: rgba(255,255,255,0.7); }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: #1a1a1c;
+            color: white;
+            padding: 48px 0;
+        }
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .footer-logo { font-size: 20px; font-weight: 700; }
+        .footer-links { display: flex; gap: 24px; }
+        .footer-links a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+        .footer-links a:hover { color: white; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .hero-grid { grid-template-columns: 1fr; text-align: center; }
+            .hero-visual { height: 400px; margin-top: 40px; }
+            .problem-grid { grid-template-columns: 1fr; }
+            .difference-visual { grid-template-columns: 1fr; }
+            .vs-divider { flex-direction: row; }
+            .vs-line { width: 100px; height: 2px; }
+            .logging-showcase { grid-template-columns: repeat(2, 1fr); }
+            .insights-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 640px) {
+            .hero-form { flex-direction: column; }
+            .hero-button { width: 100%; }
+            .logging-showcase { grid-template-columns: 1fr; }
+            .mode-features { flex-direction: column; gap: 12px; }
+            .footer-inner { flex-direction: column; gap: 24px; text-align: center; }
+            .nav-cta { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-inner">
+            <a href="#" class="logo">
+                <span class="logo-icon">
+                    <!-- Satio Logo Icon (from logo_satio_icon_only.xml - Coral background with S + smile) -->
+                    <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="36" height="36" rx="8" fill="#E07A5F"/>
+                        <path stroke="#F8F4F0" stroke-width="2.5" stroke-linecap="round" fill="none"
+                              d="M 12,12 Q 16,10 20,13 Q 22,16 19,18 Q 17,20 14,20 Q 12,20 11,22 Q 9,24 12,26 Q 15,28 20,26"/>
+                        <path stroke="#F8F4F0" stroke-width="1.5" stroke-linecap="round" fill="none"
+                              d="M 10,28 Q 18,31 26,28"/>
+                    </svg>
+                </span>
+                Satio
+            </a>
+            <a href="#waitlist" class="nav-cta">Join Waitlist</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="waitlist">
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <div class="hero-badge">
+                        <span class="hero-badge-dot"></span>
+                        Launching Q2 2026
+                    </div>
+                    <h1 class="hero-title">
+                        The only app that <span class="hero-title-gradient">connects everything</span> about you
+                    </h1>
+                    <p class="hero-subtitle">
+                        Food. Mood. Sleep. Health. Triggers. Habits. Finally, one intelligent system that sees the full picture and gives you insights no other app can.
+                    </p>
+                    <form class="hero-form" id="waitlist-form">
+                        <input type="email" class="hero-input" placeholder="Enter your email" required>
+                        <button type="submit" class="hero-button">Join the Waitlist</button>
+                    </form>
+                    <p class="hero-note">Join 1,200+ people waiting. Free forever plan available.</p>
+                </div>
+
+                <div class="hero-visual">
+                    <div class="loop-container">
+                        <!-- Orbits -->
+                        <div class="loop-orbit loop-orbit-1"></div>
+                        <div class="loop-orbit loop-orbit-2"></div>
+
+                        <!-- Center -->
+                        <div class="loop-center">
+                            <div class="loop-center-icon">
+                                <!-- Brain/Insights Icon -->
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 4C8.5 4 6 6.5 6 9.5C6 11 6.5 12.5 8 14C8 14 7 16 7 18H17C17 16 16 14 16 14C17.5 12.5 18 11 18 9.5C18 6.5 15.5 4 12 4Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M12 4V8" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                                    <path d="M9 6L12 8L15 6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M8 18H16" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                                    <path d="M9 20H15" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                                    <circle cx="12" cy="11" r="2" stroke="white" stroke-width="1.5"/>
+                                </svg>
+                            </div>
+                            <div class="loop-center-text">Your<br>Insights</div>
+                        </div>
+
+                        <!-- Data Nodes -->
+                        <div class="data-node node-food" data-insight="food">
+                            <div class="data-node-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M18 8C18 5 15.5 3 12 3C8.5 3 6 5 6 8C6 11 8 12 8 12H16C16 12 18 11 18 8Z" stroke="#5B5FC7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M6 15H18" stroke="#5B5FC7" stroke-width="1.5" stroke-linecap="round"/>
+                                    <path d="M7 18H17" stroke="#5B5FC7" stroke-width="1.5" stroke-linecap="round"/>
+                                    <path d="M8 21H16" stroke="#5B5FC7" stroke-width="1.5" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                            <div class="data-node-label">Food</div>
+                        </div>
+                        <div class="data-node node-mood" data-insight="mood">
+                            <div class="data-node-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="12" cy="12" r="9" stroke="#E8836B" stroke-width="1.5"/>
+                                    <path d="M8 14C8 14 9.5 16 12 16C14.5 16 16 14 16 14" stroke="#E8836B" stroke-width="1.5" stroke-linecap="round"/>
+                                    <circle cx="9" cy="10" r="1.25" fill="#E8836B"/>
+                                    <circle cx="15" cy="10" r="1.25" fill="#E8836B"/>
+                                </svg>
+                            </div>
+                            <div class="data-node-label">Mood</div>
+                        </div>
+                        <div class="data-node node-sleep" data-insight="sleep">
+                            <div class="data-node-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20 12C20 16.4183 16.4183 20 12 20C7.58172 20 4 16.4183 4 12C4 7.58172 7.58172 4 12 4" stroke="#4ABBA8" stroke-width="1.5" stroke-linecap="round"/>
+                                    <path d="M15 4C13 6 13 10 17 10C17 6 15 4 15 4Z" stroke="#4ABBA8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M8 15L9 14L10 15L11 14" stroke="#4ABBA8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <div class="data-node-label">Sleep</div>
+                        </div>
+                        <div class="data-node node-health" data-insight="health">
+                            <div class="data-node-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 21C12 21 4 15 4 9.5C4 6.5 6.5 4 9.5 4C11 4 12 5 12 5C12 5 13 4 14.5 4C17.5 4 20 6.5 20 9.5C20 15 12 21 12 21Z" stroke="#E8836B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M8 11H10L11 9L13 13L14 11H16" stroke="#E8836B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <div class="data-node-label">Health</div>
+                        </div>
+                        <div class="data-node node-triggers" data-insight="triggers">
+                            <div class="data-node-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M13 3L4 14H11L10 21L20 10H13L14 3H13Z" stroke="#E4B44C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <div class="data-node-label">Triggers</div>
+                        </div>
+                        <div class="data-node node-exercise" data-insight="exercise">
+                            <div class="data-node-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M6 7V17" stroke="#5AAD7A" stroke-width="1.5" stroke-linecap="round"/>
+                                    <path d="M18 7V17" stroke="#5AAD7A" stroke-width="1.5" stroke-linecap="round"/>
+                                    <path d="M3 10V14" stroke="#5AAD7A" stroke-width="2" stroke-linecap="round"/>
+                                    <path d="M21 10V14" stroke="#5AAD7A" stroke-width="2" stroke-linecap="round"/>
+                                    <path d="M6 12H18" stroke="#5AAD7A" stroke-width="1.5" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                            <div class="data-node-label">Exercise</div>
+                        </div>
+                        <div class="data-node node-cycle" data-insight="cycle">
+                            <div class="data-node-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="12" cy="12" r="8" stroke="#9B5FC7" stroke-width="1.5"/>
+                                    <path d="M12 4C12 4 14 8 14 12C14 16 12 20 12 20" stroke="#9B5FC7" stroke-width="1.5" stroke-linecap="round"/>
+                                    <path d="M12 4C12 4 10 8 10 12C10 16 12 20 12 20" stroke="#9B5FC7" stroke-width="1.5" stroke-linecap="round"/>
+                                    <circle cx="12" cy="12" r="2" fill="#9B5FC7"/>
+                                </svg>
+                            </div>
+                            <div class="data-node-label">Cycle</div>
+                        </div>
+                        <div class="data-node node-pantry" data-insight="pantry">
+                            <div class="data-node-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="4" y="5" width="16" height="14" rx="2" stroke="#5B5FC7" stroke-width="1.5"/>
+                                    <path d="M4 9H20" stroke="#5B5FC7" stroke-width="1.5"/>
+                                    <path d="M8 12H10" stroke="#5B5FC7" stroke-width="1.5" stroke-linecap="round"/>
+                                    <path d="M8 15H12" stroke="#5B5FC7" stroke-width="1.5" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                            <div class="data-node-label">Pantry</div>
+                        </div>
+
+                        <!-- Insight Popup -->
+                        <div class="insight-popup" id="insight-popup">
+                            <div class="insight-popup-title" id="popup-title">Loading...</div>
+                            <div class="insight-popup-text" id="popup-text"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="problem-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">The Problem</div>
+                <h2 class="section-title">Other apps only see fragments of you</h2>
+                <p class="section-subtitle">They track calories. But they miss the why.</p>
+            </div>
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <div class="problem-icon">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="4" y="4" width="14" height="14" rx="3" stroke="#9B9B9B" stroke-width="2"/>
+                            <rect x="22" y="4" width="14" height="14" rx="3" stroke="#9B9B9B" stroke-width="2"/>
+                            <rect x="4" y="22" width="14" height="14" rx="3" stroke="#9B9B9B" stroke-width="2"/>
+                            <rect x="22" y="22" width="14" height="14" rx="3" stroke="#9B9B9B" stroke-width="2" stroke-dasharray="4 2"/>
+                        </svg>
+                    </div>
+                    <h3 class="problem-title">Siloed Data</h3>
+                    <p class="problem-text">Your food app doesn't know about your sleep. Your fitness app doesn't know about your stress. Nothing connects.</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="6" y="10" width="28" height="20" rx="3" stroke="#9B9B9B" stroke-width="2"/>
+                            <text x="12" y="25" font-family="Inter, sans-serif" font-size="12" font-weight="600" fill="#9B9B9B">2,100</text>
+                        </svg>
+                    </div>
+                    <h3 class="problem-title">Just Numbers</h3>
+                    <p class="problem-text">"You ate 2,100 calories." Okay, but why? Was it stress? Poor sleep? Your cycle? They can't tell you.</p>
+                </div>
+                <div class="problem-card solution">
+                    <div class="problem-icon">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="20" cy="20" r="12" stroke="white" stroke-width="2"/>
+                            <path d="M12 20C12 20 15 15 20 15C25 15 28 20 28 20C28 20 25 25 20 25C15 25 12 20 12 20Z" stroke="white" stroke-width="2"/>
+                            <circle cx="20" cy="20" r="3" fill="white"/>
+                            <path d="M32 8L36 4" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M34 12L38 10" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M8 32L4 36" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M6 28L2 30" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="problem-title">Satio Connects It All</h3>
+                    <p class="problem-text">"You tend to crave carbs after poor sleep during your luteal phase. Here's what helped before."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Difference Section -->
+    <section class="difference-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">The Difference</div>
+                <h2 class="section-title">From data silos to connected intelligence</h2>
+            </div>
+            <div class="difference-visual">
+                <div class="other-apps">
+                    <div class="app-label">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="5" y="2" width="14" height="20" rx="3" stroke="#9B9B9B" stroke-width="1.5"/>
+                            <path d="M9 5H15" stroke="#9B9B9B" stroke-width="1.5" stroke-linecap="round"/>
+                            <circle cx="12" cy="18" r="1" fill="#9B9B9B"/>
+                        </svg>
+                        Other Apps
+                    </div>
+                    <div class="data-silo">
+                        <div class="silo-item">
+                            <span class="silo-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M18 8C18 5 15.5 3 12 3C8.5 3 6 5 6 8C6 11 8 12 8 12H16C16 12 18 11 18 8Z" stroke="#9B9B9B" stroke-width="1.5"/><path d="M6 15H18M7 18H17" stroke="#9B9B9B" stroke-width="1.5" stroke-linecap="round"/></svg>
+                            </span>
+                            <span>You ate 500 cal over goal</span>
+                            <span class="silo-arrow">→</span>
+                            <span class="silo-result">"Try harder tomorrow"</span>
+                        </div>
+                        <div class="silo-item">
+                            <span class="silo-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M20 12C20 16.4183 16.4183 20 12 20C7.58172 20 4 16.4183 4 12C4 7.58172 7.58172 4 12 4" stroke="#9B9B9B" stroke-width="1.5" stroke-linecap="round"/><path d="M8 15L9 14L10 15L11 14" stroke="#9B9B9B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </span>
+                            <span>4 hours sleep</span>
+                            <span class="silo-arrow">→</span>
+                            <span class="silo-result">(ignored)</span>
+                        </div>
+                        <div class="silo-item">
+                            <span class="silo-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#9B9B9B" stroke-width="1.5"/><path d="M8 15C8 15 9 13 12 13C15 13 16 15 16 15" stroke="#9B9B9B" stroke-width="1.5" stroke-linecap="round"/><circle cx="9" cy="10" r="1" fill="#9B9B9B"/><circle cx="15" cy="10" r="1" fill="#9B9B9B"/></svg>
+                            </span>
+                            <span>Stressful day</span>
+                            <span class="silo-arrow">→</span>
+                            <span class="silo-result">(ignored)</span>
+                        </div>
+                        <div class="silo-item">
+                            <span class="silo-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="#9B9B9B" stroke-width="1.5"/><path d="M12 4C12 4 14 8 14 12C14 16 12 20 12 20" stroke="#9B9B9B" stroke-width="1.5" stroke-linecap="round"/><path d="M12 4C12 4 10 8 10 12C10 16 12 20 12 20" stroke="#9B9B9B" stroke-width="1.5" stroke-linecap="round"/></svg>
+                            </span>
+                            <span>Luteal phase</span>
+                            <span class="silo-arrow">→</span>
+                            <span class="silo-result">(ignored)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="vs-divider">
+                    <div class="vs-line"></div>
+                    <div class="vs-text">VS</div>
+                    <div class="vs-line"></div>
+                </div>
+
+                <div class="satio-app">
+                    <div class="app-label">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="12" cy="12" r="8" stroke="#5B5FC7" stroke-width="1.5"/>
+                            <path d="M8 12C8 12 9.5 9 12 9C14.5 9 16 12 16 12C16 12 14.5 15 12 15C9.5 15 8 12 8 12Z" stroke="#5B5FC7" stroke-width="1.5"/>
+                            <circle cx="12" cy="12" r="2" fill="#5B5FC7"/>
+                            <path d="M18 4L20 2" stroke="#5B5FC7" stroke-width="1.5" stroke-linecap="round"/>
+                            <path d="M20 6L22 5" stroke="#5B5FC7" stroke-width="1.5" stroke-linecap="round"/>
+                            <path d="M6 20L4 22" stroke="#5B5FC7" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                        Satio
+                    </div>
+                    <div class="connected-data">
+                        <div class="insight-card">
+                            <div class="insight-sources">
+                                <span class="source-tag">Sleep</span>
+                                <span class="source-tag">Cycle</span>
+                                <span class="source-tag">Food</span>
+                            </div>
+                            <p class="insight-text">"After poor sleep in your luteal phase, you crave carbs 73% of the time. That's normal - your body needs +150 cal during this phase anyway."</p>
+                        </div>
+                        <div class="insight-card">
+                            <div class="insight-sources">
+                                <span class="source-tag">Triggers</span>
+                                <span class="source-tag">History</span>
+                            </div>
+                            <p class="insight-text">"When stressed, Greek yogurt with berries has helped you feel satisfied without triggering a binge. Want me to suggest that?"</p>
+                        </div>
+                        <div class="insight-card">
+                            <div class="insight-sources">
+                                <span class="source-tag">Pantry</span>
+                                <span class="source-tag">Goals</span>
+                            </div>
+                            <p class="insight-text">"Your chicken expires tomorrow. Here's a high-protein recipe that fits your calorie budget."</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Logging Methods -->
+    <section class="logging-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Log Your Way</div>
+                <h2 class="section-title">Four ways to log in seconds</h2>
+                <p class="section-subtitle">No barcode scanning. No database searching. Just tell Satio what you ate.</p>
+            </div>
+            <div class="logging-showcase">
+                <div class="logging-card active" data-method="photo">
+                    <div class="logging-icon">
+                        <!-- Camera Icon (from ic_widget_camera) -->
+                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="12" cy="12" r="3.2" fill="white"/>
+                            <path d="M9 2L7.17 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6C22 4.9 21.1 4 20 4H16.83L15 2H9ZM12 17C9.24 17 7 14.76 7 12C7 9.24 9.24 7 12 7C14.76 7 17 9.24 17 12C17 14.76 14.76 17 12 17Z" fill="white"/>
+                        </svg>
+                    </div>
+                    <h3 class="logging-title">Snap a Photo</h3>
+                    <p class="logging-desc">Take a picture. AI identifies everything instantly.</p>
+                    <div class="logging-example">"Grilled salmon with quinoa and roasted vegetables - ~520 cal"</div>
+                </div>
+                <div class="logging-card" data-method="voice">
+                    <div class="logging-icon">
+                        <!-- Microphone Icon (from ic_widget_microphone) -->
+                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 14C13.66 14 15 12.66 15 11V5C15 3.34 13.66 2 12 2C10.34 2 9 3.34 9 5V11C9 12.66 10.34 14 12 14Z" fill="white"/>
+                            <path d="M17 11C17 13.76 14.76 16 12 16C9.24 16 7 13.76 7 11H5C5 14.53 7.61 17.43 11 17.92V21H13V17.92C16.39 17.43 19 14.53 19 11H17Z" fill="white"/>
+                        </svg>
+                    </div>
+                    <h3 class="logging-title">Just Say It</h3>
+                    <p class="logging-desc">Tell Siri or Google what you ate. Done.</p>
+                    <div class="logging-example">"Hey Siri, log my lunch - a turkey sandwich and apple"</div>
+                </div>
+                <div class="logging-card" data-method="receipt">
+                    <div class="logging-icon">
+                        <!-- Receipt/Scan Icon -->
+                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 4V20C4 20 5 19 6 19C7 19 8 20 8 20C8 20 9 19 10 19C11 19 12 20 12 20C12 20 13 19 14 19C15 19 16 20 16 20C16 20 17 19 18 19C19 19 20 20 20 20V4C20 4 19 5 18 5C17 5 16 4 16 4C16 4 15 5 14 5C13 5 12 4 12 4C12 4 11 5 10 5C9 5 8 4 8 4C8 4 7 5 6 5C5 5 4 4 4 4Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                            <path d="M8 9H16M8 12H14M8 15H12" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="logging-title">Scan Your Receipt</h3>
+                    <p class="logging-desc">Grocery shopping? Scan it to update your pantry automatically.</p>
+                    <div class="logging-example">Receipt scanned: 12 items added to pantry</div>
+                </div>
+                <div class="logging-card" data-method="pantry">
+                    <div class="logging-icon">
+                        <!-- Pantry Icon -->
+                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="3" y="4" width="18" height="16" rx="2" stroke="white" stroke-width="1.5" fill="none"/>
+                            <path d="M3 9H21" stroke="white" stroke-width="1.5"/>
+                            <path d="M3 14H21" stroke="white" stroke-width="1.5"/>
+                            <path d="M8 6V7M8 11V12M8 16V17" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                            <path d="M12 6V7M12 11V12M12 16V17" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="logging-title">Log from Pantry</h3>
+                    <p class="logging-desc">Tap what you used. Pantry updates automatically.</p>
+                    <div class="logging-example">Used: 2 eggs, cheese, spinach → Pantry updated</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modes Section -->
+    <section class="modes-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Your Comfort Level</div>
+                <h2 class="section-title">Choose how much you want to see</h2>
+                <p class="section-subtitle">Everyone has a different relationship with food data. We respect that.</p>
+            </div>
+            <div class="modes-tabs">
+                <button class="mode-tab active" data-mode="standard">Standard</button>
+                <button class="mode-tab" data-mode="casual">Casual</button>
+                <button class="mode-tab" data-mode="mindful">Mindful</button>
+                <button class="mode-tab" data-mode="precision">Precision</button>
+            </div>
+            <div class="mode-content active" data-mode="standard">
+                <div class="mode-phone">
+                    <div class="mode-screen">
+                        <div class="mode-notch"></div>
+                        <div class="mode-ui" style="padding-top: 48px;">
+                            <div style="text-align: left; padding: 16px;">
+                                <div style="font-size: 14px; color: var(--color-text-secondary);">Today's Progress</div>
+                                <div style="font-size: 32px; font-weight: 700; margin: 8px 0;">1,650 cal</div>
+                                <div style="height: 8px; background: var(--color-border); border-radius: 4px; overflow: hidden;">
+                                    <div style="width: 75%; height: 100%; background: var(--color-primary);"></div>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; margin-top: 16px; font-size: 13px;">
+                                    <div><strong>Protein</strong><br>95g / 120g</div>
+                                    <div><strong>Carbs</strong><br>180g / 200g</div>
+                                    <div><strong>Fat</strong><br>55g / 65g</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p class="mode-description">Full calorie and macro tracking. See your numbers, hit your targets.</p>
+                <div class="mode-features">
+                    <div class="mode-feature"><span class="mode-feature-check">✓</span> Calorie tracking</div>
+                    <div class="mode-feature"><span class="mode-feature-check">✓</span> Macro breakdown</div>
+                    <div class="mode-feature"><span class="mode-feature-check">✓</span> Progress charts</div>
+                </div>
+            </div>
+            <div class="mode-content" data-mode="casual">
+                <div class="mode-phone">
+                    <div class="mode-screen">
+                        <div class="mode-notch"></div>
+                        <div class="mode-ui" style="padding-top: 48px;">
+                            <div style="text-align: left; padding: 16px;">
+                                <div style="font-size: 14px; color: var(--color-text-secondary);">Today's Meals</div>
+                                <div style="font-size: 24px; font-weight: 600; margin: 12px 0;">Looking good! 👍</div>
+                                <div style="background: var(--color-surface); border-radius: 12px; padding: 16px; margin-top: 16px;">
+                                    <div style="font-size: 14px; font-weight: 600;">Breakfast</div>
+                                    <div style="font-size: 13px; color: var(--color-text-secondary);">Oatmeal with berries</div>
+                                    <div style="font-size: 12px; color: var(--color-primary); margin-top: 4px;">~350 cal</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p class="mode-description">Simplified view with rounded numbers. Less data, less stress.</p>
+                <div class="mode-features">
+                    <div class="mode-feature"><span class="mode-feature-check">✓</span> Rounded calories</div>
+                    <div class="mode-feature"><span class="mode-feature-check">✓</span> Simple feedback</div>
+                    <div class="mode-feature"><span class="mode-feature-check">✓</span> No macro bars</div>
+                </div>
+            </div>
+            <div class="mode-content" data-mode="mindful">
+                <div class="mode-phone">
+                    <div class="mode-screen">
+                        <div class="mode-notch"></div>
+                        <div class="mode-ui" style="padding-top: 48px;">
+                            <div style="text-align: left; padding: 16px;">
+                                <div style="font-size: 14px; color: var(--color-text-secondary);">How are you feeling?</div>
+                                <div style="font-size: 24px; font-weight: 600; margin: 12px 0;">Nourished & satisfied 🌿</div>
+                                <div style="background: var(--color-surface); border-radius: 12px; padding: 16px; margin-top: 16px;">
+                                    <div style="font-size: 14px; font-weight: 600;">Lunch</div>
+                                    <div style="font-size: 13px; color: var(--color-text-secondary); margin-top: 4px;">
+                                        Hunger before: Moderate<br>
+                                        Hunger after: Satisfied<br>
+                                        Energy: Good
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p class="mode-description">Zero numbers. Focus on hunger, fullness, and how food makes you feel.</p>
+                <div class="mode-features">
+                    <div class="mode-feature"><span class="mode-feature-check">✓</span> No calories shown</div>
+                    <div class="mode-feature"><span class="mode-feature-check">✓</span> Hunger tracking</div>
+                    <div class="mode-feature"><span class="mode-feature-check">✓</span> Feeling-based</div>
+                </div>
+            </div>
+            <div class="mode-content" data-mode="precision">
+                <div class="mode-phone">
+                    <div class="mode-screen">
+                        <div class="mode-notch"></div>
+                        <div class="mode-ui" style="padding-top: 48px;">
+                            <div style="text-align: left; padding: 16px;">
+                                <div style="font-size: 14px; color: var(--color-text-secondary);">Precision Tracking</div>
+                                <div style="font-size: 24px; font-weight: 700; margin: 8px 0;">1,647 / 2,100 cal</div>
+                                <div style="font-size: 12px; margin-top: 12px;">
+                                    <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                                        <span>Protein: 94.2g / 126g</span><span>74.8%</span>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                                        <span>Carbs: 182.4g / 210g</span><span>86.9%</span>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between;">
+                                        <span>Fat: 54.8g / 70g</span><span>78.3%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p class="mode-description">Exact numbers for athletes and serious trackers. Every decimal counts.</p>
+                <div class="mode-features">
+                    <div class="mode-feature"><span class="mode-feature-check">✓</span> Precise tracking</div>
+                    <div class="mode-feature"><span class="mode-feature-check">✓</span> Micronutrients</div>
+                    <div class="mode-feature"><span class="mode-feature-check">✓</span> Meal timing</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Unique Insights Section -->
+    <section class="insights-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Only with Satio</div>
+                <h2 class="section-title">Insights no other app can give you</h2>
+                <p class="section-subtitle">Because no other app sees the full picture.</p>
+            </div>
+            <div class="insights-grid">
+                <div class="unique-insight">
+                    <div class="insight-header">
+                        <div class="insight-icon">
+                            <!-- Predict/Crystal Ball Icon -->
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="12" cy="10" r="7" stroke="white" stroke-width="1.5"/>
+                                <path d="M6 19H18" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                                <path d="M8 21H16" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                                <path d="M9 8L11 10L9 12" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M15 8L13 10L15 12" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="insight-title">Predict Your Cravings</h3>
+                            <p class="insight-from">From: Sleep + Cycle + History</p>
+                        </div>
+                    </div>
+                    <div class="insight-example">
+                        "Based on your sleep last night and where you are in your cycle, you're 78% likely to have carb cravings around 4pm. Here's a satisfying snack that helped you before."
+                    </div>
+                </div>
+                <div class="unique-insight">
+                    <div class="insight-header">
+                        <div class="insight-icon">
+                            <!-- Shield/Protection Icon -->
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 3L4 7V12C4 16.5 7.5 20.5 12 21.5C16.5 20.5 20 16.5 20 12V7L12 3Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M9 12L11 14L15 10" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="insight-title">Break Your Patterns</h3>
+                            <p class="insight-from">From: Triggers + Meals + Time</p>
+                        </div>
+                    </div>
+                    <div class="insight-example">
+                        "Friday evenings after work are your highest-risk time for stress eating. Last week, going for a walk first helped. Want a reminder at 5:30pm?"
+                    </div>
+                </div>
+                <div class="unique-insight">
+                    <div class="insight-header">
+                        <div class="insight-icon">
+                            <!-- Energy/Lightning Icon -->
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M13 3L4 14H11L10 21L20 10H13L14 3H13Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="insight-title">Optimize Your Energy</h3>
+                            <p class="insight-from">From: Meals + Sleep + Exercise</p>
+                        </div>
+                    </div>
+                    <div class="insight-example">
+                        "You feel most energized when you eat protein within 2 hours of your workout and get 7+ hours sleep. Today you hit both - nice work!"
+                    </div>
+                </div>
+                <div class="unique-insight">
+                    <div class="insight-header">
+                        <div class="insight-icon">
+                            <!-- Target Icon -->
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="12" cy="12" r="9" stroke="white" stroke-width="1.5"/>
+                                <circle cx="12" cy="12" r="5" stroke="white" stroke-width="1.5"/>
+                                <circle cx="12" cy="12" r="1.5" fill="white"/>
+                                <path d="M12 3V6M12 18V21M3 12H6M18 12H21" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="insight-title">Adaptive Targets</h3>
+                            <p class="insight-from">From: Weight + Activity + Cycle</p>
+                        </div>
+                    </div>
+                    <div class="insight-example">
+                        "Your progress has plateaued for 2 weeks. I suggest reducing by 100 calories. Also, you're in your luteal phase - an extra 150 cal is totally normal."
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="final-cta">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Ready?</div>
+                <h2 class="section-title">Join 1,200+ people waiting for smarter nutrition</h2>
+            </div>
+            <div class="final-cta-box">
+                <form class="hero-form" id="waitlist-form-bottom">
+                    <input type="email" class="hero-input" placeholder="Enter your email" required>
+                    <button type="submit" class="hero-button">Join the Waitlist</button>
+                </form>
+                <p class="hero-note" style="margin-top: 16px;">Free forever plan. No spam. Unsubscribe anytime.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-inner">
+            <div class="footer-logo">
+                <svg width="28" height="28" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle; margin-right: 8px;">
+                    <rect width="36" height="36" rx="8" fill="#E07A5F"/>
+                    <path stroke="#F8F4F0" stroke-width="2.5" stroke-linecap="round" fill="none"
+                          d="M 12,12 Q 16,10 20,13 Q 22,16 19,18 Q 17,20 14,20 Q 12,20 11,22 Q 9,24 12,26 Q 15,28 20,26"/>
+                    <path stroke="#F8F4F0" stroke-width="1.5" stroke-linecap="round" fill="none"
+                          d="M 10,28 Q 18,31 26,28"/>
+                </svg>
+                Satio
+            </div>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms</a>
+                <a href="#">Twitter</a>
+                <a href="#">Instagram</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ===== INTELLIGENCE LOOP INTERACTION =====
+        const insights = {
+            food: {
+                title: "Food + Everything",
+                text: "Your meals don't exist in isolation. We connect what you eat to your sleep, mood, cycle, and more to find patterns you'd never see alone."
+            },
+            mood: {
+                title: "Mood Awareness",
+                text: "Track how you're feeling. Satio learns which foods help your mood and which trigger emotional eating patterns."
+            },
+            sleep: {
+                title: "Sleep Intelligence",
+                text: "Poor sleep increases hunger hormones by 45%. We adjust your protein targets and warn you about likely cravings."
+            },
+            health: {
+                title: "Health Metrics",
+                text: "Blood pressure, glucose, weight trends - we see it all and adjust recommendations based on your health goals."
+            },
+            triggers: {
+                title: "Trigger Tracking",
+                text: "Identify what triggers unwanted eating - stress, boredom, social situations - and get proactive support before it happens."
+            },
+            exercise: {
+                title: "Exercise Integration",
+                text: "Post-workout? We boost your protein targets. Rest day? We adjust accordingly. No more guessing."
+            },
+            cycle: {
+                title: "Cycle Awareness",
+                text: "Your calorie needs change throughout your cycle. We automatically adjust (+100-200 cal in luteal phase) so you're not fighting biology."
+            },
+            pantry: {
+                title: "Pantry Connection",
+                text: "Know what's in your kitchen. Get recipe suggestions using ingredients that are about to expire. Auto-update when you cook."
+            }
+        };
+
+        const nodes = document.querySelectorAll('.data-node');
+        const popup = document.getElementById('insight-popup');
+        const popupTitle = document.getElementById('popup-title');
+        const popupText = document.getElementById('popup-text');
+
+        let activeNode = null;
+        let autoRotateInterval;
+
+        function showInsight(node) {
+            const insightKey = node.dataset.insight;
+            const insight = insights[insightKey];
+
+            nodes.forEach(n => n.classList.remove('active'));
+            node.classList.add('active');
+
+            popupTitle.textContent = insight.title;
+            popupText.textContent = insight.text;
+            popup.classList.add('active');
+
+            activeNode = node;
+        }
+
+        function hideInsight() {
+            popup.classList.remove('active');
+            nodes.forEach(n => n.classList.remove('active'));
+            activeNode = null;
+        }
+
+        nodes.forEach(node => {
+            node.addEventListener('mouseenter', () => {
+                clearInterval(autoRotateInterval);
+                showInsight(node);
+            });
+            node.addEventListener('mouseleave', () => {
+                hideInsight();
+                startAutoRotate();
+            });
+            node.addEventListener('click', () => {
+                showInsight(node);
+            });
+        });
+
+        function startAutoRotate() {
+            let index = 0;
+            autoRotateInterval = setInterval(() => {
+                if (!activeNode) {
+                    showInsight(nodes[index]);
+                    setTimeout(hideInsight, 2500);
+                    index = (index + 1) % nodes.length;
+                }
+            }, 3500);
+        }
+
+        // Start auto-rotate after 2 seconds
+        setTimeout(startAutoRotate, 2000);
+
+        // ===== LOGGING CARDS =====
+        const loggingCards = document.querySelectorAll('.logging-card');
+        loggingCards.forEach(card => {
+            card.addEventListener('click', () => {
+                loggingCards.forEach(c => c.classList.remove('active'));
+                card.classList.add('active');
+            });
+        });
+
+        // ===== MODE TABS =====
+        const modeTabs = document.querySelectorAll('.mode-tab');
+        const modeContents = document.querySelectorAll('.mode-content');
+
+        modeTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const mode = tab.dataset.mode;
+
+                modeTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+
+                modeContents.forEach(content => {
+                    content.classList.remove('active');
+                    if (content.dataset.mode === mode) {
+                        content.classList.add('active');
+                    }
+                });
+            });
+        });
+
+        // ===== FORM HANDLING =====
+        const forms = document.querySelectorAll('form');
+        forms.forEach(form => {
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const email = form.querySelector('input[type="email"]').value;
+                // Add your form submission logic here
+                alert('Thanks for joining! We\'ll be in touch soon at ' + email);
+            });
+        });
+
+        // ===== SCROLL ANIMATIONS =====
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.problem-card, .logging-card, .unique-insight, .insight-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'all 0.5s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

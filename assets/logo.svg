@@ -1,0 +1,8 @@
+<svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Satio Logo (from logo_satio_icon_only.xml - Coral background with S + smile) -->
+    <rect width="36" height="36" rx="8" fill="#E07A5F"/>
+    <path stroke="#F8F4F0" stroke-width="2.5" stroke-linecap="round" fill="none"
+          d="M 12,12 Q 16,10 20,13 Q 22,16 19,18 Q 17,20 14,20 Q 12,20 11,22 Q 9,24 12,26 Q 15,28 20,26"/>
+    <path stroke="#F8F4F0" stroke-width="1.5" stroke-linecap="round" fill="none"
+          d="M 10,28 Q 18,31 26,28"/>
+</svg>

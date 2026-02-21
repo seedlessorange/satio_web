@@ -1,0 +1,3823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Satio - The Only Nutrition App That Truly Understands You</title>
+    <meta name="description" content="Satio connects your food, mood, sleep, health, and habits into one intelligent system. Get insights no other app can give you.">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Satio - The Only Nutrition App That Truly Understands You">
+    <meta property="og:description" content="One app that connects everything: food, mood, sleep, health, and habits. Finally get the insights you deserve.">
+    <meta property="og:type" content="website">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --color-primary: #5B5FC7;
+            --color-primary-dark: #4A4EB0;
+            --color-secondary: #E8836B;
+            --color-coral: #E07A5F;
+            --color-tertiary: #4ABBA8;
+            --color-background: #FAFAF8;
+            --color-surface: #F5F5F3;
+            --color-border: #E8E8E6;
+            --color-text-primary: #2D2D2D;
+            --color-text-secondary: #6B6B6B;
+            --color-text-tertiary: #9B9B9B;
+            --color-success: #5AAD7A;
+            --color-warning: #E4B44C;
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 12px -2px rgba(0,0,0,0.08);
+            --shadow-lg: 0 12px 32px -8px rgba(0,0,0,0.12);
+            --shadow-xl: 0 24px 48px -12px rgba(0,0,0,0.18);
+            --shadow-glow: 0 0 60px rgba(91,95,199,0.25);
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.3);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--color-background);
+            color: var(--color-text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+        /* ===== HEADER ===== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(250, 250, 248, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 100;
+            border-bottom: 1px solid rgba(232, 232, 230, 0.5);
+        }
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 72px;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo-icon {
+            width: 64px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .nav-cta {
+            background: var(--color-coral);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 100px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 14px rgba(224, 122, 95, 0.35);
+        }
+        .nav-cta:hover {
+            background: #D16B50;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(224, 122, 95, 0.45);
+        }
+
+        /* ===== FIXED SUNFLOWER COLUMN LAYOUT ===== */
+        .page-layout {
+            display: grid;
+            grid-template-columns: 1fr 420px;
+            min-height: 100vh;
+        }
+        .main-content {
+            /* All page sections flow here in the left 2/3 */
+        }
+        .sunflower-column {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 420px;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 20px 40px;
+            background: linear-gradient(180deg, #FAFAF8 0%, #F0F4F8 100%);
+            z-index: 50;
+        }
+        /* Gradient mesh in sunflower column */
+        .sunflower-column::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(ellipse at 50% 30%, rgba(224, 122, 95, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 30% 70%, rgba(91, 95, 199, 0.12) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 80%, rgba(74, 187, 168, 0.1) 0%, transparent 40%);
+            pointer-events: none;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            padding: 160px 0 120px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(180deg, #FAFAF8 0%, #F0F4F8 100%);
+        }
+        /* Gradient mesh background */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 80%;
+            height: 150%;
+            background:
+                radial-gradient(ellipse at 70% 20%, rgba(224, 122, 95, 0.12) 0%, transparent 50%),
+                radial-gradient(ellipse at 30% 80%, rgba(91, 95, 199, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 90% 70%, rgba(74, 187, 168, 0.08) 0%, transparent 40%);
+            pointer-events: none;
+            animation: meshFloat 20s ease-in-out infinite;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 60%;
+            height: 100%;
+            background:
+                radial-gradient(ellipse at center, rgba(74,187,168,0.08) 0%, transparent 70%),
+                radial-gradient(ellipse at 20% 50%, rgba(91, 95, 199, 0.06) 0%, transparent 50%);
+            pointer-events: none;
+            animation: meshFloat 25s ease-in-out infinite reverse;
+        }
+        @keyframes meshFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(20px, -20px) scale(1.05); }
+        }
+        /* Subtle grain texture overlay */
+        .hero-grain {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0.03;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+        }
+        .hero-grid {
+            display: block;
+            position: relative;
+            z-index: 1;
+        }
+        .hero-content-wrapper {
+            max-width: 600px;
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: white;
+            border: 1px solid var(--color-border);
+            padding: 8px 18px;
+            border-radius: 100px;
+            font-size: 13px;
+            color: var(--color-text-secondary);
+            font-weight: 500;
+            margin-bottom: 28px;
+            box-shadow: var(--shadow-sm);
+        }
+        .hero-badge-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--color-success);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.2); }
+        }
+        .hero-title {
+            font-size: clamp(44px, 5vw, 64px);
+            font-weight: 800;
+            line-height: 1.08;
+            margin-bottom: 28px;
+            letter-spacing: -0.03em;
+            color: var(--color-text-primary);
+        }
+        .hero-title-gradient {
+            background: linear-gradient(135deg, var(--color-coral) 0%, var(--color-primary) 50%, var(--color-tertiary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-subtitle {
+            font-size: 20px;
+            color: var(--color-text-secondary);
+            margin-bottom: 40px;
+            line-height: 1.7;
+            max-width: 500px;
+        }
+        .hero-form {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .hero-input {
+            flex: 1;
+            padding: 18px 24px;
+            border: 2px solid var(--color-border);
+            border-radius: 14px;
+            font-size: 16px;
+            font-family: inherit;
+            background: white;
+            transition: all 0.3s;
+        }
+        .hero-input:focus {
+            outline: none;
+            border-color: var(--color-coral);
+            box-shadow: 0 0 0 4px rgba(224, 122, 95, 0.12);
+        }
+        .hero-button {
+            background: linear-gradient(135deg, var(--color-coral) 0%, #D16B50 100%);
+            color: white;
+            padding: 18px 36px;
+            border: none;
+            border-radius: 14px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            white-space: nowrap;
+            box-shadow: 0 4px 14px rgba(224, 122, 95, 0.35);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+        .hero-button:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 12px 28px rgba(224, 122, 95, 0.45);
+        }
+        .hero-button:hover::before {
+            left: 100%;
+        }
+        .hero-button:active {
+            transform: translateY(-2px) scale(0.98);
+            box-shadow: 0 6px 16px rgba(224, 122, 95, 0.4);
+        }
+        .hero-note {
+            font-size: 14px;
+            color: var(--color-text-tertiary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .hero-note-icon {
+            color: var(--color-success);
+        }
+
+        /* ===== ABSTRACT HUB VISUALIZATION ===== */
+        .sunflower-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+        }
+        .sunflower {
+            position: relative;
+            width: 320px;
+            height: 320px;
+        }
+
+        /* Remove stem and leaves - hub floats freely */
+        .sunflower-stem {
+            display: none;
+        }
+        .leaves-container {
+            display: none;
+        }
+        .sunflower-leaf {
+            display: none;
+        }
+
+        /* Center (AI Brain) - glowing indigo orb */
+        .sunflower-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            z-index: 10;
+        }
+        .center-inner {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--color-primary) 0%, #7B7FD7 50%, var(--color-primary-dark) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow:
+                0 0 40px rgba(91, 95, 199, 0.5),
+                0 0 80px rgba(91, 95, 199, 0.25),
+                inset 0 -4px 12px rgba(0, 0, 0, 0.15),
+                inset 0 4px 12px rgba(255, 255, 255, 0.25);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.8s ease;
+        }
+        /* Subtle inner glow pattern */
+        .center-inner::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.4) 0%, transparent 50%);
+            opacity: 0.8;
+        }
+        .center-logo {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+            filter: brightness(0) invert(1) drop-shadow(0 2px 6px rgba(0,0,0,0.3));
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            z-index: 2;
+        }
+        .sunflower.growing .center-logo {
+            opacity: 0.7;
+            transform: scale(0.85);
+        }
+        .sunflower.fully-grown .center-logo {
+            opacity: 1;
+            transform: scale(1);
+        }
+        .center-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle, rgba(91, 95, 199, 0.4) 0%, transparent 70%);
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+            pointer-events: none;
+        }
+        .sunflower.growing .center-glow {
+            opacity: 0.5;
+        }
+        .sunflower.fully-grown .center-glow {
+            opacity: 1;
+            animation: centerGlow 3s ease-in-out infinite;
+        }
+        .sunflower.growing .center-inner {
+            box-shadow:
+                0 0 40px rgba(91, 95, 199, 0.5),
+                0 0 80px rgba(91, 95, 199, 0.25),
+                inset 0 -4px 12px rgba(0, 0, 0, 0.15),
+                inset 0 4px 12px rgba(255, 255, 255, 0.25);
+        }
+        .sunflower.fully-grown .center-inner {
+            box-shadow:
+                0 0 50px rgba(91, 95, 199, 0.6),
+                0 0 100px rgba(91, 95, 199, 0.3),
+                inset 0 -4px 12px rgba(0, 0, 0, 0.15),
+                inset 0 4px 12px rgba(255, 255, 255, 0.3);
+        }
+        @keyframes centerGlow {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.7; }
+            50% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+        }
+
+        /* ===== ABSTRACT SUNFLOWER PETALS ===== */
+        /* Petals are elongated shapes radiating from center like a real sunflower */
+        .petal {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 56px;
+            height: 100px;
+            opacity: 0;
+            cursor: pointer;
+            z-index: 5;
+            /* Transform origin at bottom center - where petal connects to center */
+            transform-origin: center bottom;
+        }
+
+        /* Initial state - petals start scaled down at center */
+        .petal {
+            transform: translate(-50%, -100%) rotate(var(--angle)) scale(0);
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        /* Grown state - petals extend outward */
+        .petal.grown {
+            opacity: 1;
+            transform: translate(-50%, -100%) rotate(var(--angle)) scale(1);
+        }
+
+        /* Hover - petal grows slightly and lifts */
+        .petal:hover {
+            z-index: 8;
+            transform: translate(-50%, -100%) rotate(var(--angle)) scale(1.08) translateY(-6px);
+        }
+        .petal:hover .petal-shape {
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+        }
+
+        /* Petal shape - elongated frosted glass petal */
+        .petal-shape {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            /* Petal shape - rounded top, tapered bottom */
+            border-radius: 50% 50% 40% 40% / 60% 60% 40% 40%;
+            border: 2px solid rgba(91, 95, 199, 0.2);
+            box-shadow:
+                0 4px 20px rgba(0, 0, 0, 0.1),
+                inset 0 2px 0 rgba(255, 255, 255, 0.9),
+                inset 0 -4px 8px rgba(91, 95, 199, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        /* Color-coded tinting on hover */
+        .petal[data-petal="food"]:hover .petal-shape {
+            border-color: var(--color-secondary);
+            background: linear-gradient(180deg, rgba(232, 131, 107, 0.2) 0%, rgba(255,255,255,0.95) 100%);
+        }
+        .petal[data-petal="mood"]:hover .petal-shape {
+            border-color: var(--color-tertiary);
+            background: linear-gradient(180deg, rgba(74, 187, 168, 0.2) 0%, rgba(255,255,255,0.95) 100%);
+        }
+        .petal[data-petal="sleep"]:hover .petal-shape {
+            border-color: var(--color-primary);
+            background: linear-gradient(180deg, rgba(91, 95, 199, 0.2) 0%, rgba(255,255,255,0.95) 100%);
+        }
+        .petal[data-petal="health"]:hover .petal-shape {
+            border-color: var(--color-success);
+            background: linear-gradient(180deg, rgba(90, 173, 122, 0.2) 0%, rgba(255,255,255,0.95) 100%);
+        }
+        .petal[data-petal="exercise"]:hover .petal-shape {
+            border-color: var(--color-coral);
+            background: linear-gradient(180deg, rgba(224, 122, 95, 0.2) 0%, rgba(255,255,255,0.95) 100%);
+        }
+        .petal[data-petal="habits"]:hover .petal-shape {
+            border-color: var(--color-warning);
+            background: linear-gradient(180deg, rgba(228, 180, 76, 0.2) 0%, rgba(255,255,255,0.95) 100%);
+        }
+        .petal[data-petal="energy"]:hover .petal-shape {
+            border-color: #F59E0B;
+            background: linear-gradient(180deg, rgba(245, 158, 11, 0.2) 0%, rgba(255,255,255,0.95) 100%);
+        }
+        .petal[data-petal="stress"]:hover .petal-shape {
+            border-color: var(--color-tertiary);
+            background: linear-gradient(180deg, rgba(74, 187, 168, 0.2) 0%, rgba(255,255,255,0.95) 100%);
+        }
+        .petal[data-petal="water"]:hover .petal-shape {
+            border-color: #3B82F6;
+            background: linear-gradient(180deg, rgba(59, 130, 246, 0.2) 0%, rgba(255,255,255,0.95) 100%);
+        }
+        .petal[data-petal="weight"]:hover .petal-shape {
+            border-color: var(--color-primary);
+            background: linear-gradient(180deg, rgba(91, 95, 199, 0.2) 0%, rgba(255,255,255,0.95) 100%);
+        }
+        .petal[data-petal="goals"]:hover .petal-shape {
+            border-color: var(--color-coral);
+            background: linear-gradient(180deg, rgba(224, 122, 95, 0.2) 0%, rgba(255,255,255,0.95) 100%);
+        }
+        .petal[data-petal="insights"]:hover .petal-shape {
+            border-color: var(--color-primary);
+            background: linear-gradient(180deg, rgba(91, 95, 199, 0.2) 0%, rgba(255,255,255,0.95) 100%);
+        }
+
+        /* Petal content - icon and label inside the petal */
+        /* Counter-rotate to keep content upright */
+        .petal-content {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%) rotate(calc(-1 * var(--angle)));
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            opacity: 0;
+            transition: opacity 0.4s ease 0.2s;
+            z-index: 2;
+        }
+        .petal.grown .petal-content {
+            opacity: 1;
+        }
+        .petal-icon {
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .petal-icon svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--color-text-primary);
+            stroke-width: 2;
+            fill: none;
+        }
+        /* Label below icon */
+        .petal-label {
+            font-size: 8px;
+            font-weight: 700;
+            color: var(--color-text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            white-space: nowrap;
+        }
+
+        /* ===== PETAL POSITIONS - 8 primary petals at 45° intervals ===== */
+        /* Each petal rotates around center, CSS variable sets angle */
+        /* Outer ring - 6 petals at cardinal and ordinal points */
+        .petal-1  { --angle: 0deg; }      /* Top */
+        .petal-2  { --angle: 60deg; }     /* Top-right */
+        .petal-3  { --angle: 120deg; }    /* Bottom-right */
+        .petal-4  { --angle: 180deg; }    /* Bottom */
+        .petal-5  { --angle: 240deg; }    /* Bottom-left */
+        .petal-6  { --angle: 300deg; }    /* Top-left */
+
+        /* Inner ring - 6 petals offset by 30° from outer ring */
+        .petal-7  { --angle: 30deg; }
+        .petal-8  { --angle: 90deg; }     /* Right */
+        .petal-9  { --angle: 150deg; }
+        .petal-10 { --angle: 210deg; }
+        .petal-11 { --angle: 270deg; }    /* Left */
+        .petal-12 { --angle: 330deg; }
+
+        /* Inner petals - smaller and positioned closer to center */
+        .inner-petal {
+            width: 44px;
+            height: 72px;
+            z-index: 4;
+        }
+        .inner-petal .petal-icon svg {
+            width: 18px;
+            height: 18px;
+        }
+        .inner-petal .petal-label {
+            font-size: 6px;
+        }
+        .inner-petal .petal-content {
+            top: 14px;
+        }
+
+        /* Connection lines - subtle gradient lines from petals toward center */
+        .petal::before {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            width: 2px;
+            height: 20px;
+            margin-left: -1px;
+            background: linear-gradient(to top, rgba(91, 95, 199, 0.3), transparent);
+            opacity: 0;
+            transition: opacity 0.5s ease 0.3s;
+        }
+        .petal.grown::before {
+            opacity: 1;
+        }
+        .inner-petal::before {
+            height: 16px;
+        }
+
+        /* Petal insight cards - positioned in sunflower column */
+        .petal-insight {
+            position: absolute;
+            background: white;
+            padding: 12px 16px;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            font-size: 12px;
+            max-width: 180px;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 0.4s ease;
+            pointer-events: none;
+            z-index: 70;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%) scale(0.9);
+        }
+        .petal-insight.visible {
+            opacity: 1;
+            transform: translateY(-50%) scale(1);
+            pointer-events: auto;
+        }
+        .petal-insight strong {
+            display: block;
+            color: var(--color-coral);
+            font-weight: 700;
+            margin-bottom: 6px;
+            font-size: 14px;
+        }
+        .petal-insight p {
+            color: var(--color-text-secondary);
+            line-height: 1.5;
+            margin: 0;
+        }
+        .petal-insight .insight-arrow {
+            display: none;
+        }
+
+        /* Scroll indicator - inside sunflower column */
+        .scroll-to-grow {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: var(--color-text-secondary);
+            font-size: 13px;
+            font-weight: 600;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+            z-index: 60;
+            background: rgba(255,255,255,0.95);
+            padding: 14px 20px;
+            border-radius: 14px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+        }
+        .scroll-to-grow.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .scroll-arrow {
+            width: 20px;
+            height: 20px;
+            border-right: 3px solid var(--color-coral);
+            border-bottom: 3px solid var(--color-coral);
+            transform: rotate(45deg);
+            animation: scrollBounce 1.5s ease-in-out infinite;
+        }
+        @keyframes scrollBounce {
+            0%, 100% { transform: rotate(45deg) translate(0, 0); }
+            50% { transform: rotate(45deg) translate(4px, 4px); }
+        }
+
+        /* Growth progress bar - inside sunflower column */
+        .growth-progress {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            z-index: 60;
+            background: rgba(255,255,255,0.95);
+            padding: 14px 20px;
+            border-radius: 14px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+        }
+        .growth-progress.visible {
+            opacity: 1;
+        }
+        .growth-progress.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .growth-bar {
+            width: 150px;
+            height: 8px;
+            background: var(--color-border);
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+        .growth-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: var(--progress, 0%);
+            background: linear-gradient(90deg, var(--color-success), var(--color-tertiary), var(--color-primary));
+            border-radius: 4px;
+            transition: width 0.15s ease;
+        }
+        .growth-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--color-text-secondary);
+            font-weight: 500;
+            min-width: 70px;
+        }
+
+        /* Sunflower fully grown state */
+        .sunflower.fully-grown .center-inner {
+            background: linear-gradient(135deg, var(--color-primary) 0%, #4A4EB0 100%);
+            background-image:
+                radial-gradient(circle at 30% 30%, rgba(255,255,255,0.1) 2px, transparent 2px),
+                radial-gradient(circle at 70% 30%, rgba(255,255,255,0.1) 2px, transparent 2px),
+                radial-gradient(circle at 50% 50%, rgba(255,255,255,0.1) 2px, transparent 2px),
+                linear-gradient(135deg, var(--color-primary) 0%, #4A4EB0 100%);
+            box-shadow:
+                inset 0 -8px 20px rgba(0, 0, 0, 0.2),
+                inset 0 8px 20px rgba(255, 255, 255, 0.2),
+                0 8px 32px rgba(91, 95, 199, 0.3),
+                0 0 60px rgba(91, 95, 199, 0.2);
+        }
+
+        /* Old mascot placeholder (keeping for backward compat) */
+        .hero-mascot {
+            display: none; /* Hidden - sunflower replaces it */
+            position: absolute;
+            bottom: -30px;
+            right: -60px;
+            width: 140px;
+            height: 140px;
+            z-index: 15;
+            animation: float 4s ease-in-out infinite;
+        }
+        .hero-mascot img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.15));
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(-2deg); }
+            50% { transform: translateY(-15px) rotate(2deg); }
+        }
+
+        /* Position nodes around the circle */
+        .node-food { top: 2%; left: 50%; transform: translateX(-50%); }
+        .node-mood { top: 18%; right: 8%; }
+        .node-sleep { top: 50%; right: -2%; transform: translateY(-50%); }
+        .node-health { bottom: 18%; right: 8%; }
+        .node-triggers { bottom: 2%; left: 50%; transform: translateX(-50%); }
+        .node-exercise { bottom: 18%; left: 8%; }
+        .node-cycle { top: 50%; left: -2%; transform: translateY(-50%); }
+        .node-pantry { top: 18%; left: 8%; }
+
+        /* Insight popup */
+        .insight-popup {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            background: white;
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: var(--shadow-xl);
+            width: 300px;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 20;
+            border: 1px solid var(--color-border);
+        }
+        .insight-popup.active {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+            pointer-events: auto;
+        }
+        .insight-popup-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--color-coral);
+            margin-bottom: 10px;
+        }
+        .insight-popup-text {
+            font-size: 13px;
+            color: var(--color-text-secondary);
+            line-height: 1.6;
+        }
+
+        /* ===== SOCIAL PROOF STRIP ===== */
+        .social-proof {
+            padding: 60px 0;
+            background: white;
+            border-top: 1px solid var(--color-border);
+            border-bottom: 1px solid var(--color-border);
+        }
+        .social-proof-inner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 60px;
+            flex-wrap: wrap;
+        }
+        .social-proof-item {
+            text-align: center;
+        }
+        .social-proof-number {
+            font-size: 36px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--color-coral), var(--color-primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 4px;
+        }
+        .social-proof-item {
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            padding: 20px;
+            border-radius: 16px;
+        }
+        .social-proof-item:hover {
+            transform: translateY(-4px) scale(1.05);
+            background: rgba(255, 255, 255, 0.5);
+        }
+        .social-proof-label {
+            font-size: 14px;
+            color: var(--color-text-tertiary);
+            font-weight: 500;
+        }
+
+        /* ===== PROBLEM SECTION ===== */
+        .problem-section {
+            padding: 120px 0;
+            background: var(--color-background);
+        }
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 70px;
+        }
+        .section-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--color-coral);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 16px;
+        }
+        .section-title {
+            font-size: clamp(32px, 4vw, 48px);
+            font-weight: 800;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+            line-height: 1.15;
+        }
+        .section-subtitle {
+            font-size: 18px;
+            color: var(--color-text-secondary);
+            line-height: 1.7;
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+        }
+        .problem-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 24px;
+            padding: 36px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .problem-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+        }
+        .problem-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow:
+                0 24px 48px -12px rgba(0, 0, 0, 0.15),
+                0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+            border-color: rgba(224, 122, 95, 0.2);
+        }
+        .problem-icon {
+            width: 56px;
+            height: 56px;
+            background: var(--color-surface);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .problem-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        .problem-text {
+            font-size: 15px;
+            color: var(--color-text-secondary);
+            line-height: 1.7;
+        }
+        .problem-card.solution {
+            background: linear-gradient(135deg, var(--color-coral) 0%, #D16B50 100%);
+            color: white;
+            border: none;
+            box-shadow: 0 12px 40px rgba(224, 122, 95, 0.3);
+        }
+        .problem-card.solution .problem-icon {
+            background: rgba(255,255,255,0.2);
+        }
+        .problem-card.solution .problem-text {
+            color: rgba(255,255,255,0.9);
+        }
+        .problem-card.solution:hover {
+            transform: translateY(-8px) scale(1.02);
+        }
+
+        /* ===== THE DIFFERENCE ===== */
+        .difference-section {
+            padding: 120px 0;
+            background: white;
+        }
+        .difference-visual {
+            display: grid;
+            grid-template-columns: 1fr 80px 1fr;
+            gap: 40px;
+            align-items: center;
+            margin-top: 70px;
+        }
+        .other-apps, .satio-app {
+            background: var(--color-background);
+            border-radius: 28px;
+            padding: 40px;
+            border: 2px solid var(--color-border);
+        }
+        .satio-app {
+            border-color: var(--color-coral);
+            box-shadow: 0 0 60px rgba(224, 122, 95, 0.15);
+            background: linear-gradient(135deg, rgba(224,122,95,0.03), rgba(91,95,199,0.03));
+        }
+        .app-label {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--color-text-tertiary);
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .satio-app .app-label {
+            color: var(--color-coral);
+        }
+        .data-silo {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .silo-item {
+            background: white;
+            padding: 18px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-size: 14px;
+            border: 1px solid var(--color-border);
+        }
+        .silo-icon {
+            flex-shrink: 0;
+        }
+        .silo-arrow {
+            color: var(--color-text-tertiary);
+            font-size: 16px;
+            margin-left: auto;
+        }
+        .silo-result {
+            color: var(--color-text-tertiary);
+            font-style: italic;
+            font-size: 13px;
+        }
+
+        .vs-divider {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+        .vs-text {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--color-text-tertiary);
+            background: var(--color-surface);
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .vs-line {
+            width: 2px;
+            height: 80px;
+            background: linear-gradient(to bottom, transparent, var(--color-border), transparent);
+        }
+
+        .connected-data {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .insight-card {
+            background: white;
+            border: 1px solid rgba(224, 122, 95, 0.2);
+            border-radius: 16px;
+            padding: 20px;
+            transition: all 0.3s;
+        }
+        .insight-card:hover {
+            border-color: var(--color-coral);
+            box-shadow: var(--shadow-md);
+        }
+        .insight-sources {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 12px;
+        }
+        .source-tag {
+            font-size: 10px;
+            padding: 5px 10px;
+            border-radius: 100px;
+            background: var(--color-coral);
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+        .insight-text {
+            font-size: 14px;
+            color: var(--color-text-primary);
+            line-height: 1.6;
+        }
+
+        /* ===== LOGGING METHODS ===== */
+        .logging-section {
+            padding: 120px 0;
+            background: linear-gradient(180deg, var(--color-background) 0%, white 100%);
+        }
+        .logging-showcase {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-top: 70px;
+        }
+        .logging-card {
+            background: white;
+            border-radius: 24px;
+            padding: 36px 28px;
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+        .logging-card:hover {
+            border-color: var(--color-coral);
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+        .logging-card.active {
+            border-color: var(--color-coral);
+            background: linear-gradient(135deg, rgba(224,122,95,0.04), rgba(91,95,199,0.04));
+        }
+        .logging-icon {
+            width: 88px;
+            height: 88px;
+            background: linear-gradient(135deg, var(--color-coral) 0%, var(--color-primary) 100%);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            color: white;
+            box-shadow: 0 8px 24px rgba(224, 122, 95, 0.3);
+        }
+        .logging-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .logging-desc {
+            font-size: 14px;
+            color: var(--color-text-secondary);
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+        .logging-example {
+            padding: 14px;
+            background: var(--color-surface);
+            border-radius: 12px;
+            font-size: 13px;
+            color: var(--color-coral);
+            font-weight: 500;
+        }
+
+        /* ===== MODES SECTION ===== */
+        .modes-section {
+            padding: 120px 0;
+            background: white;
+        }
+        .modes-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+        .mode-tab {
+            padding: 14px 28px;
+            border-radius: 100px;
+            border: 2px solid var(--color-border);
+            background: white;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .mode-tab:hover {
+            border-color: var(--color-coral);
+            color: var(--color-coral);
+        }
+        .mode-tab.active {
+            background: var(--color-coral);
+            color: white;
+            border-color: var(--color-coral);
+            box-shadow: 0 4px 14px rgba(224, 122, 95, 0.35);
+        }
+        .mode-content {
+            display: none;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .mode-content.active { display: block; }
+        .mode-phone {
+            width: 300px;
+            height: 600px;
+            background: #1a1a1c;
+            border-radius: 44px;
+            padding: 14px;
+            margin: 0 auto 40px;
+            box-shadow: var(--shadow-xl), 0 0 0 1px rgba(255,255,255,0.1) inset;
+        }
+        .mode-screen {
+            width: 100%;
+            height: 100%;
+            background: var(--color-background);
+            border-radius: 34px;
+            overflow: hidden;
+            position: relative;
+        }
+        .mode-notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 110px;
+            height: 28px;
+            background: #1a1a1c;
+            border-radius: 0 0 18px 18px;
+        }
+        .mode-ui {
+            padding: 50px 20px 20px;
+            height: 100%;
+        }
+        .mode-description {
+            font-size: 17px;
+            color: var(--color-text-secondary);
+            margin-bottom: 28px;
+            line-height: 1.6;
+        }
+        .mode-features {
+            display: flex;
+            justify-content: center;
+            gap: 36px;
+        }
+        .mode-feature {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            color: var(--color-text-secondary);
+            font-weight: 500;
+        }
+        .mode-feature-check {
+            width: 24px;
+            height: 24px;
+            background: var(--color-success);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        /* ===== GOALS PROGRESS SECTION ===== */
+        .goals-section {
+            padding: 120px 0;
+            background: var(--color-background);
+        }
+        .goals-showcase {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            margin-top: 70px;
+        }
+        .goals-phone {
+            width: 320px;
+            height: 640px;
+            background: #1a1a1c;
+            border-radius: 44px;
+            padding: 14px;
+            margin: 0 auto;
+            box-shadow: var(--shadow-xl), 0 0 0 1px rgba(255,255,255,0.1) inset;
+        }
+        .goals-screen {
+            width: 100%;
+            height: 100%;
+            background: var(--color-background);
+            border-radius: 34px;
+            overflow: hidden;
+            position: relative;
+        }
+        .goals-notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 110px;
+            height: 28px;
+            background: #1a1a1c;
+            border-radius: 0 0 18px 18px;
+            z-index: 10;
+        }
+        .goals-ui {
+            padding: 50px 16px 20px;
+            height: 100%;
+            overflow-y: auto;
+        }
+        .goals-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .goals-header-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--color-text-primary);
+        }
+        .goals-header-icon {
+            width: 24px;
+            height: 24px;
+            color: var(--color-text-secondary);
+        }
+        .goals-progress-card {
+            background: white;
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 16px;
+            box-shadow: var(--shadow-sm);
+            text-align: center;
+        }
+        .goals-progress-title {
+            font-size: 13px;
+            color: var(--color-text-secondary);
+            margin-bottom: 16px;
+            font-weight: 500;
+        }
+        .circular-progress {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 16px;
+        }
+        .circular-progress svg {
+            transform: rotate(-90deg);
+        }
+        .circular-progress-bg {
+            fill: none;
+            stroke: var(--color-border);
+            stroke-width: 10;
+        }
+        .circular-progress-fill {
+            fill: none;
+            stroke: url(#progressGradient);
+            stroke-width: 10;
+            stroke-linecap: round;
+            stroke-dasharray: 314;
+            stroke-dashoffset: 69;
+            transition: stroke-dashoffset 1s ease-out;
+        }
+        .circular-progress-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+        .circular-progress-percent {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--color-coral);
+        }
+        .circular-progress-label {
+            font-size: 10px;
+            color: var(--color-text-secondary);
+            font-weight: 500;
+        }
+        .goals-met-text {
+            font-size: 12px;
+            color: var(--color-text-secondary);
+            margin-bottom: 12px;
+        }
+        .goals-met-bar {
+            height: 6px;
+            background: var(--color-border);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .goals-met-bar-fill {
+            height: 100%;
+            width: 83%;
+            background: linear-gradient(90deg, var(--color-coral), var(--color-primary));
+            border-radius: 3px;
+        }
+        .goals-section-label {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            margin: 20px 0 12px;
+        }
+        .goal-row {
+            background: white;
+            border-radius: 14px;
+            padding: 14px;
+            margin-bottom: 10px;
+            box-shadow: var(--shadow-sm);
+        }
+        .goal-row-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        .goal-row-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .goal-row-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+        .goal-row-icon.calories { background: rgba(232, 131, 107, 0.15); color: var(--color-coral); }
+        .goal-row-icon.protein { background: rgba(91, 95, 199, 0.15); color: var(--color-primary); }
+        .goal-row-icon.carbs { background: rgba(228, 180, 76, 0.15); color: var(--color-warning); }
+        .goal-row-icon.fat { background: rgba(74, 187, 168, 0.15); color: var(--color-tertiary); }
+        .goal-row-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+        }
+        .goal-row-percent {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--color-coral);
+        }
+        .goal-row-values {
+            font-size: 11px;
+            color: var(--color-text-secondary);
+            margin-bottom: 6px;
+        }
+        .goal-row-bar {
+            height: 6px;
+            background: var(--color-border);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 6px;
+        }
+        .goal-row-bar-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 0.8s ease-out;
+        }
+        .goal-row-bar-fill.calories { background: var(--color-coral); }
+        .goal-row-bar-fill.protein { background: var(--color-primary); }
+        .goal-row-bar-fill.carbs { background: var(--color-warning); }
+        .goal-row-bar-fill.fat { background: var(--color-tertiary); }
+        .goal-row-hint {
+            font-size: 10px;
+            color: var(--color-success);
+            font-weight: 500;
+        }
+        .goal-row-hint.warning { color: var(--color-coral); }
+
+        .goals-content {
+            padding-right: 20px;
+        }
+        .goals-content h3 {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        .goals-content p {
+            font-size: 17px;
+            color: var(--color-text-secondary);
+            line-height: 1.7;
+            margin-bottom: 28px;
+        }
+        .goals-features {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .goals-feature {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+        }
+        .goals-feature-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--color-coral), var(--color-primary));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(224, 122, 95, 0.25);
+        }
+        .goals-feature-text h4 {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .goals-feature-text p {
+            font-size: 14px;
+            color: var(--color-text-secondary);
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 1024px) {
+            .goals-showcase {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .goals-content {
+                padding-right: 0;
+                order: -1;
+            }
+            .goals-features {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+        }
+
+        /* ===== INSIGHTS SECTION ===== */
+        .insights-section {
+            padding: 120px 0;
+            background: linear-gradient(180deg, var(--color-background) 0%, white 100%);
+        }
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 28px;
+            margin-top: 70px;
+        }
+        .unique-insight {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 24px;
+            padding: 36px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .unique-insight::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+        }
+        .unique-insight:hover {
+            border-color: rgba(224, 122, 95, 0.3);
+            box-shadow:
+                0 20px 40px -12px rgba(224, 122, 95, 0.15),
+                0 0 0 1px rgba(224, 122, 95, 0.1) inset;
+            transform: translateY(-8px) scale(1.01);
+        }
+        .unique-insight:hover .insight-icon {
+            transform: scale(1.1) rotate(-5deg);
+            box-shadow: 0 12px 28px rgba(224, 122, 95, 0.35);
+        }
+        .insight-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 18px;
+            margin-bottom: 20px;
+        }
+        .insight-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--color-coral), var(--color-primary));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 8px 20px rgba(224, 122, 95, 0.25);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .insight-title {
+            font-size: 19px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+        .insight-from {
+            font-size: 12px;
+            color: var(--color-text-tertiary);
+            font-weight: 500;
+        }
+        .insight-example {
+            background: var(--color-surface);
+            border-radius: 14px;
+            padding: 20px;
+            font-size: 14px;
+            color: var(--color-text-secondary);
+            line-height: 1.7;
+            border-left: 4px solid var(--color-coral);
+        }
+
+        /* ===== FINAL CTA ===== */
+        .final-cta {
+            padding: 120px 0;
+            background: linear-gradient(135deg, var(--color-coral) 0%, #C45A45 100%);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .final-cta::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -25%;
+            width: 80%;
+            height: 200%;
+            background: radial-gradient(ellipse at center, rgba(255,255,255,0.1) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        .final-cta .section-label { color: rgba(255,255,255,0.7); }
+        .final-cta .section-title { color: white; }
+        .final-cta-box {
+            background: rgba(255,255,255,0.12);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 28px;
+            padding: 56px;
+            max-width: 600px;
+            margin: 50px auto 0;
+            border: 1px solid rgba(255,255,255,0.2);
+            position: relative;
+            z-index: 1;
+        }
+        .final-cta .hero-input {
+            background: white;
+            border-color: transparent;
+        }
+        .final-cta .hero-button {
+            background: white;
+            color: var(--color-coral);
+            box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+        }
+        .final-cta .hero-button:hover {
+            background: var(--color-background);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+        }
+        .final-cta .hero-note {
+            color: rgba(255,255,255,0.8);
+            justify-content: center;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: #1a1a1c;
+            color: white;
+            padding: 56px 0;
+        }
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .footer-logo {
+            font-size: 22px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .footer-logo img {
+            width: 32px;
+            height: 32px;
+        }
+        .footer-links { display: flex; gap: 32px; }
+        .footer-links a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .footer-links a:hover { color: white; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            /* On tablet and below, hide fixed hub column and show inline */
+            .page-layout { grid-template-columns: 1fr; }
+            .sunflower-column { display: none; }
+            .sunflower-mobile {
+                display: flex !important;
+                flex-direction: column;
+                align-items: center;
+                padding: 60px 20px;
+                background: linear-gradient(180deg, #FAFAF8 0%, #F0F4F8 100%);
+            }
+            .hero-grid { text-align: center; }
+            .hero-content-wrapper { margin: 0 auto; }
+            .hero-subtitle { margin: 0 auto 40px; }
+            /* Tablet sunflower sizing */
+            .sunflower { width: 280px; height: 280px; }
+            .sunflower-center { width: 64px; height: 64px; }
+            .center-logo { width: 28px; height: 28px; }
+            /* Smaller petals for tablet - radial layout */
+            .petal { width: 48px; height: 85px; }
+            .inner-petal { width: 42px; height: 70px; }
+            .petal-icon svg { width: 20px; height: 20px; }
+            .inner-petal .petal-icon svg { width: 16px; height: 16px; }
+            .petal-label { font-size: 7px; }
+            .inner-petal .petal-label { font-size: 6px; }
+            .petal-content { top: 16px; }
+            .inner-petal .petal-content { top: 12px; }
+            .petal-insight { right: auto; left: 50%; transform: translateX(-50%) translateY(-50%) scale(0.9); }
+            .petal-insight.visible { transform: translateX(-50%) translateY(-50%) scale(1); }
+            .scroll-to-grow, .growth-progress { position: relative; bottom: auto; left: auto; transform: none; margin-top: 30px; }
+            .problem-grid { grid-template-columns: 1fr; }
+            .difference-visual { grid-template-columns: 1fr; }
+            .vs-divider { flex-direction: row; padding: 20px 0; }
+            .vs-line { width: 80px; height: 2px; }
+            .logging-showcase { grid-template-columns: repeat(2, 1fr); }
+            .insights-grid { grid-template-columns: 1fr; }
+            .social-proof-inner { gap: 40px; }
+        }
+        @media (max-width: 640px) {
+            .hero-form { flex-direction: column; }
+            .hero-button { width: 100%; }
+            /* Mobile sunflower sizing */
+            .sunflower { width: 240px; height: 240px; }
+            .sunflower-center { width: 56px; height: 56px; }
+            .center-logo { width: 24px; height: 24px; }
+            /* Smaller petals for mobile - radial layout */
+            .petal { width: 42px; height: 72px; }
+            .inner-petal { width: 36px; height: 58px; }
+            .petal-icon svg { width: 18px; height: 18px; }
+            .inner-petal .petal-icon svg { width: 14px; height: 14px; }
+            .petal-label { font-size: 6px; }
+            .inner-petal .petal-label { font-size: 5px; }
+            .petal-content { top: 12px; gap: 2px; }
+            .inner-petal .petal-content { top: 10px; }
+            .petal-insight { display: none; } /* Hide insight cards on mobile */
+            .scroll-to-grow { padding: 12px 18px; font-size: 12px; }
+            .scroll-arrow { width: 18px; height: 18px; }
+            .growth-progress { padding: 12px 18px; }
+            .growth-bar { width: 100px; }
+            .logging-showcase { grid-template-columns: 1fr; }
+            .mode-features { flex-direction: column; gap: 16px; }
+            .footer-inner { flex-direction: column; gap: 28px; text-align: center; }
+            .footer-links { flex-wrap: wrap; justify-content: center; }
+            .nav-cta { display: none; }
+            .hero-mascot { display: none; }
+            .final-cta-box { padding: 36px 24px; }
+        }
+
+        /* Hide mobile hub on desktop */
+        .sunflower-mobile { display: none; }
+
+        /* ===== TESTIMONIAL SECTION ===== */
+        .testimonial-section {
+            padding: 100px 0;
+            background: white;
+        }
+        .testimonial-card {
+            background: var(--color-background);
+            border-radius: 28px;
+            padding: 48px;
+            max-width: 800px;
+            margin: 50px auto 0;
+            text-align: center;
+            border: 1px solid var(--color-border);
+            position: relative;
+        }
+        .testimonial-quote {
+            font-size: 22px;
+            font-weight: 500;
+            line-height: 1.7;
+            color: var(--color-text-primary);
+            margin-bottom: 32px;
+            font-style: italic;
+        }
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+        }
+        .testimonial-avatar {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--color-coral), var(--color-primary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 20px;
+        }
+        .testimonial-info h4 {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--color-text-primary);
+        }
+        .testimonial-info p {
+            font-size: 14px;
+            color: var(--color-text-secondary);
+        }
+        .testimonial-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--color-coral);
+            color: white;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 6px 16px;
+            border-radius: 100px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* ===== CAPABILITIES SECTION ===== */
+        .capabilities-section {
+            padding: 120px 0;
+            background: var(--color-background);
+        }
+        .capabilities-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-top: 60px;
+        }
+        .capability-card {
+            background: white;
+            border-radius: 20px;
+            padding: 28px;
+            text-align: center;
+            border: 1px solid var(--color-border);
+            transition: all 0.3s;
+        }
+        .capability-card:hover {
+            border-color: var(--color-coral);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+        .capability-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, rgba(232, 131, 107, 0.1), rgba(91, 95, 199, 0.1));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            font-size: 28px;
+        }
+        .capability-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            margin-bottom: 6px;
+        }
+        .capability-desc {
+            font-size: 13px;
+            color: var(--color-text-secondary);
+            line-height: 1.5;
+        }
+        @media (max-width: 1024px) {
+            .capabilities-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 640px) {
+            .capabilities-grid { grid-template-columns: 1fr; }
+        }
+
+        /* ===== COMPARISON TABLE ===== */
+        .comparison-section {
+            padding: 120px 0;
+            background: white;
+        }
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 60px;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+        .comparison-table th,
+        .comparison-table td {
+            padding: 20px 24px;
+            text-align: center;
+            border-bottom: 1px solid var(--color-border);
+        }
+        .comparison-table th {
+            background: var(--color-surface);
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--color-text-primary);
+        }
+        .comparison-table th.satio-col {
+            background: linear-gradient(135deg, var(--color-coral), var(--color-primary));
+            color: white;
+        }
+        .comparison-table td {
+            font-size: 14px;
+            color: var(--color-text-secondary);
+        }
+        .comparison-table td.feature-name {
+            text-align: left;
+            font-weight: 600;
+            color: var(--color-text-primary);
+        }
+        .comparison-table td.satio-col {
+            background: rgba(232, 131, 107, 0.05);
+            color: var(--color-text-primary);
+            font-weight: 600;
+        }
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+        .check-yes {
+            color: var(--color-success);
+            font-size: 20px;
+        }
+        .check-no {
+            color: var(--color-text-tertiary);
+            font-size: 16px;
+        }
+        .check-partial {
+            color: var(--color-warning);
+            font-size: 14px;
+        }
+        @media (max-width: 768px) {
+            .comparison-table {
+                font-size: 12px;
+            }
+            .comparison-table th,
+            .comparison-table td {
+                padding: 12px 8px;
+            }
+        }
+
+        /* ===== FOUNDING MEMBERS SECTION ===== */
+        .founding-section {
+            padding: 120px 0;
+            background: linear-gradient(135deg, #1a1a1c 0%, #2d2d30 100%);
+            color: white;
+        }
+        .founding-section .section-label { color: var(--color-coral); }
+        .founding-section .section-title { color: white; }
+        .founding-section .section-subtitle { color: rgba(255,255,255,0.7); }
+        .founding-tiers {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+            margin-top: 60px;
+        }
+        .founding-tier {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 24px;
+            padding: 36px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        .founding-tier:hover {
+            background: rgba(255,255,255,0.08);
+            border-color: var(--color-coral);
+            transform: translateY(-4px);
+        }
+        .founding-tier.featured {
+            background: linear-gradient(135deg, rgba(232, 131, 107, 0.15), rgba(91, 95, 199, 0.15));
+            border-color: var(--color-coral);
+            position: relative;
+        }
+        .founding-tier.featured::before {
+            content: 'MOST POPULAR';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--color-coral);
+            color: white;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 5px 14px;
+            border-radius: 100px;
+            letter-spacing: 0.05em;
+        }
+        .tier-icon {
+            font-size: 40px;
+            margin-bottom: 16px;
+        }
+        .tier-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .tier-requirement {
+            font-size: 14px;
+            color: var(--color-coral);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        .tier-benefits {
+            text-align: left;
+            font-size: 14px;
+            color: rgba(255,255,255,0.8);
+        }
+        .tier-benefit {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        .tier-benefit-icon {
+            color: var(--color-success);
+            font-size: 14px;
+            margin-top: 2px;
+        }
+        @media (max-width: 1024px) {
+            .founding-tiers { grid-template-columns: 1fr; max-width: 400px; margin: 60px auto 0; }
+        }
+
+        /* ===== HOW IT WORKS ===== */
+        .how-it-works {
+            padding: 120px 0;
+            background: linear-gradient(180deg, white 0%, var(--color-background) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .how-it-works::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(224, 122, 95, 0.05) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .steps-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+            margin-top: 70px;
+            position: relative;
+        }
+        .step {
+            flex: 1;
+            max-width: 260px;
+            text-align: center;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+        .step-number {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--color-coral) 0%, var(--color-primary) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 20px;
+            font-weight: 800;
+            color: white;
+            box-shadow: 0 8px 24px rgba(224, 122, 95, 0.3);
+            position: relative;
+        }
+        .step-number::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            border: 2px dashed rgba(224, 122, 95, 0.3);
+            animation: stepPulse 3s ease-in-out infinite;
+        }
+        @keyframes stepPulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.5; }
+        }
+        .step-icon {
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px);
+            border-radius: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            box-shadow:
+                0 12px 32px -8px rgba(0, 0, 0, 0.1),
+                0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            font-size: 40px;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .step:hover .step-icon {
+            transform: scale(1.1) translateY(-8px);
+            box-shadow:
+                0 20px 40px -8px rgba(224, 122, 95, 0.2),
+                0 0 0 1px rgba(224, 122, 95, 0.2) inset;
+        }
+        .step-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--color-text-primary);
+        }
+        .step-desc {
+            font-size: 14px;
+            color: var(--color-text-secondary);
+            line-height: 1.6;
+        }
+        .step-arrow {
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--color-coral), var(--color-primary));
+            position: relative;
+            flex-shrink: 0;
+            opacity: 0.5;
+        }
+        .step-arrow::after {
+            content: '';
+            position: absolute;
+            right: -2px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: 6px solid transparent;
+            border-left: 8px solid var(--color-primary);
+        }
+        @media (max-width: 900px) {
+            .steps-container {
+                flex-direction: column;
+                gap: 40px;
+            }
+            .step-arrow {
+                width: 2px;
+                height: 40px;
+                background: linear-gradient(180deg, var(--color-coral), var(--color-primary));
+            }
+            .step-arrow::after {
+                right: 50%;
+                top: auto;
+                bottom: -2px;
+                transform: translateX(50%);
+                border: 6px solid transparent;
+                border-top: 8px solid var(--color-primary);
+                border-left: 6px solid transparent;
+            }
+        }
+
+        /* ===== FAQ SECTION ===== */
+        .faq-section {
+            padding: 120px 0;
+            background: var(--color-background);
+        }
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin-top: 60px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .faq-item {
+            background: white;
+            border-radius: 20px;
+            padding: 28px;
+            border: 1px solid var(--color-border);
+            transition: all 0.3s;
+        }
+        .faq-item:hover {
+            border-color: var(--color-coral);
+            box-shadow: var(--shadow-sm);
+        }
+        .faq-question {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        .faq-icon {
+            color: var(--color-coral);
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+        .faq-answer {
+            font-size: 14px;
+            color: var(--color-text-secondary);
+            line-height: 1.7;
+            padding-left: 30px;
+        }
+        @media (max-width: 768px) {
+            .faq-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-inner">
+            <a href="#" class="logo">
+                <span class="logo-icon">
+                    <img src="assets/satio_logo.webp" alt="Satio">
+                </span>
+                Satio
+            </a>
+            <a href="#waitlist" class="nav-cta">Join Waitlist</a>
+        </div>
+    </header>
+
+    <!-- Page Layout with Fixed Sunflower Column -->
+    <div class="page-layout">
+        <!-- Main Content (scrollable left column) -->
+        <div class="main-content">
+            <!-- Hero Section -->
+            <section class="hero" id="waitlist">
+                <div class="hero-grain"></div>
+                <div class="container">
+                    <div class="hero-grid">
+                        <div class="hero-content-wrapper">
+                            <div class="hero-content">
+                                <div class="hero-badge">
+                                    <span class="hero-badge-dot"></span>
+                                    Launching Q2 2026
+                                </div>
+                                <h1 class="hero-title">
+                                    The only app that <span class="hero-title-gradient">connects everything</span> about you
+                                </h1>
+                                <p class="hero-subtitle">
+                                    Food. Mood. Sleep. Health. Exercise. Habits. One intelligent system that understands the <em>why</em> behind your choices—and grows smarter with every interaction.
+                                </p>
+                                <form class="hero-form" id="waitlist-form">
+                                    <input type="email" class="hero-input" placeholder="Enter your email" required>
+                                    <button type="submit" class="hero-button">Join the Waitlist</button>
+                                </form>
+                                <p class="hero-note">
+                                    <span class="hero-note-icon">&#10003;</span>
+                                    Limited founding member spots. Free forever plan available.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Mobile Hub Visualization (only shown on tablet/mobile) -->
+            <div class="sunflower-mobile">
+                <div class="sunflower-wrapper">
+                    <div class="sunflower" id="sunflower-mobile">
+                        <!-- Outer Nodes -->
+                        <div class="petal petal-1 grown" data-petal="food">
+                            <div class="petal-shape"></div>
+                            <div class="petal-content">
+                                <span class="petal-icon">
+                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8zM6 1v3M10 1v3M14 1v3" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </span>
+                                <span class="petal-label">Food</span>
+                            </div>
+                        </div>
+                        <div class="petal petal-2 grown" data-petal="mood">
+                            <div class="petal-shape"></div>
+                            <div class="petal-content">
+                                <span class="petal-icon">
+                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="12" cy="12" r="10"/>
+                                        <path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </span>
+                                <span class="petal-label">Mood</span>
+                            </div>
+                        </div>
+                        <div class="petal petal-3 grown" data-petal="sleep">
+                            <div class="petal-shape"></div>
+                            <div class="petal-content">
+                                <span class="petal-icon">
+                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </span>
+                                <span class="petal-label">Sleep</span>
+                            </div>
+                        </div>
+                        <div class="petal petal-4 grown" data-petal="health">
+                            <div class="petal-shape"></div>
+                            <div class="petal-content">
+                                <span class="petal-icon">
+                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </span>
+                                <span class="petal-label">Health</span>
+                            </div>
+                        </div>
+                        <div class="petal petal-5 grown" data-petal="exercise">
+                            <div class="petal-shape"></div>
+                            <div class="petal-content">
+                                <span class="petal-icon">
+                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M22 12h-4l-3 9L9 3l-3 9H2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </span>
+                                <span class="petal-label">Exercise</span>
+                            </div>
+                        </div>
+                        <div class="petal petal-6 grown" data-petal="habits">
+                            <div class="petal-shape"></div>
+                            <div class="petal-content">
+                                <span class="petal-icon">
+                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <polyline points="23 4 23 10 17 10" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <polyline points="1 20 1 14 7 14" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </span>
+                                <span class="petal-label">Habits</span>
+                            </div>
+                        </div>
+                        <!-- Inner Nodes -->
+                        <div class="petal petal-7 inner-petal grown" data-petal="energy">
+                            <div class="petal-shape"></div>
+                            <div class="petal-content">
+                                <span class="petal-icon">
+                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </span>
+                                <span class="petal-label">Energy</span>
+                            </div>
+                        </div>
+                        <div class="petal petal-8 inner-petal grown" data-petal="stress">
+                            <div class="petal-shape"></div>
+                            <div class="petal-content">
+                                <span class="petal-icon">
+                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M12 2a10 10 0 1 0 10 10H12V2z" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M12 2a10 10 0 0 1 10 10" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <circle cx="12" cy="12" r="3"/>
+                                    </svg>
+                                </span>
+                                <span class="petal-label">Stress</span>
+                            </div>
+                        </div>
+                        <div class="petal petal-9 inner-petal grown" data-petal="water">
+                            <div class="petal-shape"></div>
+                            <div class="petal-content">
+                                <span class="petal-icon">
+                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </span>
+                                <span class="petal-label">Water</span>
+                            </div>
+                        </div>
+                        <div class="petal petal-10 inner-petal grown" data-petal="weight">
+                            <div class="petal-shape"></div>
+                            <div class="petal-content">
+                                <span class="petal-icon">
+                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M21 3H3v18h18V3z" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <line x1="12" y1="3" x2="12" y2="9" stroke-linecap="round"/>
+                                    </svg>
+                                </span>
+                                <span class="petal-label">Weight</span>
+                            </div>
+                        </div>
+                        <div class="petal petal-11 inner-petal grown" data-petal="goals">
+                            <div class="petal-shape"></div>
+                            <div class="petal-content">
+                                <span class="petal-icon">
+                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="12" cy="12" r="10"/>
+                                        <circle cx="12" cy="12" r="6"/>
+                                        <circle cx="12" cy="12" r="2"/>
+                                    </svg>
+                                </span>
+                                <span class="petal-label">Goals</span>
+                            </div>
+                        </div>
+                        <div class="petal petal-12 inner-petal grown" data-petal="insights">
+                            <div class="petal-shape"></div>
+                            <div class="petal-content">
+                                <span class="petal-icon">
+                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <line x1="9" y1="18" x2="15" y2="18" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <line x1="10" y1="22" x2="14" y2="22" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </span>
+                                <span class="petal-label">Insights</span>
+                            </div>
+                        </div>
+                        <!-- Center - Glowing Indigo Orb -->
+                        <div class="sunflower-center">
+                            <div class="center-inner">
+                                <img src="assets/satio_logo.webp" alt="Satio AI" class="center-logo" style="opacity: 1; transform: scale(1);">
+                            </div>
+                            <div class="center-glow" style="opacity: 1;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Social Proof -->
+            <section class="social-proof">
+        <div class="container">
+            <div class="social-proof-inner">
+                <div class="social-proof-item">
+                    <div class="social-proof-number">Limited</div>
+                    <div class="social-proof-label">Founding member spots</div>
+                </div>
+                <div class="social-proof-item">
+                    <div class="social-proof-number">8</div>
+                    <div class="social-proof-label">Data sources connected</div>
+                </div>
+                <div class="social-proof-item">
+                    <div class="social-proof-number">4</div>
+                    <div class="social-proof-label">Tracking modes</div>
+                </div>
+                <div class="social-proof-item">
+                    <div class="social-proof-number">100%</div>
+                    <div class="social-proof-label">Privacy-first</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+            <!-- Beta Tester Testimonial -->
+            <section class="testimonial-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Early Feedback</div>
+                <h2 class="section-title">What our beta testers are saying</h2>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-badge">Beta Tester</div>
+                <p class="testimonial-quote">
+                    "I've tried every nutrition app out there—MyFitnessPal, Noom, Lose It. They all made me feel like I was failing. Satio is the first app that actually understood why I was stress eating and helped me break the pattern instead of just counting the calories."
+                </p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">SK</div>
+                    <div class="testimonial-info">
+                        <h4>Sarah K.</h4>
+                        <p>Beta Tester, Los Angeles</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">How It Works</div>
+                <h2 class="section-title">From snapshot to insight in seconds</h2>
+                <p class="section-subtitle">The simplest way to understand your nutrition—powered by AI that learns you.</p>
+            </div>
+            <div class="steps-container">
+                <div class="step">
+                    <div class="step-icon">📸</div>
+                    <div class="step-number">1</div>
+                    <h3 class="step-title">Snap Your Meal</h3>
+                    <p class="step-desc">Take a photo of your food. That's it. No searching databases or scanning barcodes.</p>
+                </div>
+                <div class="step-arrow"></div>
+                <div class="step">
+                    <div class="step-icon">🧠</div>
+                    <div class="step-number">2</div>
+                    <h3 class="step-title">AI Analyzes</h3>
+                    <p class="step-desc">Our AI identifies your meal, estimates nutrition, and connects it to your patterns.</p>
+                </div>
+                <div class="step-arrow"></div>
+                <div class="step">
+                    <div class="step-icon">🔗</div>
+                    <div class="step-number">3</div>
+                    <h3 class="step-title">Connects Everything</h3>
+                    <p class="step-desc">Links your food to sleep, mood, exercise, and cycle data for the full picture.</p>
+                </div>
+                <div class="step-arrow"></div>
+                <div class="step">
+                    <div class="step-icon">💡</div>
+                    <div class="step-number">4</div>
+                    <h3 class="step-title">Get Real Insights</h3>
+                    <p class="step-desc">Receive personalized insights that explain the "why" and help you improve.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="problem-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">The Problem</div>
+                <h2 class="section-title">Other apps only see fragments of you</h2>
+                <p class="section-subtitle">They track calories. But they miss the why behind your choices.</p>
+            </div>
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <div class="problem-icon">
+                        <svg width="28" height="28" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="4" y="4" width="14" height="14" rx="3" stroke="#9B9B9B" stroke-width="2.5"/>
+                            <rect x="22" y="4" width="14" height="14" rx="3" stroke="#9B9B9B" stroke-width="2.5"/>
+                            <rect x="4" y="22" width="14" height="14" rx="3" stroke="#9B9B9B" stroke-width="2.5"/>
+                            <rect x="22" y="22" width="14" height="14" rx="3" stroke="#9B9B9B" stroke-width="2.5" stroke-dasharray="4 3"/>
+                        </svg>
+                    </div>
+                    <h3 class="problem-title">Siloed Data</h3>
+                    <p class="problem-text">Your food app doesn't know about your sleep. Your fitness app doesn't know about your stress. Nothing connects.</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon">
+                        <svg width="28" height="28" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="6" y="10" width="28" height="20" rx="4" stroke="#9B9B9B" stroke-width="2.5"/>
+                            <text x="11" y="25" font-family="Inter, sans-serif" font-size="11" font-weight="700" fill="#9B9B9B">2,100</text>
+                        </svg>
+                    </div>
+                    <h3 class="problem-title">Just Numbers</h3>
+                    <p class="problem-text">"You ate 2,100 calories." Okay, but why? Was it stress? Poor sleep? Your cycle? They can't tell you.</p>
+                </div>
+                <div class="problem-card solution">
+                    <div class="problem-icon">
+                        <svg width="28" height="28" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="20" cy="20" r="12" stroke="white" stroke-width="2.5"/>
+                            <path d="M12 20C12 20 15 15 20 15C25 15 28 20 28 20C28 20 25 25 20 25C15 25 12 20 12 20Z" stroke="white" stroke-width="2"/>
+                            <circle cx="20" cy="20" r="3.5" fill="white"/>
+                        </svg>
+                    </div>
+                    <h3 class="problem-title">Satio Connects It All</h3>
+                    <p class="problem-text">"You tend to crave carbs after poor sleep during your luteal phase. Here's what helped before."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Difference Section -->
+    <section class="difference-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">The Difference</div>
+                <h2 class="section-title">From data silos to connected intelligence</h2>
+            </div>
+            <div class="difference-visual">
+                <div class="other-apps">
+                    <div class="app-label">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="5" y="2" width="14" height="20" rx="3" stroke="#9B9B9B" stroke-width="1.5"/>
+                            <path d="M9 5H15" stroke="#9B9B9B" stroke-width="1.5" stroke-linecap="round"/>
+                            <circle cx="12" cy="18" r="1" fill="#9B9B9B"/>
+                        </svg>
+                        Other Apps
+                    </div>
+                    <div class="data-silo">
+                        <div class="silo-item">
+                            <span class="silo-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M18 8C18 5 15.5 3 12 3C8.5 3 6 5 6 8C6 11 8 12 8 12H16C16 12 18 11 18 8Z" stroke="#9B9B9B" stroke-width="1.5"/><path d="M6 15H18M7 18H17" stroke="#9B9B9B" stroke-width="1.5" stroke-linecap="round"/></svg>
+                            </span>
+                            <span>You ate 500 cal over goal</span>
+                            <span class="silo-arrow">&#8594;</span>
+                            <span class="silo-result">"Try harder"</span>
+                        </div>
+                        <div class="silo-item">
+                            <span class="silo-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M20 12C20 16.4183 16.4183 20 12 20C7.58172 20 4 16.4183 4 12C4 7.58172 7.58172 4 12 4" stroke="#9B9B9B" stroke-width="1.5" stroke-linecap="round"/><path d="M8 15L9 14L10 15L11 14" stroke="#9B9B9B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </span>
+                            <span>4 hours sleep</span>
+                            <span class="silo-arrow">&#8594;</span>
+                            <span class="silo-result">(ignored)</span>
+                        </div>
+                        <div class="silo-item">
+                            <span class="silo-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#9B9B9B" stroke-width="1.5"/><path d="M8 15C8 15 9 13 12 13C15 13 16 15 16 15" stroke="#9B9B9B" stroke-width="1.5" stroke-linecap="round"/><circle cx="9" cy="10" r="1" fill="#9B9B9B"/><circle cx="15" cy="10" r="1" fill="#9B9B9B"/></svg>
+                            </span>
+                            <span>Stressful day</span>
+                            <span class="silo-arrow">&#8594;</span>
+                            <span class="silo-result">(ignored)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="vs-divider">
+                    <div class="vs-line"></div>
+                    <div class="vs-text">VS</div>
+                    <div class="vs-line"></div>
+                </div>
+
+                <div class="satio-app">
+                    <div class="app-label">
+                        <img src="assets/satio_logo.webp" alt="Satio" style="width: 20px; height: 20px;">
+                        Satio
+                    </div>
+                    <div class="connected-data">
+                        <div class="insight-card">
+                            <div class="insight-sources">
+                                <span class="source-tag">Sleep</span>
+                                <span class="source-tag">Cycle</span>
+                                <span class="source-tag">Food</span>
+                            </div>
+                            <p class="insight-text">"After poor sleep in your luteal phase, you crave carbs 73% of the time. That's normal - your body needs +150 cal during this phase."</p>
+                        </div>
+                        <div class="insight-card">
+                            <div class="insight-sources">
+                                <span class="source-tag">Triggers</span>
+                                <span class="source-tag">History</span>
+                            </div>
+                            <p class="insight-text">"When stressed, Greek yogurt with berries helped you feel satisfied. Want me to suggest that?"</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Logging Methods -->
+    <section class="logging-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Log Your Way</div>
+                <h2 class="section-title">Four ways to log in seconds</h2>
+                <p class="section-subtitle">No barcode scanning. No database searching. Just tell Satio what you ate.</p>
+            </div>
+            <div class="logging-showcase">
+                <div class="logging-card active" data-method="photo">
+                    <div class="logging-icon">
+                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="12" cy="12" r="3.2" fill="white"/>
+                            <path d="M9 2L7.17 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6C22 4.9 21.1 4 20 4H16.83L15 2H9ZM12 17C9.24 17 7 14.76 7 12C7 9.24 9.24 7 12 7C14.76 7 17 9.24 17 12C17 14.76 14.76 17 12 17Z" fill="white"/>
+                        </svg>
+                    </div>
+                    <h3 class="logging-title">Snap a Photo</h3>
+                    <p class="logging-desc">Take a picture. AI identifies everything instantly.</p>
+                    <div class="logging-example">"Salmon with quinoa - ~520 cal"</div>
+                </div>
+                <div class="logging-card" data-method="voice">
+                    <div class="logging-icon">
+                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 14C13.66 14 15 12.66 15 11V5C15 3.34 13.66 2 12 2C10.34 2 9 3.34 9 5V11C9 12.66 10.34 14 12 14Z" fill="white"/>
+                            <path d="M17 11C17 13.76 14.76 16 12 16C9.24 16 7 13.76 7 11H5C5 14.53 7.61 17.43 11 17.92V21H13V17.92C16.39 17.43 19 14.53 19 11H17Z" fill="white"/>
+                        </svg>
+                    </div>
+                    <h3 class="logging-title">Just Say It</h3>
+                    <p class="logging-desc">Tell Siri or Google what you ate. Done.</p>
+                    <div class="logging-example">"Hey Siri, log my lunch"</div>
+                </div>
+                <div class="logging-card" data-method="receipt">
+                    <div class="logging-icon">
+                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 4V20C4 20 5 19 6 19C7 19 8 20 8 20C8 20 9 19 10 19C11 19 12 20 12 20C12 20 13 19 14 19C15 19 16 20 16 20C16 20 17 19 18 19C19 19 20 20 20 20V4C20 4 19 5 18 5C17 5 16 4 16 4C16 4 15 5 14 5C13 5 12 4 12 4C12 4 11 5 10 5C9 5 8 4 8 4C8 4 7 5 6 5C5 5 4 4 4 4Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                            <path d="M8 9H16M8 12H14M8 15H12" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="logging-title">Scan Receipt</h3>
+                    <p class="logging-desc">Grocery shopping? Scan to update pantry.</p>
+                    <div class="logging-example">12 items added to pantry</div>
+                </div>
+                <div class="logging-card" data-method="pantry">
+                    <div class="logging-icon">
+                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="3" y="4" width="18" height="16" rx="2" stroke="white" stroke-width="1.5" fill="none"/>
+                            <path d="M3 9H21" stroke="white" stroke-width="1.5"/>
+                            <path d="M3 14H21" stroke="white" stroke-width="1.5"/>
+                            <path d="M8 6V7M8 11V12M8 16V17" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                            <path d="M12 6V7M12 11V12M12 16V17" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="logging-title">Log from Pantry</h3>
+                    <p class="logging-desc">Tap what you used. Auto-updates.</p>
+                    <div class="logging-example">2 eggs, cheese, spinach</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- All Capabilities Section -->
+    <section class="capabilities-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Everything You Need</div>
+                <h2 class="section-title">All the features you'd expect—and more</h2>
+                <p class="section-subtitle">We built the nutrition app of the future. Every feature you love from other apps, plus intelligence that understands the why behind your choices.</p>
+            </div>
+            <div class="capabilities-grid">
+                <div class="capability-card">
+                    <div class="capability-icon">📸</div>
+                    <div class="capability-title">Photo Logging</div>
+                    <div class="capability-desc">Snap a photo, get instant AI analysis</div>
+                </div>
+                <div class="capability-card">
+                    <div class="capability-icon">📊</div>
+                    <div class="capability-title">Barcode Scanning</div>
+                    <div class="capability-desc">Scan any product for instant nutrition info</div>
+                </div>
+                <div class="capability-card">
+                    <div class="capability-icon">🍳</div>
+                    <div class="capability-title">Recipe Database</div>
+                    <div class="capability-desc">Thousands of recipes with full nutrition data</div>
+                </div>
+                <div class="capability-card">
+                    <div class="capability-icon">⌚</div>
+                    <div class="capability-title">Fitness Trackers</div>
+                    <div class="capability-desc">Connect Fitbit, Garmin, Apple Watch & more</div>
+                </div>
+                <div class="capability-card">
+                    <div class="capability-icon">🏋️</div>
+                    <div class="capability-title">Workout Tracking</div>
+                    <div class="capability-desc">Log gym sessions, strength training, cardio</div>
+                </div>
+                <div class="capability-card">
+                    <div class="capability-icon">🥗</div>
+                    <div class="capability-title">Meal Planning</div>
+                    <div class="capability-desc">AI-powered meal suggestions based on your pantry</div>
+                </div>
+                <div class="capability-card">
+                    <div class="capability-icon">🧠</div>
+                    <div class="capability-title">Pattern Recognition</div>
+                    <div class="capability-desc">Diagnoses the why behind your habits</div>
+                </div>
+                <div class="capability-card">
+                    <div class="capability-icon">📈</div>
+                    <div class="capability-title">Adaptive Coaching</div>
+                    <div class="capability-desc">Gets smarter with every interaction</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Table -->
+    <section class="comparison-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Why Satio</div>
+                <h2 class="section-title">How we compare</h2>
+                <p class="section-subtitle">We're not just another calorie counter. Here's what makes Satio different.</p>
+            </div>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th class="satio-col">Satio</th>
+                        <th>MyFitnessPal</th>
+                        <th>Noom</th>
+                        <th>Lose It</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="feature-name">Photo-first AI logging</td>
+                        <td class="satio-col"><span class="check-yes">&#10003;</span></td>
+                        <td><span class="check-no">&#10007;</span></td>
+                        <td><span class="check-no">&#10007;</span></td>
+                        <td><span class="check-partial">Limited</span></td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Multiple tracking modes</td>
+                        <td class="satio-col"><span class="check-yes">&#10003;</span> 4 modes</td>
+                        <td><span class="check-no">&#10007;</span></td>
+                        <td><span class="check-no">&#10007;</span></td>
+                        <td><span class="check-no">&#10007;</span></td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Connects food + mood + sleep</td>
+                        <td class="satio-col"><span class="check-yes">&#10003;</span></td>
+                        <td><span class="check-no">&#10007;</span></td>
+                        <td><span class="check-partial">Limited</span></td>
+                        <td><span class="check-no">&#10007;</span></td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Diagnoses the "why"</td>
+                        <td class="satio-col"><span class="check-yes">&#10003;</span></td>
+                        <td><span class="check-no">&#10007;</span></td>
+                        <td><span class="check-no">&#10007;</span></td>
+                        <td><span class="check-no">&#10007;</span></td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Non-judgmental coaching</td>
+                        <td class="satio-col"><span class="check-yes">&#10003;</span></td>
+                        <td><span class="check-no">&#10007;</span></td>
+                        <td><span class="check-partial">Varies</span></td>
+                        <td><span class="check-no">&#10007;</span></td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Barcode scanning</td>
+                        <td class="satio-col"><span class="check-yes">&#10003;</span></td>
+                        <td><span class="check-yes">&#10003;</span></td>
+                        <td><span class="check-yes">&#10003;</span></td>
+                        <td><span class="check-yes">&#10003;</span></td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Fitness tracker sync</td>
+                        <td class="satio-col"><span class="check-yes">&#10003;</span></td>
+                        <td><span class="check-yes">&#10003;</span></td>
+                        <td><span class="check-partial">Limited</span></td>
+                        <td><span class="check-yes">&#10003;</span></td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Recipe suggestions</td>
+                        <td class="satio-col"><span class="check-yes">&#10003;</span> AI-powered</td>
+                        <td><span class="check-partial">Premium</span></td>
+                        <td><span class="check-yes">&#10003;</span></td>
+                        <td><span class="check-partial">Premium</span></td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Learns your patterns</td>
+                        <td class="satio-col"><span class="check-yes">&#10003;</span></td>
+                        <td><span class="check-no">&#10007;</span></td>
+                        <td><span class="check-no">&#10007;</span></td>
+                        <td><span class="check-no">&#10007;</span></td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Free tier</td>
+                        <td class="satio-col"><span class="check-yes">&#10003;</span> Forever</td>
+                        <td><span class="check-yes">&#10003;</span></td>
+                        <td><span class="check-no">$32-59/mo</span></td>
+                        <td><span class="check-yes">&#10003;</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Modes Section -->
+    <section class="modes-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Your Comfort Level</div>
+                <h2 class="section-title">Choose how much you want to see</h2>
+                <p class="section-subtitle">Everyone has a different relationship with food data. We respect that.</p>
+            </div>
+            <div class="modes-tabs">
+                <button class="mode-tab active" data-mode="standard">Standard</button>
+                <button class="mode-tab" data-mode="casual">Casual</button>
+                <button class="mode-tab" data-mode="mindful">Mindful</button>
+                <button class="mode-tab" data-mode="maintenance">Maintenance</button>
+            </div>
+            <div class="mode-content active" data-mode="standard">
+                <div class="mode-phone">
+                    <div class="mode-screen">
+                        <div class="mode-notch"></div>
+                        <div class="mode-ui" style="padding-top: 56px;">
+                            <div style="text-align: left; padding: 20px;">
+                                <div style="font-size: 13px; color: var(--color-text-secondary); margin-bottom: 4px;">Today's Progress</div>
+                                <div style="font-size: 36px; font-weight: 800; margin: 8px 0; color: var(--color-text-primary);">1,650 cal</div>
+                                <div style="height: 10px; background: var(--color-border); border-radius: 5px; overflow: hidden; margin-bottom: 24px;">
+                                    <div style="width: 75%; height: 100%; background: linear-gradient(90deg, var(--color-coral), var(--color-primary)); border-radius: 5px;"></div>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; font-size: 13px;">
+                                    <div style="text-align: center;"><strong style="color: var(--color-coral);">Protein</strong><br><span style="color: var(--color-text-secondary);">95g / 120g</span></div>
+                                    <div style="text-align: center;"><strong style="color: var(--color-primary);">Carbs</strong><br><span style="color: var(--color-text-secondary);">180g / 200g</span></div>
+                                    <div style="text-align: center;"><strong style="color: var(--color-tertiary);">Fat</strong><br><span style="color: var(--color-text-secondary);">55g / 65g</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p class="mode-description">Full calorie and macro tracking. See your numbers, hit your targets.</p>
+                <div class="mode-features">
+                    <div class="mode-feature"><span class="mode-feature-check">&#10003;</span> Calorie tracking</div>
+                    <div class="mode-feature"><span class="mode-feature-check">&#10003;</span> Macro breakdown</div>
+                    <div class="mode-feature"><span class="mode-feature-check">&#10003;</span> Progress charts</div>
+                </div>
+            </div>
+            <div class="mode-content" data-mode="casual">
+                <div class="mode-phone">
+                    <div class="mode-screen">
+                        <div class="mode-notch"></div>
+                        <div class="mode-ui" style="padding-top: 56px;">
+                            <div style="text-align: left; padding: 20px;">
+                                <div style="font-size: 13px; color: var(--color-text-secondary);">Today's Meals</div>
+                                <div style="font-size: 28px; font-weight: 700; margin: 16px 0; color: var(--color-text-primary);">Looking good!</div>
+                                <div style="background: white; border-radius: 16px; padding: 20px; margin-top: 16px; box-shadow: var(--shadow-sm);">
+                                    <div style="font-size: 15px; font-weight: 600; color: var(--color-text-primary);">Breakfast</div>
+                                    <div style="font-size: 14px; color: var(--color-text-secondary); margin-top: 4px;">Oatmeal with berries</div>
+                                    <div style="font-size: 13px; color: var(--color-coral); margin-top: 8px; font-weight: 600;">~350 cal</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p class="mode-description">Simplified view with rounded numbers. Less data, less stress.</p>
+                <div class="mode-features">
+                    <div class="mode-feature"><span class="mode-feature-check">&#10003;</span> Rounded calories</div>
+                    <div class="mode-feature"><span class="mode-feature-check">&#10003;</span> Simple feedback</div>
+                    <div class="mode-feature"><span class="mode-feature-check">&#10003;</span> No macro bars</div>
+                </div>
+            </div>
+            <div class="mode-content" data-mode="mindful">
+                <div class="mode-phone">
+                    <div class="mode-screen">
+                        <div class="mode-notch"></div>
+                        <div class="mode-ui" style="padding-top: 56px;">
+                            <div style="text-align: left; padding: 20px;">
+                                <div style="font-size: 13px; color: var(--color-text-secondary);">How are you feeling?</div>
+                                <div style="font-size: 26px; font-weight: 700; margin: 16px 0; color: var(--color-tertiary);">Nourished & satisfied</div>
+                                <div style="background: white; border-radius: 16px; padding: 20px; margin-top: 16px; box-shadow: var(--shadow-sm);">
+                                    <div style="font-size: 15px; font-weight: 600; color: var(--color-text-primary);">Lunch</div>
+                                    <div style="font-size: 14px; color: var(--color-text-secondary); margin-top: 8px; line-height: 1.6;">
+                                        Hunger before: Moderate<br>
+                                        Hunger after: Satisfied<br>
+                                        Energy: Good
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p class="mode-description">Zero numbers. Focus on hunger, fullness, and how food makes you feel.</p>
+                <div class="mode-features">
+                    <div class="mode-feature"><span class="mode-feature-check">&#10003;</span> No calories shown</div>
+                    <div class="mode-feature"><span class="mode-feature-check">&#10003;</span> Hunger tracking</div>
+                    <div class="mode-feature"><span class="mode-feature-check">&#10003;</span> Feeling-based</div>
+                </div>
+            </div>
+            <div class="mode-content" data-mode="maintenance">
+                <div class="mode-phone">
+                    <div class="mode-screen">
+                        <div class="mode-notch"></div>
+                        <div class="mode-ui" style="padding-top: 56px;">
+                            <div style="text-align: left; padding: 20px;">
+                                <div style="font-size: 13px; color: var(--color-text-secondary);">Maintenance Mode</div>
+                                <div style="font-size: 24px; font-weight: 700; margin: 12px 0; color: var(--color-success);">You're on track!</div>
+                                <div style="background: white; border-radius: 16px; padding: 16px; margin-top: 16px; box-shadow: var(--shadow-sm);">
+                                    <div style="font-size: 14px; font-weight: 600; color: var(--color-text-primary); margin-bottom: 8px;">Weight Stability</div>
+                                    <div style="display: flex; align-items: center; gap: 10px;">
+                                        <div style="flex: 1; height: 8px; background: var(--color-border); border-radius: 4px; overflow: hidden;">
+                                            <div style="width: 50%; height: 100%; background: var(--color-success); border-radius: 4px;"></div>
+                                        </div>
+                                        <span style="font-size: 12px; color: var(--color-success); font-weight: 600;">Stable</span>
+                                    </div>
+                                    <div style="font-size: 12px; color: var(--color-text-tertiary); margin-top: 8px;">±0.5kg over 4 weeks</div>
+                                </div>
+                                <div style="background: white; border-radius: 16px; padding: 16px; margin-top: 12px; box-shadow: var(--shadow-sm);">
+                                    <div style="font-size: 14px; font-weight: 600; color: var(--color-text-primary); margin-bottom: 4px;">Weekly Check-in</div>
+                                    <div style="font-size: 13px; color: var(--color-text-secondary);">Eating intuitively while staying aware</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p class="mode-description">Hit your goal? Maintain it effortlessly. Light tracking to keep you stable.</p>
+                <div class="mode-features">
+                    <div class="mode-feature"><span class="mode-feature-check">&#10003;</span> Weight stability focus</div>
+                    <div class="mode-feature"><span class="mode-feature-check">&#10003;</span> Weekly check-ins</div>
+                    <div class="mode-feature"><span class="mode-feature-check">&#10003;</span> Intuitive eating</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Goals Progress Section -->
+    <section class="goals-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Track Your Progress</div>
+                <h2 class="section-title">See how far you've come</h2>
+                <p class="section-subtitle">Beautiful progress tracking that motivates without guilt.</p>
+            </div>
+            <div class="goals-showcase">
+                <div class="goals-phone">
+                    <div class="goals-screen">
+                        <div class="goals-notch"></div>
+                        <div class="goals-ui">
+                            <div class="goals-header">
+                                <span class="goals-header-title">Goals Progress</span>
+                                <svg class="goals-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                                </svg>
+                            </div>
+
+                            <!-- Weekly Overview Card -->
+                            <div class="goals-progress-card">
+                                <div class="goals-progress-title">This Week's Progress</div>
+                                <div class="circular-progress">
+                                    <svg width="120" height="120" viewBox="0 0 120 120">
+                                        <defs>
+                                            <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                                <stop offset="0%" style="stop-color:#E8836B"/>
+                                                <stop offset="100%" style="stop-color:#5B5FC7"/>
+                                            </linearGradient>
+                                        </defs>
+                                        <circle class="circular-progress-bg" cx="60" cy="60" r="50"/>
+                                        <circle class="circular-progress-fill" cx="60" cy="60" r="50"/>
+                                    </svg>
+                                    <div class="circular-progress-text">
+                                        <div class="circular-progress-percent">78%</div>
+                                        <div class="circular-progress-label">Goals on Track</div>
+                                    </div>
+                                </div>
+                                <div class="goals-met-text">5 of 6 daily goals met today</div>
+                                <div class="goals-met-bar">
+                                    <div class="goals-met-bar-fill"></div>
+                                </div>
+                            </div>
+
+                            <!-- Daily Goals -->
+                            <div class="goals-section-label">Daily Goals</div>
+
+                            <div class="goal-row">
+                                <div class="goal-row-header">
+                                    <div class="goal-row-left">
+                                        <div class="goal-row-icon calories">🔥</div>
+                                        <span class="goal-row-name">Calories</span>
+                                    </div>
+                                    <span class="goal-row-percent">92%</span>
+                                </div>
+                                <div class="goal-row-values">1,650 / 1,800 kcal</div>
+                                <div class="goal-row-bar">
+                                    <div class="goal-row-bar-fill calories" style="width: 92%"></div>
+                                </div>
+                                <div class="goal-row-hint">150 under target · Great job!</div>
+                            </div>
+
+                            <div class="goal-row">
+                                <div class="goal-row-header">
+                                    <div class="goal-row-left">
+                                        <div class="goal-row-icon protein">🥩</div>
+                                        <span class="goal-row-name">Protein</span>
+                                    </div>
+                                    <span class="goal-row-percent">79%</span>
+                                </div>
+                                <div class="goal-row-values">95 / 120g</div>
+                                <div class="goal-row-bar">
+                                    <div class="goal-row-bar-fill protein" style="width: 79%"></div>
+                                </div>
+                                <div class="goal-row-hint warning">25g remaining · Add a snack</div>
+                            </div>
+
+                            <div class="goal-row">
+                                <div class="goal-row-header">
+                                    <div class="goal-row-left">
+                                        <div class="goal-row-icon carbs">🍞</div>
+                                        <span class="goal-row-name">Carbs</span>
+                                    </div>
+                                    <span class="goal-row-percent">90%</span>
+                                </div>
+                                <div class="goal-row-values">180 / 200g</div>
+                                <div class="goal-row-bar">
+                                    <div class="goal-row-bar-fill carbs" style="width: 90%"></div>
+                                </div>
+                                <div class="goal-row-hint">On track!</div>
+                            </div>
+
+                            <div class="goal-row">
+                                <div class="goal-row-header">
+                                    <div class="goal-row-left">
+                                        <div class="goal-row-icon fat">🥑</div>
+                                        <span class="goal-row-name">Fat</span>
+                                    </div>
+                                    <span class="goal-row-percent">92%</span>
+                                </div>
+                                <div class="goal-row-values">55 / 60g</div>
+                                <div class="goal-row-bar">
+                                    <div class="goal-row-bar-fill fat" style="width: 92%"></div>
+                                </div>
+                                <div class="goal-row-hint">On track!</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="goals-content">
+                    <h3>Progress that feels good to track</h3>
+                    <p>
+                        No red warnings. No guilt trips. Just beautiful, encouraging progress visualization
+                        that shows how your daily choices add up to real results.
+                    </p>
+                    <div class="goals-features">
+                        <div class="goals-feature">
+                            <div class="goals-feature-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
+                                </svg>
+                            </div>
+                            <div class="goals-feature-text">
+                                <h4>Weekly Overview</h4>
+                                <p>See your overall progress at a glance with beautiful circular charts.</p>
+                            </div>
+                        </div>
+                        <div class="goals-feature">
+                            <div class="goals-feature-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                                    <path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/>
+                                </svg>
+                            </div>
+                            <div class="goals-feature-text">
+                                <h4>Macro Tracking</h4>
+                                <p>Track protein, carbs, and fat with encouraging hints—not guilt trips.</p>
+                            </div>
+                        </div>
+                        <div class="goals-feature">
+                            <div class="goals-feature-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.01l-3-3"/>
+                                </svg>
+                            </div>
+                            <div class="goals-feature-text">
+                                <h4>Celebrate Wins</h4>
+                                <p>Positive reinforcement when you hit your goals. No shame when you don't.</p>
+                            </div>
+                        </div>
+                        <div class="goals-feature">
+                            <div class="goals-feature-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                                    <path d="M3 3v18h18"/><path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/>
+                                </svg>
+                            </div>
+                            <div class="goals-feature-text">
+                                <h4>7-Day Trends</h4>
+                                <p>Watch your progress over time. Small daily wins become big results.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Unique Insights Section -->
+    <section class="insights-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Only with Satio</div>
+                <h2 class="section-title">Insights no other app can give you</h2>
+                <p class="section-subtitle">Because no other app sees the full picture.</p>
+            </div>
+            <div class="insights-grid">
+                <div class="unique-insight">
+                    <div class="insight-header">
+                        <div class="insight-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="12" cy="10" r="7" stroke="white" stroke-width="1.5"/>
+                                <path d="M6 19H18" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                                <path d="M8 21H16" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                                <path d="M9 8L11 10L9 12" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M15 8L13 10L15 12" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="insight-title">Predict Your Cravings</h3>
+                            <p class="insight-from">From: Sleep + Cycle + History</p>
+                        </div>
+                    </div>
+                    <div class="insight-example">
+                        "Based on your sleep last night and where you are in your cycle, you're 78% likely to have carb cravings around 4pm. Here's a satisfying snack that helped you before."
+                    </div>
+                </div>
+                <div class="unique-insight">
+                    <div class="insight-header">
+                        <div class="insight-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 3L4 7V12C4 16.5 7.5 20.5 12 21.5C16.5 20.5 20 16.5 20 12V7L12 3Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M9 12L11 14L15 10" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="insight-title">Break Your Patterns</h3>
+                            <p class="insight-from">From: Triggers + Meals + Time</p>
+                        </div>
+                    </div>
+                    <div class="insight-example">
+                        "Friday evenings after work are your highest-risk time for stress eating. Last week, going for a walk first helped. Want a reminder at 5:30pm?"
+                    </div>
+                </div>
+                <div class="unique-insight">
+                    <div class="insight-header">
+                        <div class="insight-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M13 3L4 14H11L10 21L20 10H13L14 3H13Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="insight-title">Optimize Your Energy</h3>
+                            <p class="insight-from">From: Meals + Sleep + Exercise</p>
+                        </div>
+                    </div>
+                    <div class="insight-example">
+                        "You feel most energized when you eat protein within 2 hours of your workout and get 7+ hours sleep. Today you hit both - nice work!"
+                    </div>
+                </div>
+                <div class="unique-insight">
+                    <div class="insight-header">
+                        <div class="insight-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="12" cy="12" r="9" stroke="white" stroke-width="1.5"/>
+                                <circle cx="12" cy="12" r="5" stroke="white" stroke-width="1.5"/>
+                                <circle cx="12" cy="12" r="1.5" fill="white"/>
+                                <path d="M12 3V6M12 18V21M3 12H6M18 12H21" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="insight-title">Adaptive Targets</h3>
+                            <p class="insight-from">From: Weight + Activity + Cycle</p>
+                        </div>
+                    </div>
+                    <div class="insight-example">
+                        "Your progress has plateaued for 2 weeks. I suggest reducing by 100 calories. Also, you're in your luteal phase - an extra 150 cal is totally normal."
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Founding Members Section -->
+    <section class="founding-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Founding Members</div>
+                <h2 class="section-title">Get in early. Get rewarded.</h2>
+                <p class="section-subtitle">Join the waitlist and unlock exclusive benefits. Share with friends to move up.</p>
+            </div>
+            <div class="founding-tiers">
+                <div class="founding-tier">
+                    <div class="tier-icon">🌱</div>
+                    <div class="tier-title">Early Access</div>
+                    <div class="tier-requirement">Join the waitlist</div>
+                    <div class="tier-benefits">
+                        <div class="tier-benefit">
+                            <span class="tier-benefit-icon">&#10003;</span>
+                            <span>14-day extended trial</span>
+                        </div>
+                        <div class="tier-benefit">
+                            <span class="tier-benefit-icon">&#10003;</span>
+                            <span>Early access before public launch</span>
+                        </div>
+                        <div class="tier-benefit">
+                            <span class="tier-benefit-icon">&#10003;</span>
+                            <span>Unique referral link to share</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="founding-tier featured">
+                    <div class="tier-icon">🚀</div>
+                    <div class="tier-title">VIP Access</div>
+                    <div class="tier-requirement">Refer 3 friends</div>
+                    <div class="tier-benefits">
+                        <div class="tier-benefit">
+                            <span class="tier-benefit-icon">&#10003;</span>
+                            <span>30-day extended trial</span>
+                        </div>
+                        <div class="tier-benefit">
+                            <span class="tier-benefit-icon">&#10003;</span>
+                            <span>Founding member pricing locked forever</span>
+                        </div>
+                        <div class="tier-benefit">
+                            <span class="tier-benefit-icon">&#10003;</span>
+                            <span>Move up in the queue</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="founding-tier">
+                    <div class="tier-icon">👑</div>
+                    <div class="tier-title">Founding Member</div>
+                    <div class="tier-requirement">Refer 5+ friends</div>
+                    <div class="tier-benefits">
+                        <div class="tier-benefit">
+                            <span class="tier-benefit-icon">&#10003;</span>
+                            <span>Priority access + skip the queue</span>
+                        </div>
+                        <div class="tier-benefit">
+                            <span class="tier-benefit-icon">&#10003;</span>
+                            <span>Exclusive "Founding Member" badge</span>
+                        </div>
+                        <div class="tier-benefit">
+                            <span class="tier-benefit-icon">&#10003;</span>
+                            <span>Direct access to the founder</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Questions</div>
+                <h2 class="section-title">Frequently asked questions</h2>
+            </div>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="faq-icon">Q</span>
+                        <span>When is Satio launching?</span>
+                    </div>
+                    <p class="faq-answer">We're launching in Q2 2026. Join the waitlist to get early access before the public launch.</p>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="faq-icon">Q</span>
+                        <span>Is Satio free?</span>
+                    </div>
+                    <p class="faq-answer">Yes! Satio has a free forever plan with core features. Premium features will be available for those who want more.</p>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="faq-icon">Q</span>
+                        <span>How does the AI work?</span>
+                    </div>
+                    <p class="faq-answer">Satio uses advanced AI to analyze your photos, understand your patterns, and connect the dots between your food, mood, sleep, and other factors. It gets smarter with every interaction.</p>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="faq-icon">Q</span>
+                        <span>What if I don't want to see calories?</span>
+                    </div>
+                    <p class="faq-answer">That's what makes Satio different! Use Mindful Mode for zero numbers—just track how you feel. You choose your comfort level.</p>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="faq-icon">Q</span>
+                        <span>Can I connect my fitness tracker?</span>
+                    </div>
+                    <p class="faq-answer">Yes! Satio integrates with Apple Watch, Fitbit, Garmin, and other popular fitness trackers to give you a complete picture.</p>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="faq-icon">Q</span>
+                        <span>Is my data private?</span>
+                    </div>
+                    <p class="faq-answer">100%. We're privacy-first. Your data is encrypted and never sold. You own your data, always.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="final-cta">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Ready?</div>
+                <h2 class="section-title">Secure your founding member spot</h2>
+            </div>
+            <div class="final-cta-box">
+                <form class="hero-form" id="waitlist-form-bottom">
+                    <input type="email" class="hero-input" placeholder="Enter your email" required>
+                    <button type="submit" class="hero-button">Join the Waitlist</button>
+                </form>
+                <p class="hero-note" style="margin-top: 20px;">
+                    <span class="hero-note-icon">&#10003;</span>
+                    Free forever plan. No spam. Unsubscribe anytime.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+            <footer class="footer">
+                <div class="container footer-inner">
+                    <div class="footer-logo">
+                        <img src="assets/satio_logo.webp" alt="Satio">
+                        Satio
+                    </div>
+                    <div class="footer-links">
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Terms</a>
+                        <a href="#">Twitter</a>
+                        <a href="#">Instagram</a>
+                    </div>
+                </div>
+            </footer>
+        </div><!-- End main-content -->
+
+        <!-- Fixed Hub Visualization Column (Desktop only) -->
+        <div class="sunflower-column">
+            <div class="sunflower-wrapper">
+                <!-- The Connected Hub Visualization -->
+                <div class="sunflower" id="sunflower">
+                    <!-- Outer Nodes (grow on scroll) -->
+                    <div class="petal petal-1" data-petal="food">
+                        <div class="petal-shape"></div>
+                        <div class="petal-content">
+                            <span class="petal-icon">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8zM6 1v3M10 1v3M14 1v3" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                            <span class="petal-label">Food</span>
+                        </div>
+                    </div>
+                    <div class="petal petal-2" data-petal="mood">
+                        <div class="petal-shape"></div>
+                        <div class="petal-content">
+                            <span class="petal-icon">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                            <span class="petal-label">Mood</span>
+                        </div>
+                    </div>
+                    <div class="petal petal-3" data-petal="sleep">
+                        <div class="petal-shape"></div>
+                        <div class="petal-content">
+                            <span class="petal-icon">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                            <span class="petal-label">Sleep</span>
+                        </div>
+                    </div>
+                    <div class="petal petal-4" data-petal="health">
+                        <div class="petal-shape"></div>
+                        <div class="petal-content">
+                            <span class="petal-icon">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                            <span class="petal-label">Health</span>
+                        </div>
+                    </div>
+                    <div class="petal petal-5" data-petal="exercise">
+                        <div class="petal-shape"></div>
+                        <div class="petal-content">
+                            <span class="petal-icon">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M22 12h-4l-3 9L9 3l-3 9H2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                            <span class="petal-label">Exercise</span>
+                        </div>
+                    </div>
+                    <div class="petal petal-6" data-petal="habits">
+                        <div class="petal-shape"></div>
+                        <div class="petal-content">
+                            <span class="petal-icon">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <polyline points="23 4 23 10 17 10" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <polyline points="1 20 1 14 7 14" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                            <span class="petal-label">Habits</span>
+                        </div>
+                    </div>
+                    <!-- Inner Nodes -->
+                    <div class="petal petal-7 inner-petal" data-petal="energy">
+                        <div class="petal-shape"></div>
+                        <div class="petal-content">
+                            <span class="petal-icon">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                            <span class="petal-label">Energy</span>
+                        </div>
+                    </div>
+                    <div class="petal petal-8 inner-petal" data-petal="stress">
+                        <div class="petal-shape"></div>
+                        <div class="petal-content">
+                            <span class="petal-icon">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 2a10 10 0 1 0 10 10H12V2z" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M12 2a10 10 0 0 1 10 10" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <circle cx="12" cy="12" r="3"/>
+                                </svg>
+                            </span>
+                            <span class="petal-label">Stress</span>
+                        </div>
+                    </div>
+                    <div class="petal petal-9 inner-petal" data-petal="water">
+                        <div class="petal-shape"></div>
+                        <div class="petal-content">
+                            <span class="petal-icon">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                            <span class="petal-label">Water</span>
+                        </div>
+                    </div>
+                    <div class="petal petal-10 inner-petal" data-petal="weight">
+                        <div class="petal-shape"></div>
+                        <div class="petal-content">
+                            <span class="petal-icon">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M21 3H3v18h18V3z" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <line x1="12" y1="3" x2="12" y2="9" stroke-linecap="round"/>
+                                </svg>
+                            </span>
+                            <span class="petal-label">Weight</span>
+                        </div>
+                    </div>
+                    <div class="petal petal-11 inner-petal" data-petal="goals">
+                        <div class="petal-shape"></div>
+                        <div class="petal-content">
+                            <span class="petal-icon">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <circle cx="12" cy="12" r="6"/>
+                                    <circle cx="12" cy="12" r="2"/>
+                                </svg>
+                            </span>
+                            <span class="petal-label">Goals</span>
+                        </div>
+                    </div>
+                    <div class="petal petal-12 inner-petal" data-petal="insights">
+                        <div class="petal-shape"></div>
+                        <div class="petal-content">
+                            <span class="petal-icon">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <line x1="9" y1="18" x2="15" y2="18" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <line x1="10" y1="22" x2="14" y2="22" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                            <span class="petal-label">Insights</span>
+                        </div>
+                    </div>
+
+                    <!-- Center (AI Brain) - Glowing Indigo Orb -->
+                    <div class="sunflower-center" id="sunflower-center">
+                        <div class="center-inner">
+                            <img src="assets/satio_logo.webp" alt="Satio AI" class="center-logo">
+                        </div>
+                        <div class="center-glow"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scroll indicator -->
+            <div class="scroll-to-grow" id="scroll-indicator">
+                <span>Scroll to explore</span>
+                <div class="scroll-arrow"></div>
+            </div>
+
+            <!-- Connection progress -->
+            <div class="growth-progress" id="growth-progress">
+                <div class="growth-bar" id="growth-bar"></div>
+                <span class="growth-label" id="growth-label">0% connected</span>
+            </div>
+
+            <!-- Insight Cards -->
+            <div class="petal-insight" id="insight-food">
+                <strong>Meal Intelligence</strong>
+                <p>Snap a photo, get instant nutrition analysis</p>
+            </div>
+            <div class="petal-insight" id="insight-mood">
+                <strong>Emotional Patterns</strong>
+                <p>Connect how you feel with what you eat</p>
+            </div>
+            <div class="petal-insight" id="insight-sleep">
+                <strong>Rest & Recovery</strong>
+                <p>See how sleep affects your choices</p>
+            </div>
+            <div class="petal-insight" id="insight-health">
+                <strong>Vital Metrics</strong>
+                <p>Track how nutrition impacts wellbeing</p>
+            </div>
+            <div class="petal-insight" id="insight-exercise">
+                <strong>Activity Sync</strong>
+                <p>Connect fitness trackers & workouts</p>
+            </div>
+            <div class="petal-insight" id="insight-habits">
+                <strong>Habit Formation</strong>
+                <p>Build sustainable patterns that stick</p>
+            </div>
+            <div class="petal-insight" id="insight-energy">
+                <strong>Energy Tracking</strong>
+                <p>Monitor your energy levels throughout the day</p>
+            </div>
+            <div class="petal-insight" id="insight-stress">
+                <strong>Stress Management</strong>
+                <p>Understand stress triggers and eating patterns</p>
+            </div>
+            <div class="petal-insight" id="insight-water">
+                <strong>Hydration</strong>
+                <p>Track water intake and stay properly hydrated</p>
+            </div>
+            <div class="petal-insight" id="insight-weight">
+                <strong>Weight Trends</strong>
+                <p>See how all factors influence your weight</p>
+            </div>
+            <div class="petal-insight" id="insight-goals">
+                <strong>Smart Goals</strong>
+                <p>AI-powered goals that adapt to your progress</p>
+            </div>
+            <div class="petal-insight" id="insight-insights">
+                <strong>AI Insights</strong>
+                <p>Discover patterns you never knew existed</p>
+            </div>
+        </div><!-- End sunflower-column -->
+    </div><!-- End page-layout -->
+
+    <script>
+        // ===== GROWING SUNFLOWER INTERACTION =====
+        const sunflower = document.getElementById('sunflower');
+        const sunflowerColumn = document.querySelector('.sunflower-column');
+        // Only select petals in the fixed sunflower column (desktop)
+        const petals = sunflowerColumn ? sunflowerColumn.querySelectorAll('.petal') : document.querySelectorAll('.petal');
+        const scrollIndicator = document.getElementById('scroll-indicator');
+        const growthProgress = document.getElementById('growth-progress');
+        const growthBar = document.getElementById('growth-bar');
+        const growthLabel = document.getElementById('growth-label');
+        const petalInsights = document.querySelectorAll('.petal-insight');
+
+        // Petal data types (in order - 12 total)
+        const petalTypes = [
+            'food', 'mood', 'sleep', 'health', 'exercise', 'habits',
+            'energy', 'stress', 'water', 'weight', 'goals', 'insights'
+        ];
+
+        // Scroll threshold - much longer scroll needed for gradual growth
+        const scrollThreshold = 1800; // Total scroll needed to fully grow
+        let currentGrowth = 0;
+        let grownPetals = 0;
+        let hasStartedGrowing = false;
+
+        function updateSunflowerGrowth() {
+            const scrollY = window.scrollY;
+            const progress = Math.min(scrollY / scrollThreshold, 1);
+            currentGrowth = progress;
+
+            // Show/hide scroll indicator vs progress bar
+            if (progress > 0.02) {
+                scrollIndicator.classList.add('hidden');
+                growthProgress.classList.add('visible');
+            } else {
+                scrollIndicator.classList.remove('hidden');
+                growthProgress.classList.remove('visible');
+            }
+
+            // Update progress bar
+            growthBar.style.setProperty('--progress', `${progress * 100}%`);
+            growthLabel.textContent = `${Math.round(progress * 100)}% connected`;
+
+            // Calculate how many petals should be grown (with slight delay between each)
+            // Each petal needs ~8% of scroll to grow
+            const petalsToGrow = Math.floor(progress * petals.length);
+
+            // Grow petals progressively
+            petals.forEach((petal, index) => {
+                if (index < petalsToGrow) {
+                    if (!petal.classList.contains('grown')) {
+                        petal.classList.add('grown');
+                        // Show insight for newly grown petal after delay
+                        const petalType = petal.dataset.petal;
+                        setTimeout(() => {
+                            hideAllInsights();
+                            showPetalInsight(petalType);
+                            setTimeout(() => hidePetalInsight(petalType), 3000);
+                        }, 600);
+                    }
+                }
+            });
+
+            grownPetals = petalsToGrow;
+
+            // Update sunflower state classes
+            if (progress > 0.05 && !hasStartedGrowing) {
+                hasStartedGrowing = true;
+                sunflower.classList.add('growing');
+            }
+
+            if (progress >= 1) {
+                sunflower.classList.add('fully-grown');
+                growthProgress.classList.add('hidden');
+            } else {
+                sunflower.classList.remove('fully-grown');
+            }
+        }
+
+        function showPetalInsight(type) {
+            const insight = document.getElementById(`insight-${type}`);
+            if (insight) {
+                insight.classList.add('visible');
+            }
+        }
+
+        function hidePetalInsight(type) {
+            const insight = document.getElementById(`insight-${type}`);
+            if (insight) {
+                insight.classList.remove('visible');
+            }
+        }
+
+        // Hide all insights
+        function hideAllInsights() {
+            petalInsights.forEach(insight => insight.classList.remove('visible'));
+        }
+
+        // Listen to scroll events with throttling for performance
+        let ticking = false;
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    updateSunflowerGrowth();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+
+        // Initial check
+        updateSunflowerGrowth();
+
+        // Petal hover interactions (show insight on hover)
+        petals.forEach((petal) => {
+            const petalType = petal.dataset.petal;
+
+            petal.addEventListener('mouseenter', () => {
+                if (petal.classList.contains('grown')) {
+                    hideAllInsights();
+                    showPetalInsight(petalType);
+                }
+            });
+
+            petal.addEventListener('mouseleave', () => {
+                hidePetalInsight(petalType);
+            });
+        });
+
+        // ===== LOGGING CARDS =====
+        const loggingCards = document.querySelectorAll('.logging-card');
+        loggingCards.forEach(card => {
+            card.addEventListener('click', () => {
+                loggingCards.forEach(c => c.classList.remove('active'));
+                card.classList.add('active');
+            });
+        });
+
+        // ===== MODE TABS =====
+        const modeTabs = document.querySelectorAll('.mode-tab');
+        const modeContents = document.querySelectorAll('.mode-content');
+
+        modeTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const mode = tab.dataset.mode;
+
+                modeTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+
+                modeContents.forEach(content => {
+                    content.classList.remove('active');
+                    if (content.dataset.mode === mode) {
+                        content.classList.add('active');
+                    }
+                });
+            });
+        });
+
+        // ===== FORM HANDLING =====
+        const forms = document.querySelectorAll('form');
+        forms.forEach(form => {
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const email = form.querySelector('input[type="email"]').value;
+                alert('Thanks for joining! We\'ll be in touch soon at ' + email);
+            });
+        });
+
+        // ===== SCROLL ANIMATIONS =====
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.problem-card, .logging-card, .unique-insight, .insight-card, .social-proof-item, .capability-card, .founding-tier, .faq-item, .testimonial-card, .step').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
