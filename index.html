@@ -242,212 +242,276 @@
             color: var(--color-success);
         }
 
-        /* ===== SUNFLOWER VISUALIZATION ===== */
+        /* ===== HERO VISUAL (Insight Card Only) ===== */
         .hero-visual {
             position: relative;
-            height: 520px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
-        .sunflower {
+
+        /* ===== BRAIN DIAGRAM SECTION ===== */
+        .brain-section {
+            padding: 80px 0 100px;
+            background: white;
+        }
+        .brain-diagram-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 48px;
+        }
+        .brain-diagram {
             position: relative;
+            width: 500px;
+            height: 500px;
+        }
+        .brain-orbit-ring {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
             width: 480px;
             height: 480px;
-            transform: translate(45px, -45px);
+            border: 2px dotted #E0E0DC;
+            border-radius: 50%;
+            pointer-events: none;
         }
-
-        /* Center - AI Brain */
-        .sunflower-center {
+        .brain-center {
             position: absolute;
-            top: 60%;
+            top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 100px;
-            height: 100px;
-            background: var(--color-primary);
+            width: 120px;
+            height: 120px;
+            background: white;
             border-radius: 50%;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
+            gap: 4px;
             z-index: 10;
-            box-shadow: 0 8px 24px rgba(91, 95, 199, 0.25);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
         }
-        .sunflower-center svg {
-            width: 40px;
-            height: 40px;
-            fill: white;
-        }
-        .sunflower-center .center-logo {
-            width: 60px;
-            height: 60px;
+        .brain-center img {
+            width: 50px;
+            height: 50px;
             object-fit: contain;
-            filter: brightness(0) invert(1);
         }
-
-        /* Remove glow rings - too busy */
-        .glow-ring {
-            display: none;
+        .brain-center-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            white-space: nowrap;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
-        .glow-ring-1, .glow-ring-2, .glow-ring-3 { display: none; }
-
-        /* Connection lines SVG */
-        .connection-lines {
+        .brain-lines {
             position: absolute;
-            top: 50px;
-            left: 0;
+            inset: 0;
             width: 100%;
             height: 100%;
             pointer-events: none;
         }
-        .connection-line {
-            stroke-width: 2.5;
+        .brain-line {
+            stroke-width: 2;
             fill: none;
-            stroke-dasharray: 8 5;
-            opacity: 0.55;
         }
 
-        /* Petals - colorful radiating shapes */
-        .petal {
+        /* Brain nodes - card style with benefit inside */
+        .brain-node {
             position: absolute;
-            width: 90px;
-            height: 120px;
-            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-            cursor: pointer;
+            background: white;
+            border-radius: 12px;
+            padding: 12px 16px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            z-index: 5;
+            min-width: 100px;
+            text-align: center;
+        }
+        .brain-node-header {
             display: flex;
-            flex-direction: column;
             align-items: center;
-            justify-content: flex-start;
-            padding-top: 16px;
+            justify-content: center;
             gap: 8px;
-            transform-origin: center bottom;
-            transition: opacity 0.2s ease;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 4px;
         }
-        .petal:hover {
-            opacity: 0.9;
-        }
-
-        .petal-icon {
-            width: 36px;
-            height: 36px;
-            background: rgba(255, 255, 255, 0.95);
+        .brain-node-icon {
+            width: 28px;
+            height: 28px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
-        .petal-icon svg {
-            width: 18px;
-            height: 18px;
-            stroke: var(--color-text-primary);
-            stroke-width: 2;
+        .brain-node-icon svg {
+            width: 14px;
+            height: 14px;
             fill: none;
         }
-        .petal-label {
-            font-size: 13px;
-            font-weight: 700;
-            color: white;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-            letter-spacing: 0.02em;
+        .brain-node-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+        }
+        .brain-node-benefit {
+            font-size: 11px;
+            color: var(--color-text-tertiary);
+            line-height: 1.3;
         }
 
-        /* Petal positions - 8 petals */
-        /* Container is 480x480, center is at 240,240 */
-        .petal {
-            width: 90px;
-            height: 120px;
-        }
+        /* Brain node positions - 9 nodes spread around the orbit */
+        /* Adjusted for proper spacing to avoid overlapping */
+        .brain-node-sleep { top: -35px; left: 50%; transform: translateX(-50%); }
+        .brain-node-food { top: 45px; right: -15px; }
+        .brain-node-pantry { top: 45%; right: -95px; transform: translateY(-50%); }
+        .brain-node-exercise { bottom: 90px; right: -40px; }
+        .brain-node-mood { bottom: -15px; right: 80px; }
+        .brain-node-health { bottom: -15px; left: 90px; }
+        .brain-node-triggers { bottom: 90px; left: -40px; }
+        .brain-node-cycle { top: 45%; left: -70px; transform: translateY(-50%); }
+        .brain-node-habits { top: 45px; left: -30px; }
 
-        /* 0° - Top (Food) */
-        .petal-food {
-            background: var(--color-secondary);
-            top: 55px;
-            left: 50%;
-            transform: translateX(-50%);
+        /* ===== AI INSIGHT CARD (Hero Visual) ===== */
+        .insight-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.12);
+            width: 100%;
+            max-width: 420px;
+            overflow: hidden;
+            flex-shrink: 0;
         }
-        /* 45° - Top Right (Mood) */
-        .petal-mood {
-            background: var(--color-tertiary);
-            top: 90px;
-            right: 90px;
-            transform: rotate(45deg);
-        }
-        /* 90° - Right (Exercise) */
-        .petal-exercise {
-            background: #E8836B;
-            top: 50%;
-            right: 55px;
-            transform: translateY(-50%) rotate(90deg);
-        }
-        /* 135° - Bottom Right (Sleep) */
-        .petal-sleep {
-            background: var(--color-primary);
-            bottom: 90px;
-            right: 90px;
-            transform: rotate(135deg);
-        }
-        /* 180° - Bottom (Health) */
-        .petal-health {
-            background: var(--color-success);
-            bottom: 55px;
-            left: 50%;
-            transform: translateX(-50%) rotate(180deg);
-        }
-        /* 225° - Bottom Left (Cycle) */
-        .petal-cycle {
-            background: #D97B9D;
-            bottom: 90px;
-            left: 90px;
-            transform: rotate(225deg);
-        }
-        /* 270° - Left (Triggers) */
-        .petal-triggers {
-            background: var(--color-warning);
-            top: 50%;
-            left: 55px;
-            transform: translateY(-50%) rotate(270deg);
-        }
-        /* 315° - Top Left (Habits) */
-        .petal-habits {
-            background: #D97B9D;
-            top: 90px;
-            left: 90px;
-            transform: rotate(315deg);
-        }
-
-        /* Keep content upright by counter-rotating - wrap icon+label together */
-        .petal-content {
+        .insight-card-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--color-border);
             display: flex;
-            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+        .insight-card-avatar {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .insight-card-avatar img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+        }
+        .insight-card-meta {
+            flex: 1;
+        }
+        .insight-card-from {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+        }
+        .insight-card-time {
+            font-size: 12px;
+            color: var(--color-text-tertiary);
+        }
+        .insight-card-body {
+            padding: 20px;
+        }
+        .insight-data-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        .insight-tag {
+            display: inline-flex;
             align-items: center;
             gap: 6px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
         }
-        .petal-mood .petal-content { transform: rotate(-45deg); }
-        .petal-exercise .petal-content { transform: rotate(-90deg); }
-        .petal-sleep .petal-content { transform: rotate(-135deg); }
-        .petal-health .petal-content { transform: rotate(-180deg); }
-        .petal-cycle .petal-content { transform: rotate(-225deg); }
-        .petal-triggers .petal-content { transform: rotate(-270deg); }
-        .petal-habits .petal-content { transform: rotate(-315deg); }
-
-        /* Particle container */
-        .particle-container {
-            position: absolute;
-            top: 40px;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
+        .insight-tag-sleep {
+            background: rgba(91, 95, 199, 0.1);
+            color: var(--color-primary);
         }
-        .particle {
-            position: absolute;
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            opacity: 0;
+        .insight-tag-cycle {
+            background: rgba(217, 123, 157, 0.1);
+            color: #D97B9D;
+        }
+        .insight-tag-pantry {
+            background: rgba(90, 173, 122, 0.1);
+            color: var(--color-success);
+        }
+        .insight-card-message {
+            font-size: 15px;
+            line-height: 1.6;
+            color: var(--color-text-primary);
+        }
+        .insight-card-message strong {
+            font-weight: 600;
+        }
+        .insight-card-suggestion {
+            margin-top: 16px;
+            padding: 16px;
+            background: var(--color-surface);
+            border-radius: 12px;
+        }
+        .insight-suggestion-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--color-text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+        }
+        .insight-suggestion-content {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        .insight-suggestion-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(232, 131, 107, 0.15);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .insight-suggestion-icon svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--color-coral);
+            fill: none;
+            stroke-width: 2;
+        }
+        .insight-suggestion-text {
+            font-size: 14px;
+            line-height: 1.5;
+            color: var(--color-text-secondary);
+        }
+        .insight-suggestion-text strong {
+            color: var(--color-text-primary);
+            font-weight: 600;
+        }
+        .insight-card-footer {
+            padding: 12px 20px;
+            background: var(--color-surface);
+            border-top: 1px solid var(--color-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            color: var(--color-text-tertiary);
+        }
+        .insight-card-footer span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
         }
 
         /* ===== SOCIAL PROOF STRIP ===== */
@@ -460,12 +524,15 @@
         .social-proof-inner {
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 56px;
-            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 24px;
+            max-width: 900px;
+            margin: 0 auto;
         }
         .social-proof-item {
             text-align: center;
+            flex: 1;
+            min-width: 0;
         }
         .social-proof-number {
             font-size: 32px;
@@ -473,13 +540,20 @@
             color: var(--color-coral);
             margin-bottom: 4px;
         }
-        .social-proof-item {
-            padding: 16px;
-        }
         .social-proof-label {
-            font-size: 14px;
+            font-size: 13px;
             color: var(--color-text-tertiary);
             font-weight: 500;
+            line-height: 1.4;
+        }
+        @media (max-width: 700px) {
+            .social-proof-inner {
+                flex-wrap: wrap;
+                gap: 16px;
+            }
+            .social-proof-item {
+                flex: 0 0 45%;
+            }
         }
 
         /* ===== PROBLEM SECTION ===== */
@@ -1379,26 +1453,29 @@
         @media (max-width: 1024px) {
             .hero-grid { grid-template-columns: 1fr; text-align: center; }
             .hero-subtitle { margin: 0 auto 40px; }
-            .hero-visual { height: 400px; margin-top: 40px; }
-            .sunflower { width: 380px; height: 380px; }
-            .sunflower-center { width: 80px; height: 80px; }
-            .sunflower-center .center-logo { width: 48px; height: 48px; }
-            .glow-ring-1 { width: 110px; height: 110px; }
-            .glow-ring-2 { width: 140px; height: 140px; }
-            .glow-ring-3 { width: 170px; height: 170px; }
-            .petal { width: 72px; height: 95px; padding-top: 12px; }
-            .petal-icon { width: 28px; height: 28px; }
-            .petal-icon svg { width: 15px; height: 15px; }
-            .petal-label { font-size: 9px; }
-            /* Scaled positions for 8 petals - tablet - CLOSER */
-            .petal-food { top: 40px; }
-            .petal-mood { top: 70px; right: 70px; }
-            .petal-exercise { right: 40px; }
-            .petal-sleep { bottom: 70px; right: 70px; }
-            .petal-health { bottom: 40px; }
-            .petal-cycle { bottom: 70px; left: 70px; }
-            .petal-triggers { left: 40px; }
-            .petal-habits { top: 70px; left: 70px; }
+            .hero-visual { margin-top: 40px; }
+            .insight-card { max-width: 400px; margin: 0 auto; }
+            /* Brain diagram responsive */
+            .brain-diagram { width: 420px; height: 420px; }
+            .brain-orbit-ring { width: 480px; height: 480px; }
+            .brain-center { width: 100px; height: 100px; }
+            .brain-center img { width: 42px; height: 42px; }
+            .brain-center-label { font-size: 10px; }
+            .brain-node { padding: 10px 12px; min-width: 85px; }
+            .brain-node-benefit { font-size: 9px; }
+            .brain-node-icon { width: 24px; height: 24px; }
+            .brain-node-icon svg { width: 12px; height: 12px; }
+            .brain-node-label { font-size: 12px; }
+            /* Tablet brain node positions */
+            .brain-node-sleep { top: -20px; }
+            .brain-node-food { top: 30px; right: 0px; }
+            .brain-node-pantry { top: 50%; right: -50px; }
+            .brain-node-exercise { bottom: 50px; right: -10px; }
+            .brain-node-mood { bottom: -20px; right: 105px; }
+            .brain-node-health { bottom: -20px; left: 90px; }
+            .brain-node-triggers { bottom: 50px; left: -25px; }
+            .brain-node-cycle { top: 50%; left: -65px; }
+            .brain-node-habits { top: 30px; left: -15px; }
             .problem-grid { grid-template-columns: 1fr; }
             .difference-visual { grid-template-columns: 1fr; }
             .vs-divider { flex-direction: row; padding: 20px 0; }
@@ -1410,26 +1487,31 @@
         @media (max-width: 640px) {
             .hero-form { flex-direction: column; }
             .hero-button { width: 100%; }
-            .hero-visual { height: 340px; }
-            .sunflower { width: 300px; height: 300px; }
-            .sunflower-center { width: 65px; height: 65px; }
-            .sunflower-center .center-logo { width: 40px; height: 40px; }
-            .glow-ring-1 { width: 90px; height: 90px; }
-            .glow-ring-2 { width: 115px; height: 115px; }
-            .glow-ring-3 { width: 140px; height: 140px; }
-            .petal { width: 58px; height: 76px; padding-top: 8px; }
-            .petal-icon { width: 22px; height: 22px; }
-            .petal-icon svg { width: 12px; height: 12px; }
-            .petal-label { font-size: 8px; }
-            /* Scaled positions for 8 petals - mobile - CLOSER */
-            .petal-food { top: 35px; }
-            .petal-mood { top: 55px; right: 55px; }
-            .petal-exercise { right: 35px; }
-            .petal-sleep { bottom: 55px; right: 55px; }
-            .petal-health { bottom: 35px; }
-            .petal-cycle { bottom: 55px; left: 55px; }
-            .petal-triggers { left: 35px; }
-            .petal-habits { top: 55px; left: 55px; }
+            .insight-card { max-width: 100%; margin: 0; }
+            .insight-card-body { padding: 16px; }
+            /* Brain diagram mobile */
+            .brain-section { padding: 60px 0 80px; }
+            .brain-diagram-container { overflow-x: auto; padding: 20px; }
+            .brain-diagram { width: 340px; height: 340px; min-width: 340px; }
+            .brain-orbit-ring { width: 260px; height: 260px; }
+            .brain-center { width: 80px; height: 80px; }
+            .brain-center img { width: 34px; height: 34px; }
+            .brain-center-label { font-size: 8px; }
+            .brain-node { padding: 8px 10px; min-width: 70px; }
+            .brain-node-benefit { display: none; }
+            .brain-node-icon { width: 20px; height: 20px; }
+            .brain-node-icon svg { width: 10px; height: 10px; }
+            .brain-node-label { font-size: 10px; }
+            /* Mobile brain node positions */
+            .brain-node-sleep { top: -15px; }
+            .brain-node-food { top: 25px; right: -5px; }
+            .brain-node-pantry { top: 50%; right: -40px; }
+            .brain-node-exercise { bottom: 40px; right: -15px; }
+            .brain-node-mood { bottom: -15px; right: 85px; }
+            .brain-node-health { bottom: -15px; left: 70px; }
+            .brain-node-triggers { bottom: 40px; left: -25px; }
+            .brain-node-cycle { top: 50%; left: -50px; }
+            .brain-node-habits { top: 25px; left: -15px; }
             .logging-showcase { grid-template-columns: 1fr; }
             .mode-features { flex-direction: column; gap: 16px; }
             .footer-inner { flex-direction: column; gap: 28px; text-align: center; }
@@ -2508,7 +2590,7 @@
                         Other apps count calories.<br><span class="hero-title-gradient">Satio helps explain why you ate them.</span>
                     </h1>
                     <p class="hero-subtitle">
-                        Your sleep, stress, cycle, and 61 other data points — all working together so your nutrition app finally understands you.
+                        Your sleep, stress, cycle, and 61 other data points. All working together so your nutrition app finally understands you.
                     </p>
                     <!-- Waitlist Form -->
                     <form id="waitlist-form" class="hero-form">
@@ -2561,171 +2643,59 @@
                 </div>
 
                 <div class="hero-visual">
-                    <div class="sunflower">
-                        <!-- Connection Lines SVG - 8 lines from center to each petal -->
-                        <svg class="connection-lines" viewBox="0 0 480 480">
-                            <defs>
-                                <linearGradient id="gradient-food" x1="0%" y1="100%" x2="0%" y2="0%">
-                                    <stop offset="0%" style="stop-color:#5B5FC7"/>
-                                    <stop offset="100%" style="stop-color:#E8836B"/>
-                                </linearGradient>
-                                <linearGradient id="gradient-mood" x1="0%" y1="100%" x2="100%" y2="0%">
-                                    <stop offset="0%" style="stop-color:#5B5FC7"/>
-                                    <stop offset="100%" style="stop-color:#4ABBA8"/>
-                                </linearGradient>
-                                <linearGradient id="gradient-exercise" x1="0%" y1="0%" x2="100%" y2="0%">
-                                    <stop offset="0%" style="stop-color:#5B5FC7"/>
-                                    <stop offset="100%" style="stop-color:#E8836B"/>
-                                </linearGradient>
-                                <linearGradient id="gradient-sleep" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" style="stop-color:#5B5FC7"/>
-                                    <stop offset="100%" style="stop-color:#5B5FC7"/>
-                                </linearGradient>
-                                <linearGradient id="gradient-health" x1="0%" y1="0%" x2="0%" y2="100%">
-                                    <stop offset="0%" style="stop-color:#5B5FC7"/>
-                                    <stop offset="100%" style="stop-color:#5AAD7A"/>
-                                </linearGradient>
-                                <linearGradient id="gradient-cycle" x1="100%" y1="0%" x2="0%" y2="100%">
-                                    <stop offset="0%" style="stop-color:#5B5FC7"/>
-                                    <stop offset="100%" style="stop-color:#D97B9D"/>
-                                </linearGradient>
-                                <linearGradient id="gradient-triggers" x1="100%" y1="0%" x2="0%" y2="0%">
-                                    <stop offset="0%" style="stop-color:#5B5FC7"/>
-                                    <stop offset="100%" style="stop-color:#E4B44C"/>
-                                </linearGradient>
-                                <linearGradient id="gradient-habits" x1="100%" y1="100%" x2="0%" y2="0%">
-                                    <stop offset="0%" style="stop-color:#5B5FC7"/>
-                                    <stop offset="100%" style="stop-color:#D97B9D"/>
-                                </linearGradient>
-                            </defs>
-                            <!-- All 8 lines from center through petals to outer edge -->
-                            <!-- Food - top -->
-                            <path class="connection-line" stroke="url(#gradient-food)" d="M240,240 L240,80"/>
-                            <!-- Mood - top right -->
-                            <path class="connection-line" stroke="url(#gradient-mood)" d="M240,240 L360,120"/>
-                            <!-- Exercise - right -->
-                            <path class="connection-line" stroke="url(#gradient-exercise)" d="M240,240 L400,240"/>
-                            <!-- Sleep - bottom right -->
-                            <path class="connection-line" stroke="url(#gradient-sleep)" d="M240,240 L360,360"/>
-                            <!-- Health - bottom -->
-                            <path class="connection-line" stroke="url(#gradient-health)" d="M240,240 L240,400"/>
-                            <!-- Cycle - bottom left -->
-                            <path class="connection-line" stroke="url(#gradient-cycle)" d="M240,240 L120,360"/>
-                            <!-- Triggers - left -->
-                            <path class="connection-line" stroke="url(#gradient-triggers)" d="M240,240 L80,240"/>
-                            <!-- Habits - top left -->
-                            <path class="connection-line" stroke="url(#gradient-habits)" d="M240,240 L120,120"/>
-                        </svg>
-
-                        <!-- Glow rings -->
-                        <div class="glow-ring glow-ring-1"></div>
-                        <div class="glow-ring glow-ring-2"></div>
-                        <div class="glow-ring glow-ring-3"></div>
-
-                        <!-- 8 Petals at 45° intervals -->
-                        <div class="petal petal-food" data-color="#E8836B">
-                            <div class="petal-content">
-                                <div class="petal-icon">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <path d="M18 8h1a4 4 0 0 1 0 8h-1"/>
-                                        <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
-                                        <line x1="6" y1="1" x2="6" y2="4"/>
-                                        <line x1="10" y1="1" x2="10" y2="4"/>
-                                        <line x1="14" y1="1" x2="14" y2="4"/>
-                                    </svg>
-                                </div>
-                                <span class="petal-label">Food</span>
+                    <!-- AI Insight Card - The payoff that proves the headline -->
+                    <div class="insight-card">
+                        <div class="insight-card-header">
+                            <div class="insight-card-avatar">
+                                <img src="satio_icon_cropped.png" alt="Satio">
+                            </div>
+                            <div class="insight-card-meta">
+                                <div class="insight-card-from">Satio AI</div>
+                                <div class="insight-card-time">Just now</div>
                             </div>
                         </div>
-                        <div class="petal petal-mood" data-color="#4ABBA8">
-                            <div class="petal-content">
-                                <div class="petal-icon">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <circle cx="12" cy="12" r="10"/>
-                                        <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
-                                        <line x1="9" y1="9" x2="9.01" y2="9"/>
-                                        <line x1="15" y1="9" x2="15.01" y2="9"/>
-                                    </svg>
-                                </div>
-                                <span class="petal-label">Mood</span>
-                            </div>
-                        </div>
-                        <div class="petal petal-exercise" data-color="#E8836B">
-                            <div class="petal-content">
-                                <div class="petal-icon">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <path d="M6.5 6.5L17.5 17.5"/>
-                                        <path d="M4 4L6.5 6.5"/>
-                                        <path d="M17.5 17.5L20 20"/>
-                                        <path d="M8.5 4.5L4.5 8.5"/>
-                                        <path d="M19.5 15.5L15.5 19.5"/>
-                                        <circle cx="12" cy="12" r="2"/>
-                                    </svg>
-                                </div>
-                                <span class="petal-label">Exercise</span>
-                            </div>
-                        </div>
-                        <div class="petal petal-sleep" data-color="#5B5FC7">
-                            <div class="petal-content">
-                                <div class="petal-icon">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <div class="insight-card-body">
+                            <div class="insight-data-tags">
+                                <span class="insight-tag insight-tag-sleep">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                         <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
                                     </svg>
-                                </div>
-                                <span class="petal-label">Sleep</span>
-                            </div>
-                        </div>
-                        <div class="petal petal-health" data-color="#5AAD7A">
-                            <div class="petal-content">
-                                <div class="petal-icon">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                                    4.5h sleep
+                                </span>
+                                <span class="insight-tag insight-tag-cycle">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                        <line x1="16" y1="2" x2="16" y2="6"/>
+                                        <line x1="8" y1="2" x2="8" y2="6"/>
                                     </svg>
-                                </div>
-                                <span class="petal-label">Health</span>
-                            </div>
-                        </div>
-                        <div class="petal petal-cycle" data-color="#D97B9D">
-                            <div class="petal-content">
-                                <div class="petal-icon">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <circle cx="12" cy="12" r="10"/>
-                                        <path d="M12 6v6l4 2"/>
+                                    Luteal phase
+                                </span>
+                                <span class="insight-tag insight-tag-pantry">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                                        <line x1="3" y1="9" x2="21" y2="9"/>
                                     </svg>
+                                    Pantry synced
+                                </span>
+                            </div>
+                            <p class="insight-card-message">
+                                <strong>4.5 hours sleep</strong> + <strong>luteal phase</strong> = elevated hunger hormones today. Protein-rich meals will help stabilize energy.
+                            </p>
+                            <div class="insight-card-suggestion">
+                                <div class="insight-suggestion-label">From your pantry</div>
+                                <div class="insight-suggestion-content">
+                                    <div class="insight-suggestion-icon">
+                                        <svg viewBox="0 0 24 24">
+                                            <ellipse cx="12" cy="12" rx="10" ry="6"/>
+                                            <ellipse cx="12" cy="10" rx="6" ry="3"/>
+                                        </svg>
+                                    </div>
+                                    <p class="insight-suggestion-text">
+                                        You have <strong>eggs and avocado</strong> at home. High-protein breakfast will help stabilize your energy.
+                                    </p>
                                 </div>
-                                <span class="petal-label">Cycle</span>
                             </div>
                         </div>
-                        <div class="petal petal-triggers" data-color="#E4B44C">
-                            <div class="petal-content">
-                                <div class="petal-icon">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
-                                    </svg>
-                                </div>
-                                <span class="petal-label">Triggers</span>
-                            </div>
-                        </div>
-                        <div class="petal petal-habits" data-color="#D97B9D">
-                            <div class="petal-content">
-                                <div class="petal-icon">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <polyline points="23 4 23 10 17 10"/>
-                                        <polyline points="1 20 1 14 7 14"/>
-                                        <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
-                                    </svg>
-                                </div>
-                                <span class="petal-label">Habits</span>
-                            </div>
-                        </div>
-
-                        <!-- Center AI Brain -->
-                        <div class="sunflower-center">
-                            <img src="satio_icon_cropped.png" alt="Satio" class="center-logo">
-                        </div>
-
-                        <!-- Particle container -->
-                        <div class="particle-container" id="particleContainer"></div>
                     </div>
                 </div>
             </div>
@@ -2737,10 +2707,6 @@
         <div class="container">
             <div class="social-proof-inner">
                 <div class="social-proof-item">
-                    <div class="social-proof-number">61</div>
-                    <div class="social-proof-label">data points inform every AI suggestion</div>
-                </div>
-                <div class="social-proof-item">
                     <div class="social-proof-number">4</div>
                     <div class="social-proof-label">tracking modes for every comfort level</div>
                 </div>
@@ -2751,6 +2717,236 @@
                 <div class="social-proof-item">
                     <div class="social-proof-number">0</div>
                     <div class="social-proof-label">red indicators or shame language</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How Satio Works - Brain Diagram Section -->
+    <section class="brain-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">How It Works</div>
+                <h2 class="section-title">61 data points. One AI that connects them.</h2>
+                <p class="section-subtitle">Every piece of your life informs every suggestion. Nothing is siloed.</p>
+            </div>
+
+            <div class="brain-diagram-container">
+                <div class="brain-diagram">
+                    <!-- Dotted orbit ring -->
+                    <div class="brain-orbit-ring"></div>
+
+                    <!-- Connection Lines SVG -->
+                    <svg class="brain-lines" viewBox="0 0 500 500">
+                        <defs>
+                            <!-- Using userSpaceOnUse for gradients to work on straight lines -->
+                            <linearGradient id="brain-grad-sleep" gradientUnits="userSpaceOnUse" x1="250" y1="250" x2="250" y2="45">
+                                <stop offset="0%" style="stop-color:#5B5FC7;stop-opacity:0.15"/>
+                                <stop offset="100%" style="stop-color:#5B5FC7;stop-opacity:0.6"/>
+                            </linearGradient>
+                            <linearGradient id="brain-grad-food" gradientUnits="userSpaceOnUse" x1="250" y1="250" x2="430" y2="85">
+                                <stop offset="0%" style="stop-color:#5B5FC7;stop-opacity:0.15"/>
+                                <stop offset="100%" style="stop-color:#E8836B;stop-opacity:0.6"/>
+                            </linearGradient>
+                            <linearGradient id="brain-grad-pantry" gradientUnits="userSpaceOnUse" x1="250" y1="250" x2="480" y2="250">
+                                <stop offset="0%" style="stop-color:#5B5FC7;stop-opacity:0.15"/>
+                                <stop offset="100%" style="stop-color:#5AAD7A;stop-opacity:0.6"/>
+                            </linearGradient>
+                            <linearGradient id="brain-grad-exercise" gradientUnits="userSpaceOnUse" x1="250" y1="250" x2="450" y2="380">
+                                <stop offset="0%" style="stop-color:#5B5FC7;stop-opacity:0.15"/>
+                                <stop offset="100%" style="stop-color:#E8836B;stop-opacity:0.6"/>
+                            </linearGradient>
+                            <linearGradient id="brain-grad-mood" gradientUnits="userSpaceOnUse" x1="250" y1="250" x2="340" y2="460">
+                                <stop offset="0%" style="stop-color:#5B5FC7;stop-opacity:0.15"/>
+                                <stop offset="100%" style="stop-color:#4ABBA8;stop-opacity:0.6"/>
+                            </linearGradient>
+                            <linearGradient id="brain-grad-health" gradientUnits="userSpaceOnUse" x1="250" y1="250" x2="160" y2="460">
+                                <stop offset="0%" style="stop-color:#5B5FC7;stop-opacity:0.15"/>
+                                <stop offset="100%" style="stop-color:#5AAD7A;stop-opacity:0.6"/>
+                            </linearGradient>
+                            <linearGradient id="brain-grad-triggers" gradientUnits="userSpaceOnUse" x1="250" y1="250" x2="50" y2="380">
+                                <stop offset="0%" style="stop-color:#5B5FC7;stop-opacity:0.15"/>
+                                <stop offset="100%" style="stop-color:#E4B44C;stop-opacity:0.6"/>
+                            </linearGradient>
+                            <linearGradient id="brain-grad-cycle" gradientUnits="userSpaceOnUse" x1="250" y1="250" x2="20" y2="250">
+                                <stop offset="0%" style="stop-color:#5B5FC7;stop-opacity:0.15"/>
+                                <stop offset="100%" style="stop-color:#D97B9D;stop-opacity:0.6"/>
+                            </linearGradient>
+                            <linearGradient id="brain-grad-habits" gradientUnits="userSpaceOnUse" x1="250" y1="250" x2="70" y2="85">
+                                <stop offset="0%" style="stop-color:#5B5FC7;stop-opacity:0.15"/>
+                                <stop offset="100%" style="stop-color:#D97B9D;stop-opacity:0.6"/>
+                            </linearGradient>
+                        </defs>
+                        <!-- Connection lines from center (250,250) to node card edges -->
+                        <!-- Sleep: top center -->
+                        <line class="brain-line" stroke="url(#brain-grad-sleep)" x1="250" y1="250" x2="250" y2="45"/>
+                        <!-- Food: upper right -->
+                        <line class="brain-line" stroke="url(#brain-grad-food)" x1="250" y1="250" x2="430" y2="85"/>
+                        <!-- Pantry: right -->
+                        <line class="brain-line" stroke="url(#brain-grad-pantry)" x1="250" y1="250" x2="480" y2="250"/>
+                        <!-- Exercise: lower right -->
+                        <line class="brain-line" stroke="url(#brain-grad-exercise)" x1="250" y1="250" x2="450" y2="380"/>
+                        <!-- Mood: bottom right -->
+                        <line class="brain-line" stroke="url(#brain-grad-mood)" x1="250" y1="250" x2="340" y2="460"/>
+                        <!-- Health: bottom left -->
+                        <line class="brain-line" stroke="url(#brain-grad-health)" x1="250" y1="250" x2="160" y2="460"/>
+                        <!-- Triggers: lower left -->
+                        <line class="brain-line" stroke="url(#brain-grad-triggers)" x1="250" y1="250" x2="50" y2="380"/>
+                        <!-- Cycle: left -->
+                        <line class="brain-line" stroke="url(#brain-grad-cycle)" x1="250" y1="250" x2="20" y2="250"/>
+                        <!-- Habits: upper left -->
+                        <line class="brain-line" stroke="url(#brain-grad-habits)" x1="250" y1="250" x2="70" y2="85"/>
+
+                        <!-- Animated particles flowing along lines -->
+                        <circle r="5" fill="#5B5FC7">
+                            <animateMotion dur="3s" repeatCount="indefinite" keyPoints="0;1;0" keyTimes="0;0.5;1" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1" path="M 250 45 L 250 250"/>
+                        </circle>
+                        <circle r="5" fill="#E8836B">
+                            <animateMotion dur="3.3s" repeatCount="indefinite" keyPoints="0;1;0" keyTimes="0;0.5;1" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1" path="M 430 85 L 250 250" begin="0.4s"/>
+                        </circle>
+                        <circle r="5" fill="#5AAD7A">
+                            <animateMotion dur="3.1s" repeatCount="indefinite" keyPoints="0;1;0" keyTimes="0;0.5;1" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1" path="M 480 250 L 250 250" begin="0.6s"/>
+                        </circle>
+                        <circle r="5" fill="#E8836B">
+                            <animateMotion dur="3.2s" repeatCount="indefinite" keyPoints="0;1;0" keyTimes="0;0.5;1" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1" path="M 450 380 L 250 250" begin="0.8s"/>
+                        </circle>
+                        <circle r="5" fill="#4ABBA8">
+                            <animateMotion dur="3s" repeatCount="indefinite" keyPoints="0;1;0" keyTimes="0;0.5;1" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1" path="M 340 460 L 250 250" begin="1s"/>
+                        </circle>
+                        <circle r="5" fill="#5AAD7A">
+                            <animateMotion dur="3.3s" repeatCount="indefinite" keyPoints="0;1;0" keyTimes="0;0.5;1" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1" path="M 160 460 L 250 250" begin="1.2s"/>
+                        </circle>
+                        <circle r="5" fill="#E4B44C">
+                            <animateMotion dur="3.1s" repeatCount="indefinite" keyPoints="0;1;0" keyTimes="0;0.5;1" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1" path="M 50 380 L 250 250" begin="1.4s"/>
+                        </circle>
+                        <circle r="5" fill="#D97B9D">
+                            <animateMotion dur="3.2s" repeatCount="indefinite" keyPoints="0;1;0" keyTimes="0;0.5;1" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1" path="M 20 250 L 250 250" begin="1.6s"/>
+                        </circle>
+                        <circle r="5" fill="#D97B9D">
+                            <animateMotion dur="3s" repeatCount="indefinite" keyPoints="0;1;0" keyTimes="0;0.5;1" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1" path="M 70 85 L 250 250" begin="1.8s"/>
+                        </circle>
+                    </svg>
+
+                    <!-- Brain Nodes - card style with benefit inside -->
+                    <div class="brain-node brain-node-sleep">
+                        <div class="brain-node-header">
+                            <div class="brain-node-icon" style="background: rgba(91, 95, 199, 0.15);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="#5B5FC7" stroke-width="2">
+                                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                                </svg>
+                            </div>
+                            <span class="brain-node-label">Sleep</span>
+                        </div>
+                        <span class="brain-node-benefit">Hunger hormones</span>
+                    </div>
+
+                    <div class="brain-node brain-node-food">
+                        <div class="brain-node-header">
+                            <div class="brain-node-icon" style="background: rgba(232, 131, 107, 0.15);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="#E8836B" stroke-width="2">
+                                    <path d="M18 8h1a4 4 0 0 1 0 8h-1"/>
+                                    <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
+                                </svg>
+                            </div>
+                            <span class="brain-node-label">Food</span>
+                        </div>
+                        <span class="brain-node-benefit">Patterns, not calories</span>
+                    </div>
+
+                    <div class="brain-node brain-node-pantry">
+                        <div class="brain-node-header">
+                            <div class="brain-node-icon" style="background: rgba(90, 173, 122, 0.15);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="#5AAD7A" stroke-width="2">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                                    <line x1="3" y1="9" x2="21" y2="9"/>
+                                </svg>
+                            </div>
+                            <span class="brain-node-label">Pantry</span>
+                        </div>
+                        <span class="brain-node-benefit">What's in your kitchen</span>
+                    </div>
+
+                    <div class="brain-node brain-node-exercise">
+                        <div class="brain-node-header">
+                            <div class="brain-node-icon" style="background: rgba(232, 131, 107, 0.15);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="#E8836B" stroke-width="2">
+                                    <circle cx="12" cy="12" r="2"/>
+                                    <path d="M6.5 6.5L17.5 17.5"/>
+                                </svg>
+                            </div>
+                            <span class="brain-node-label">Exercise</span>
+                        </div>
+                        <span class="brain-node-benefit">Your activity level</span>
+                    </div>
+
+                    <div class="brain-node brain-node-mood">
+                        <div class="brain-node-header">
+                            <div class="brain-node-icon" style="background: rgba(74, 187, 168, 0.15);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="#4ABBA8" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+                                </svg>
+                            </div>
+                            <span class="brain-node-label">Mood</span>
+                        </div>
+                        <span class="brain-node-benefit">Emotional triggers</span>
+                    </div>
+
+                    <div class="brain-node brain-node-health">
+                        <div class="brain-node-header">
+                            <div class="brain-node-icon" style="background: rgba(90, 173, 122, 0.15);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="#5AAD7A" stroke-width="2">
+                                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                                </svg>
+                            </div>
+                            <span class="brain-node-label">Health</span>
+                        </div>
+                        <span class="brain-node-benefit">Your conditions</span>
+                    </div>
+
+                    <div class="brain-node brain-node-triggers">
+                        <div class="brain-node-header">
+                            <div class="brain-node-icon" style="background: rgba(228, 180, 76, 0.15);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="#E4B44C" stroke-width="2">
+                                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                                </svg>
+                            </div>
+                            <span class="brain-node-label">Triggers</span>
+                        </div>
+                        <span class="brain-node-benefit">Your patterns</span>
+                    </div>
+
+                    <div class="brain-node brain-node-cycle">
+                        <div class="brain-node-header">
+                            <div class="brain-node-icon" style="background: rgba(217, 123, 157, 0.15);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="#D97B9D" stroke-width="2">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                    <line x1="3" y1="10" x2="21" y2="10"/>
+                                </svg>
+                            </div>
+                            <span class="brain-node-label">Cycle</span>
+                        </div>
+                        <span class="brain-node-benefit">Your biology</span>
+                    </div>
+
+                    <div class="brain-node brain-node-habits">
+                        <div class="brain-node-header">
+                            <div class="brain-node-icon" style="background: rgba(217, 123, 157, 0.15);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="#D97B9D" stroke-width="2">
+                                    <polyline points="23 4 23 10 17 10"/>
+                                    <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10"/>
+                                </svg>
+                            </div>
+                            <span class="brain-node-label">Habits</span>
+                        </div>
+                        <span class="brain-node-benefit">What works for you</span>
+                    </div>
+
+                    <!-- Center hub with Satio logo -->
+                    <div class="brain-center">
+                        <img src="satio_icon_cropped.png" alt="Satio">
+                        <span class="brain-center-label">Satio Brain</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -2862,7 +3058,7 @@
                     </div>
                 </div>
                 <div class="ai-feature-content">
-                    <h3>61 things about you, in every suggestion</h3>
+                    <h3>Every suggestion sees 61 data points at once</h3>
                     <p>Sleep. Cycle. Stress. What's in your fridge. Your workouts. Recent meals. How you're feeling. It all connects.</p>
                     <p>Other apps see a photo. Satio sees the full picture.</p>
                     <div class="ai-feature-tagline">
@@ -2936,8 +3132,8 @@
         </div>
     </section>
 
-    <!-- Problem Section - Empathy -->
-    <section class="problem-section">
+    <!-- Problem Section - OLD BEFORE/AFTER (hidden - content moved above) -->
+    <section class="problem-section" style="display: none;">
         <div class="container">
             <div class="section-header" style="max-width: 720px;">
                 <div class="section-label">Sound Familiar?</div>

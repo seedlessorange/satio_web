@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Satio Orbital Canvas</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- Theme Configuration -->
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#5B5FC7",
+                        "satio-indigo": "#5B5FC7",
+                        "satio-coral": "#E8836B",
+                        "satio-teal": "#4ABBA8",
+                        "satio-green": "#5AAD7A",
+                        "satio-amber": "#E4B44C",
+                        "satio-pink": "#D97B9D",
+                        "satio-bg": "#FAFAF8",
+                        "satio-text": "#2D2D2D",
+                        "satio-ring": "#E5E5E0",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        /* Orbital Node Positioning */
+        .orbital-node {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .orbital-container:has(.orbital-node:hover) .orbital-node:not(:hover) {
+            opacity: 0.4;
+            filter: blur(0.5px);
+        }
+
+        .orbital-node:hover {
+            z-index: 50;
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        /* Tooltip */
+        .node-tooltip {
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            transform: translateY(10px);
+        }
+
+        .orbital-node:hover .node-tooltip {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        /* Pulsing center hub */
+        @keyframes pulse-glow {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(91, 95, 199, 0.4);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 30px 0 rgba(91, 95, 199, 0.25);
+            }
+        }
+
+        .pulse-glow {
+            animation: pulse-glow 3s ease-in-out infinite;
+        }
+
+        /* Particle animation - back and forth */
+        @keyframes particle-flow {
+            0% {
+                offset-distance: 0%;
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            45% {
+                opacity: 1;
+            }
+            50% {
+                offset-distance: 100%;
+                opacity: 0.8;
+            }
+            55% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                offset-distance: 0%;
+                opacity: 0;
+            }
+        }
+
+        .particle {
+            animation: particle-flow 3s ease-in-out infinite;
+        }
+
+        /* Insight card animations */
+        @keyframes fade-in-up {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .insight-card {
+            animation: fade-in-up 0.6s ease-out forwards;
+        }
+
+        /* Typing indicator */
+        @keyframes typing-dot {
+            0%, 60%, 100% { opacity: 0.3; }
+            30% { opacity: 1; }
+        }
+
+        .typing-dot:nth-child(1) { animation: typing-dot 1.4s infinite 0s; }
+        .typing-dot:nth-child(2) { animation: typing-dot 1.4s infinite 0.2s; }
+        .typing-dot:nth-child(3) { animation: typing-dot 1.4s infinite 0.4s; }
+
+        /* Data pulse on connection lines */
+        @keyframes line-pulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        .connection-line {
+            animation: line-pulse 2s ease-in-out infinite;
+        }
+
+        /* Highlight flash for connected data */
+        @keyframes highlight-flash {
+            0%, 100% { background-color: transparent; }
+            50% { background-color: rgba(91, 95, 199, 0.1); }
+        }
+
+        .data-highlight {
+            animation: highlight-flash 2s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4 md:p-8 font-display">
+
+    <!-- Main Container - Two Column Layout -->
+    <div class="flex flex-col lg:flex-row items-center gap-8 lg:gap-12 max-w-[1400px] mx-auto">
+
+        <!-- Left Side: Orbital Brain Diagram -->
+        <div class="relative w-[360px] h-[360px] md:w-[500px] md:h-[500px] lg:w-[600px] lg:h-[600px] bg-satio-bg rounded-3xl shadow-2xl overflow-hidden border border-white/50 shrink-0">
+
+            <!-- Background Grid -->
+            <div class="absolute inset-0 opacity-[0.03]" style="background-image: radial-gradient(#5B5FC7 1px, transparent 1px); background-size: 40px 40px;"></div>
+
+            <!-- Orbit Ring -->
+            <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[280px] md:w-[400px] lg:w-[480px] h-[280px] md:h-[400px] lg:h-[480px] rounded-full border-2 border-dotted border-satio-ring pointer-events-none"></div>
+
+            <!-- Connection Lines SVG -->
+            <svg class="absolute inset-0 w-full h-full pointer-events-none z-0" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="grad-indigo" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" style="stop-color:#5B5FC7;stop-opacity:1"/>
+                        <stop offset="100%" style="stop-color:#5B5FC7;stop-opacity:0.2"/>
+                    </linearGradient>
+                    <linearGradient id="grad-coral" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" style="stop-color:#E8836B;stop-opacity:1"/>
+                        <stop offset="100%" style="stop-color:#5B5FC7;stop-opacity:0.2"/>
+                    </linearGradient>
+                    <linearGradient id="grad-teal" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" style="stop-color:#4ABBA8;stop-opacity:1"/>
+                        <stop offset="100%" style="stop-color:#5B5FC7;stop-opacity:0.2"/>
+                    </linearGradient>
+                    <linearGradient id="grad-green" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" style="stop-color:#5AAD7A;stop-opacity:1"/>
+                        <stop offset="100%" style="stop-color:#5B5FC7;stop-opacity:0.2"/>
+                    </linearGradient>
+                    <linearGradient id="grad-amber" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" style="stop-color:#E4B44C;stop-opacity:1"/>
+                        <stop offset="100%" style="stop-color:#5B5FC7;stop-opacity:0.2"/>
+                    </linearGradient>
+                    <linearGradient id="grad-pink" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" style="stop-color:#D97B9D;stop-opacity:1"/>
+                        <stop offset="100%" style="stop-color:#5B5FC7;stop-opacity:0.2"/>
+                    </linearGradient>
+                </defs>
+
+                <!-- Lines from nodes to center - using percentages for responsiveness -->
+                <!-- Center is at 50%, 50%. Radius is ~40% of container -->
+
+                <!-- Sleep (top) -->
+                <line class="connection-line" x1="50%" y1="10%" x2="50%" y2="50%" stroke="url(#grad-indigo)" stroke-width="2"/>
+                <circle class="particle" r="4" fill="#5B5FC7" style="offset-path: path('M 300 60 L 300 300'); animation-delay: 0s;">
+                    <animateMotion dur="3s" repeatCount="indefinite" keyPoints="0;1;0" keyTimes="0;0.5;1" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1">
+                        <mpath href="#path-sleep"/>
+                    </animateMotion>
+                </circle>
+                <path id="path-sleep" d="M 50% 10% L 50% 50%" fill="none" class="hidden"/>
+
+                <!-- Food (top-right) -->
+                <line class="connection-line" x1="78%" y1="22%" x2="50%" y2="50%" stroke="url(#grad-coral)" stroke-width="2" style="animation-delay: 0.25s"/>
+
+                <!-- Exercise (right) -->
+                <line class="connection-line" x1="90%" y1="50%" x2="50%" y2="50%" stroke="url(#grad-coral)" stroke-width="2" style="animation-delay: 0.5s"/>
+
+                <!-- Mood (bottom-right) -->
+                <line class="connection-line" x1="78%" y1="78%" x2="50%" y2="50%" stroke="url(#grad-teal)" stroke-width="2" style="animation-delay: 0.75s"/>
+
+                <!-- Health (bottom) -->
+                <line class="connection-line" x1="50%" y1="90%" x2="50%" y2="50%" stroke="url(#grad-green)" stroke-width="2" style="animation-delay: 1s"/>
+
+                <!-- Triggers (bottom-left) -->
+                <line class="connection-line" x1="22%" y1="78%" x2="50%" y2="50%" stroke="url(#grad-amber)" stroke-width="2" style="animation-delay: 1.25s"/>
+
+                <!-- Cycle (left) -->
+                <line class="connection-line" x1="10%" y1="50%" x2="50%" y2="50%" stroke="url(#grad-pink)" stroke-width="2" style="animation-delay: 1.5s"/>
+
+                <!-- Habits (top-left) -->
+                <line class="connection-line" x1="22%" y1="22%" x2="50%" y2="50%" stroke="url(#grad-pink)" stroke-width="2" style="animation-delay: 1.75s"/>
+
+                <!-- Animated particles flowing back and forth -->
+                <g class="particles">
+                    <!-- Sleep particle -->
+                    <circle r="4" fill="#5B5FC7">
+                        <animateMotion dur="2.5s" repeatCount="indefinite" keyPoints="0;1;0" keyTimes="0;0.5;1" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1" path="M 300 60 L 300 300"/>
+                    </circle>
+                    <!-- Food particle -->
+                    <circle r="4" fill="#E8836B">
+                        <animateMotion dur="2.8s" repeatCount="indefinite" keyPoints="0;1;0" keyTimes="0;0.5;1" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1" path="M 468 132 L 300 300" begin="0.3s"/>
+                    </circle>
+                    <!-- Exercise particle -->
+                    <circle r="4" fill="#E8836B">
+                        <animateMotion dur="2.6s" repeatCount="indefinite" keyPoints="0;1;0" keyTimes="0;0.5;1" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1" path="M 540 300 L 300 300" begin="0.6s"/>
+                    </circle>
+                    <!-- Mood particle -->
+                    <circle r="4" fill="#4ABBA8">
+                        <animateMotion dur="2.7s" repeatCount="indefinite" keyPoints="0;1;0" keyTimes="0;0.5;1" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1" path="M 468 468 L 300 300" begin="0.9s"/>
+                    </circle>
+                    <!-- Health particle -->
+                    <circle r="4" fill="#5AAD7A">
+                        <animateMotion dur="2.5s" repeatCount="indefinite" keyPoints="0;1;0" keyTimes="0;0.5;1" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1" path="M 300 540 L 300 300" begin="1.2s"/>
+                    </circle>
+                    <!-- Triggers particle -->
+                    <circle r="4" fill="#E4B44C">
+                        <animateMotion dur="2.8s" repeatCount="indefinite" keyPoints="0;1;0" keyTimes="0;0.5;1" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1" path="M 132 468 L 300 300" begin="1.5s"/>
+                    </circle>
+                    <!-- Cycle particle -->
+                    <circle r="4" fill="#D97B9D">
+                        <animateMotion dur="2.6s" repeatCount="indefinite" keyPoints="0;1;0" keyTimes="0;0.5;1" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1" path="M 60 300 L 300 300" begin="1.8s"/>
+                    </circle>
+                    <!-- Habits particle -->
+                    <circle r="4" fill="#D97B9D">
+                        <animateMotion dur="2.7s" repeatCount="indefinite" keyPoints="0;1;0" keyTimes="0;0.5;1" calcMode="spline" keySplines="0.4 0 0.6 1; 0.4 0 0.6 1" path="M 132 132 L 300 300" begin="2.1s"/>
+                    </circle>
+                </g>
+            </svg>
+
+            <!-- Central Hub with Satio Logo -->
+            <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
+                <div class="relative w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 bg-satio-indigo rounded-full flex items-center justify-center pulse-glow cursor-pointer hover:scale-105 transition-transform duration-300 shadow-lg">
+                    <!-- Inner glow ring -->
+                    <div class="absolute inset-0 rounded-full border border-white/20"></div>
+                    <!-- Satio Logo -->
+                    <img src="satio_icon_cropped.png" alt="Satio" class="w-10 h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 object-contain"/>
+                </div>
+                <!-- Hub Label -->
+                <div class="absolute top-full left-1/2 -translate-x-1/2 mt-3 whitespace-nowrap">
+                    <span class="text-satio-indigo font-display font-bold text-lg md:text-xl lg:text-2xl tracking-tight">Satio Brain</span>
+                </div>
+            </div>
+
+            <!-- Orbital Nodes Container -->
+            <div class="orbital-container w-full h-full absolute inset-0 pointer-events-none">
+
+                <!-- Node 1: Sleep (Top) -->
+                <div class="orbital-node pointer-events-auto" style="top: calc(50% - 140px); left: 50%;" data-lg-top="calc(50% - 200px)">
+                    <div class="group relative flex items-center bg-white rounded-full p-1.5 md:p-2 pr-4 md:pr-5 shadow-[0px_4px_12px_rgba(45,45,45,0.08)] cursor-pointer border border-transparent hover:border-satio-indigo/20 transition-all">
+                        <div class="w-8 h-8 md:w-10 md:h-10 rounded-full bg-satio-indigo/10 flex items-center justify-center text-satio-indigo mr-2 md:mr-3 shrink-0">
+                            <span class="material-symbols-outlined text-[18px] md:text-[20px]">bedtime</span>
+                        </div>
+                        <span class="font-display font-semibold text-xs md:text-sm text-satio-text">Sleep</span>
+                        <!-- Tooltip -->
+                        <div class="node-tooltip absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max max-w-[180px] z-50">
+                            <div class="bg-[#2D2D2D] text-white text-xs font-body py-2 px-3 rounded shadow-lg relative">
+                                Deep wave analysis & duration
+                                <div class="absolute top-full left-1/2 -translate-x-1/2 -mt-1 border-4 border-transparent border-t-[#2D2D2D]"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Node 2: Food (Top Right) -->
+                <div class="orbital-node pointer-events-auto" style="left: calc(50% + 100px); top: calc(50% - 100px);">
+                    <div class="group relative flex items-center bg-white rounded-full p-1.5 md:p-2 pr-4 md:pr-5 shadow-[0px_4px_12px_rgba(45,45,45,0.08)] cursor-pointer border border-transparent hover:border-satio-coral/20 transition-all">
+                        <div class="w-8 h-8 md:w-10 md:h-10 rounded-full bg-satio-coral/10 flex items-center justify-center text-satio-coral mr-2 md:mr-3 shrink-0">
+                            <span class="material-symbols-outlined text-[18px] md:text-[20px]">restaurant</span>
+                        </div>
+                        <span class="font-display font-semibold text-xs md:text-sm text-satio-text">Food</span>
+                        <div class="node-tooltip absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max max-w-[180px] z-50">
+                            <div class="bg-[#2D2D2D] text-white text-xs font-body py-2 px-3 rounded shadow-lg relative">
+                                Caloric & macro intake sync
+                                <div class="absolute top-full left-1/2 -translate-x-1/2 -mt-1 border-4 border-transparent border-t-[#2D2D2D]"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Node 3: Exercise (Right) -->
+                <div class="orbital-node pointer-events-auto" style="left: calc(50% + 140px); top: 50%;">
+                    <div class="group relative flex items-center bg-white rounded-full p-1.5 md:p-2 pr-4 md:pr-5 shadow-[0px_4px_12px_rgba(45,45,45,0.08)] cursor-pointer border border-transparent hover:border-satio-coral/20 transition-all">
+                        <div class="w-8 h-8 md:w-10 md:h-10 rounded-full bg-satio-coral/10 flex items-center justify-center text-satio-coral mr-2 md:mr-3 shrink-0">
+                            <span class="material-symbols-outlined text-[18px] md:text-[20px]">fitness_center</span>
+                        </div>
+                        <span class="font-display font-semibold text-xs md:text-sm text-satio-text">Exercise</span>
+                        <div class="node-tooltip absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max max-w-[180px] z-50">
+                            <div class="bg-[#2D2D2D] text-white text-xs font-body py-2 px-3 rounded shadow-lg relative">
+                                Active energy & strain load
+                                <div class="absolute top-full left-1/2 -translate-x-1/2 -mt-1 border-4 border-transparent border-t-[#2D2D2D]"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Node 4: Mood (Bottom Right) -->
+                <div class="orbital-node pointer-events-auto" style="left: calc(50% + 100px); top: calc(50% + 100px);">
+                    <div class="group relative flex items-center bg-white rounded-full p-1.5 md:p-2 pr-4 md:pr-5 shadow-[0px_4px_12px_rgba(45,45,45,0.08)] cursor-pointer border border-transparent hover:border-satio-teal/20 transition-all">
+                        <div class="w-8 h-8 md:w-10 md:h-10 rounded-full bg-satio-teal/10 flex items-center justify-center text-satio-teal mr-2 md:mr-3 shrink-0">
+                            <span class="material-symbols-outlined text-[18px] md:text-[20px]">mood</span>
+                        </div>
+                        <span class="font-display font-semibold text-xs md:text-sm text-satio-text">Mood</span>
+                        <div class="node-tooltip absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max max-w-[180px] z-50">
+                            <div class="bg-[#2D2D2D] text-white text-xs font-body py-2 px-3 rounded shadow-lg relative">
+                                Daily valence & arousal log
+                                <div class="absolute top-full left-1/2 -translate-x-1/2 -mt-1 border-4 border-transparent border-t-[#2D2D2D]"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Node 5: Health (Bottom) -->
+                <div class="orbital-node pointer-events-auto" style="top: calc(50% + 140px); left: 50%;">
+                    <div class="group relative flex items-center bg-white rounded-full p-1.5 md:p-2 pr-4 md:pr-5 shadow-[0px_4px_12px_rgba(45,45,45,0.08)] cursor-pointer border border-transparent hover:border-satio-green/20 transition-all">
+                        <div class="w-8 h-8 md:w-10 md:h-10 rounded-full bg-satio-green/10 flex items-center justify-center text-satio-green mr-2 md:mr-3 shrink-0">
+                            <span class="material-symbols-outlined text-[18px] md:text-[20px]">ecg_heart</span>
+                        </div>
+                        <span class="font-display font-semibold text-xs md:text-sm text-satio-text">Health</span>
+                        <div class="node-tooltip absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max max-w-[180px] z-50">
+                            <div class="bg-[#2D2D2D] text-white text-xs font-body py-2 px-3 rounded shadow-lg relative">
+                                HRV, RHR & Blood Oxygen
+                                <div class="absolute top-full left-1/2 -translate-x-1/2 -mt-1 border-4 border-transparent border-t-[#2D2D2D]"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Node 6: Triggers (Bottom Left) -->
+                <div class="orbital-node pointer-events-auto" style="left: calc(50% - 100px); top: calc(50% + 100px);">
+                    <div class="group relative flex items-center bg-white rounded-full p-1.5 md:p-2 pr-4 md:pr-5 shadow-[0px_4px_12px_rgba(45,45,45,0.08)] cursor-pointer border border-transparent hover:border-satio-amber/20 transition-all">
+                        <div class="w-8 h-8 md:w-10 md:h-10 rounded-full bg-satio-amber/10 flex items-center justify-center text-satio-amber mr-2 md:mr-3 shrink-0">
+                            <span class="material-symbols-outlined text-[18px] md:text-[20px]">bolt</span>
+                        </div>
+                        <span class="font-display font-semibold text-xs md:text-sm text-satio-text">Triggers</span>
+                        <div class="node-tooltip absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max max-w-[180px] z-50">
+                            <div class="bg-[#2D2D2D] text-white text-xs font-body py-2 px-3 rounded shadow-lg relative">
+                                External stress events
+                                <div class="absolute top-full left-1/2 -translate-x-1/2 -mt-1 border-4 border-transparent border-t-[#2D2D2D]"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Node 7: Cycle (Left) -->
+                <div class="orbital-node pointer-events-auto" style="left: calc(50% - 140px); top: 50%;">
+                    <div class="group relative flex items-center bg-white rounded-full p-1.5 md:p-2 pr-4 md:pr-5 shadow-[0px_4px_12px_rgba(45,45,45,0.08)] cursor-pointer border border-transparent hover:border-satio-pink/20 transition-all">
+                        <div class="w-8 h-8 md:w-10 md:h-10 rounded-full bg-satio-pink/10 flex items-center justify-center text-satio-pink mr-2 md:mr-3 shrink-0">
+                            <span class="material-symbols-outlined text-[18px] md:text-[20px]">calendar_today</span>
+                        </div>
+                        <span class="font-display font-semibold text-xs md:text-sm text-satio-text">Cycle</span>
+                        <div class="node-tooltip absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max max-w-[180px] z-50">
+                            <div class="bg-[#2D2D2D] text-white text-xs font-body py-2 px-3 rounded shadow-lg relative">
+                                Hormonal phase tracking
+                                <div class="absolute top-full left-1/2 -translate-x-1/2 -mt-1 border-4 border-transparent border-t-[#2D2D2D]"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Node 8: Habits (Top Left) -->
+                <div class="orbital-node pointer-events-auto" style="left: calc(50% - 100px); top: calc(50% - 100px);">
+                    <div class="group relative flex items-center bg-white rounded-full p-1.5 md:p-2 pr-4 md:pr-5 shadow-[0px_4px_12px_rgba(45,45,45,0.08)] cursor-pointer border border-transparent hover:border-satio-pink/20 transition-all">
+                        <div class="w-8 h-8 md:w-10 md:h-10 rounded-full bg-satio-pink/10 flex items-center justify-center text-satio-pink mr-2 md:mr-3 shrink-0">
+                            <span class="material-symbols-outlined text-[18px] md:text-[20px]">repeat</span>
+                        </div>
+                        <span class="font-display font-semibold text-xs md:text-sm text-satio-text">Habits</span>
+                        <div class="node-tooltip absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max max-w-[180px] z-50">
+                            <div class="bg-[#2D2D2D] text-white text-xs font-body py-2 px-3 rounded shadow-lg relative">
+                                Recurring behavioral patterns
+                                <div class="absolute top-full left-1/2 -translate-x-1/2 -mt-1 border-4 border-transparent border-t-[#2D2D2D]"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Node 9: Pantry (between Food and Exercise) -->
+                <div class="orbital-node pointer-events-auto" style="left: calc(50% + 130px); top: calc(50% - 50px);">
+                    <div class="group relative flex items-center bg-white rounded-full p-1.5 md:p-2 pr-4 md:pr-5 shadow-[0px_4px_12px_rgba(45,45,45,0.08)] cursor-pointer border border-transparent hover:border-satio-green/20 transition-all">
+                        <div class="w-8 h-8 md:w-10 md:h-10 rounded-full bg-satio-green/10 flex items-center justify-center text-satio-green mr-2 md:mr-3 shrink-0">
+                            <span class="material-symbols-outlined text-[18px] md:text-[20px]">kitchen</span>
+                        </div>
+                        <span class="font-display font-semibold text-xs md:text-sm text-satio-text">Pantry</span>
+                        <div class="node-tooltip absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max max-w-[180px] z-50">
+                            <div class="bg-[#2D2D2D] text-white text-xs font-body py-2 px-3 rounded shadow-lg relative">
+                                What you have at home
+                                <div class="absolute top-full left-1/2 -translate-x-1/2 -mt-1 border-4 border-transparent border-t-[#2D2D2D]"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side: AI Insight Card -->
+        <div class="flex-1 max-w-[480px]">
+            <!-- Section Header -->
+            <div class="mb-6">
+                <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-satio-indigo/10 rounded-full mb-4">
+                    <span class="w-2 h-2 bg-satio-indigo rounded-full animate-pulse"></span>
+                    <span class="text-satio-indigo font-display font-semibold text-sm">Live Connection</span>
+                </div>
+                <h2 class="font-display font-bold text-2xl md:text-3xl text-satio-text mb-2">All your data. One insight.</h2>
+                <p class="font-body text-gray-600 text-sm md:text-base">Every spoke in that diagram connects into moments like this.</p>
+            </div>
+
+            <!-- AI Insight Card -->
+            <div class="insight-card bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
+                <!-- Card Header -->
+                <div class="px-5 py-4 border-b border-gray-100 flex items-center gap-3">
+                    <div class="w-10 h-10 bg-satio-indigo rounded-full flex items-center justify-center">
+                        <img src="satio_icon_cropped.png" alt="Satio" class="w-6 h-6 object-contain"/>
+                    </div>
+                    <div>
+                        <div class="font-display font-semibold text-satio-text text-sm">Satio AI</div>
+                        <div class="text-gray-400 text-xs">Just now</div>
+                    </div>
+                    <div class="ml-auto flex gap-1">
+                        <div class="typing-dot w-1.5 h-1.5 bg-satio-indigo rounded-full"></div>
+                        <div class="typing-dot w-1.5 h-1.5 bg-satio-indigo rounded-full"></div>
+                        <div class="typing-dot w-1.5 h-1.5 bg-satio-indigo rounded-full"></div>
+                    </div>
+                </div>
+
+                <!-- Card Body -->
+                <div class="p-5">
+                    <!-- Data Sources Highlight -->
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-satio-indigo/10 rounded-full text-xs font-medium text-satio-indigo data-highlight">
+                            <span class="material-symbols-outlined text-[14px]">bedtime</span>
+                            4.5h sleep
+                        </span>
+                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-satio-pink/10 rounded-full text-xs font-medium text-satio-pink data-highlight" style="animation-delay: 0.3s">
+                            <span class="material-symbols-outlined text-[14px]">calendar_today</span>
+                            Luteal phase
+                        </span>
+                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-satio-green/10 rounded-full text-xs font-medium text-satio-green data-highlight" style="animation-delay: 0.6s">
+                            <span class="material-symbols-outlined text-[14px]">kitchen</span>
+                            Pantry synced
+                        </span>
+                    </div>
+
+                    <!-- Main Message -->
+                    <div class="font-body text-satio-text leading-relaxed">
+                        <p class="mb-3">
+                            <strong class="text-satio-indigo">You slept 4.5 hours</strong> and you're in your <strong class="text-satio-pink">luteal phase</strong>.
+                            Your cravings today aren't a lack of willpower. Your hunger hormones are elevated.
+                        </p>
+                        <p class="text-gray-600">
+                            You have <strong class="text-satio-green">eggs and avocado</strong> at home. Here's a high-protein breakfast that'll help stabilize your energy.
+                        </p>
+                    </div>
+
+                    <!-- Suggestion Card -->
+                    <div class="mt-4 p-4 bg-gradient-to-br from-satio-bg to-white rounded-xl border border-gray-100">
+                        <div class="flex items-start gap-3">
+                            <div class="w-12 h-12 bg-satio-coral/10 rounded-lg flex items-center justify-center shrink-0">
+                                <span class="material-symbols-outlined text-satio-coral text-[24px]">egg_alt</span>
+                            </div>
+                            <div>
+                                <div class="font-display font-semibold text-sm text-satio-text mb-1">Suggested: Avocado Eggs</div>
+                                <div class="text-xs text-gray-500 mb-2">~380 cal · 24g protein · Ready in 10 min</div>
+                                <div class="flex gap-2">
+                                    <button class="px-3 py-1.5 bg-satio-indigo text-white text-xs font-medium rounded-lg hover:bg-satio-indigo/90 transition-colors">
+                                        Show Recipe
+                                    </button>
+                                    <button class="px-3 py-1.5 bg-gray-100 text-gray-600 text-xs font-medium rounded-lg hover:bg-gray-200 transition-colors">
+                                        Other Ideas
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card Footer -->
+                <div class="px-5 py-3 bg-gray-50 border-t border-gray-100">
+                    <div class="flex items-center justify-between text-xs text-gray-400">
+                        <span>Based on 61 data points</span>
+                        <span class="flex items-center gap-1">
+                            <span class="material-symbols-outlined text-[14px]">verified</span>
+                            Personalized for you
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Caption -->
+            <p class="mt-4 text-center text-sm text-gray-500 font-body">
+                Sleep + Cycle + Pantry + 58 more data points = <strong class="text-satio-text">one actionable moment</strong>
+            </p>
+        </div>
+    </div>
+
+    <!-- JavaScript for responsive node positioning -->
+    <script>
+        // Update node positions based on container size
+        function updateNodePositions() {
+            const container = document.querySelector('.orbital-container');
+            if (!container) return;
+
+            const rect = container.getBoundingClientRect();
+            const size = Math.min(rect.width, rect.height);
+            const radius = size * 0.35; // 35% of container size
+            const diagonalRadius = radius * 0.707; // cos(45°) ≈ 0.707
+
+            const nodes = {
+                'Sleep': { angle: -90, el: null },
+                'Food': { angle: -45, el: null },
+                'Exercise': { angle: 0, el: null },
+                'Mood': { angle: 45, el: null },
+                'Health': { angle: 90, el: null },
+                'Triggers': { angle: 135, el: null },
+                'Cycle': { angle: 180, el: null },
+                'Habits': { angle: 225, el: null },
+                'Pantry': { angle: -22.5, el: null }
+            };
+
+            document.querySelectorAll('.orbital-node').forEach(node => {
+                const label = node.querySelector('span.font-display');
+                if (label) {
+                    const name = label.textContent.trim();
+                    if (nodes[name]) {
+                        nodes[name].el = node;
+                    }
+                }
+            });
+
+            // Position each node
+            Object.entries(nodes).forEach(([name, data]) => {
+                if (!data.el) return;
+
+                const angleRad = (data.angle * Math.PI) / 180;
+                const x = Math.cos(angleRad) * radius;
+                const y = Math.sin(angleRad) * radius;
+
+                data.el.style.left = `calc(50% + ${x}px)`;
+                data.el.style.top = `calc(50% + ${y}px)`;
+            });
+        }
+
+        // Run on load and resize
+        window.addEventListener('load', updateNodePositions);
+        window.addEventListener('resize', updateNodePositions);
+    </script>
+</body>
+</html>
