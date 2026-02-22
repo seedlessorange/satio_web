@@ -2320,6 +2320,61 @@
             }
         }
 
+        /* ===== APP PREVIEW SECTION ===== */
+        .app-preview-section {
+            padding: var(--space-section) 0;
+            background: white;
+        }
+        .app-preview-container {
+            display: flex;
+            justify-content: center;
+            margin-top: var(--space-6);
+        }
+        .app-preview-phone {
+            position: relative;
+            width: 320px;
+            background: #1a1a1c;
+            border-radius: 44px;
+            padding: 12px;
+            box-shadow: var(--shadow-lg);
+        }
+        .app-preview-screen {
+            width: 100%;
+            border-radius: 36px;
+            overflow: hidden;
+            background: var(--color-background);
+        }
+        .app-preview-screen img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .app-preview-notch {
+            position: absolute;
+            top: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 28px;
+            background: #1a1a1c;
+            border-radius: 0 0 16px 16px;
+            z-index: 10;
+        }
+        @media (max-width: 640px) {
+            .app-preview-phone {
+                width: 280px;
+                border-radius: 36px;
+                padding: 10px;
+            }
+            .app-preview-screen {
+                border-radius: 28px;
+            }
+            .app-preview-notch {
+                width: 80px;
+                height: 24px;
+            }
+        }
+
         /* ===== 61-POINT AI FEATURE SECTION ===== */
         .ai-feature-section {
             padding: 100px 0;
@@ -3119,6 +3174,25 @@
                     <div class="step-number">4</div>
                     <h3 class="step-title">Get Insights</h3>
                     <p class="step-desc">Personalized feedback that explains the "why" and shows you how to improve.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- App Preview Section -->
+    <section class="app-preview-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">See The App</div>
+                <h2 class="section-title">Your daily dashboard, at a glance</h2>
+                <p class="section-subtitle">Track meals, macros, streaks, and get personalized insights—all in one clean view.</p>
+            </div>
+            <div class="app-preview-container">
+                <div class="app-preview-phone">
+                    <div class="app-preview-notch"></div>
+                    <div class="app-preview-screen">
+                        <img src="og-image.png" alt="Satio app dashboard showing daily nutrition tracking, macros, meals, and personalized insights">
+                    </div>
                 </div>
             </div>
         </div>
